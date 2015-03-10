@@ -19,16 +19,114 @@
 
     <script type="text/x-handlebars" id="application">
         <header>
-            Geblah
+            <h1>
+                <span class="company-font">René Koch</span>
+                Matrix Projekt
+            </h1>
         </header>
 
-        <section id="content">
-            {{outlet}}
-        </section>
+        <div id="wrapper" class="row">
+            <section id="sidebar" class="col-md-3">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Übersicht</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="panel-link">
+                            {{#link-to 'index'}} Projektinformationen{{/link-to}}
+                        </div>
+                    </div>
+                </div>
+
+                <!--
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Hardware</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="panel-link">
+                            {{#link-to 'index'}} Projektinformationen{{/link-to}}
+                        </div>
+                    </div>
+                </div>
+                -->
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Software</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="panel-link">
+                            {{#link-to 'software-preparation'}}Vorbereitung{{/link-to}}
+                        </div>
+                        <div class="panel-link">
+                            {{#link-to 'software-installation'}}Installation{{/link-to}}
+                        </div>
+                        <div class="panel-link">
+                            {{#link-to 'software-examples'}}Beispiele{{/link-to}}
+                        </div>
+                        <div class="panel-link">
+                            {{#link-to 'software-documentation'}}Dokumentation{{/link-to}}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="col-md-1 spacer">&nbsp;</div>
+
+            <section id="content" class="col-md-8">
+                {{outlet}}
+            </section>
+        </div>
 
         <footer>
             <span class="copyright">&copy; 2015 <a href="http://kochag.ch">René Koch AG</a></span>
         </footer>
+    </script>
+
+
+
+
+
+
+    <script type="text/x-handlebars" id="index">
+    </script>
+
+
+
+
+
+    
+    <script type="text/x-handlebars" id="software-preparation">
+
+    </script>
+
+
+
+
+
+    
+    <script type="text/x-handlebars" id="software-installation">
+
+    </script>
+
+
+
+
+
+    
+    <script type="text/x-handlebars" id="software-examples">
+
+    </script>
+
+
+
+
+
+    
+    <script type="text/x-handlebars" id="software-documentation">
+
     </script>
 
 </body>
