@@ -22,11 +22,16 @@ a:hover {
     transition: color 0.3s ease-in-out;
 }
 
+img {
+    max-width: 100%;
+    border: 2px solid #ddd;
+}
+
 
 body {
     margin: 0;
     padding; 0;
-    background: #fefefe;
+    background: #fafafa;
 }
 
 
@@ -73,12 +78,13 @@ header {
     .panel-link {
         padding: 9px 20px;
         margin: 0;
+        background: #fafafa;
         border-bottom: 1px solid #ddd;
         transition: background 0.5s ease-in-out;
     }
 
     .panel-link: hover {
-        background: #fefefe;
+        background: #fafafa;
         transition: background 0.5s ease-in-out;
     }
 
@@ -92,8 +98,17 @@ header {
 }
 
     #content h1 {
-        margin: 0;
+        margin: 0 0 15px 0;
         padding: 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    #content h3, h4 {
+        margin-top: 50px;
+    }
+
+    #content p {
+        text-align: justify;
     }
 
 

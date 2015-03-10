@@ -18,10 +18,27 @@ var App = Ember.Application.create();
  */
 App.Router.map(function() {
 
-    // this.route('hardware-overview');
+    this.route('hardware-case');
+    this.route('hardware-print');
+    this.route('hardware-partlist');
+
     this.route('software-preparation');
     this.route('software-installation');
     this.route('software-examples');
     this.route('software-documentation');
 
+});
+
+
+/**
+ * Initialize highlight.js in ember views
+ *
+ * This is a bit of a hacky approach as of now.
+ */
+App.SoftwareDocumentationView = Ember.View.extend({
+    didInsertElement: function(){
+        $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    }
 });
