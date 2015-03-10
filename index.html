@@ -426,20 +426,66 @@
 
 
 
-    
-
-    <script type="text/x-handlebars" id="software-preparation">
-        <h1>Software - Vorbereitung</h1>
-        Das RKAG-Matrix Projekt basiert auf dem Arduino Framework bla blub
-    </script>
-
-
-
 
 
     
     <script type="text/x-handlebars" id="software-installation">
         <h1>Software - Installation</h1>
+        Das Matrix Projekt kann jederzeit einfach mit der Arduio-IDE neu programmiert werden.
+        Alles was dazu gebraucht wird, ist ein Windows PC, ein USB-B Kabel und das Matrix 
+        Gerät an sich.
+
+        <h3>Installation der Software</h3>
+        <table class="table table-striped">
+            <tbody>
+                <tr><td><img src="./assets/images/software-arduino-install1.png" /></td><td>
+                    Um ein Arduino-Programm zu entwickeln, muss die Arduino IDE (Editor) von der
+                    <a href="http://arduino.cc">Arduino Website</a> heruntergeladen werden. Der 
+                    aktuellste Download findet sich unter <em>Download</em> &gt; Windows
+                </td></tr>
+                <tr><td><img src="./assets/images/software-arduino-install2.png" /></td><td>
+                    Nach dem der Download abgeschlossen ist, muss der heruntergeladene Installer
+                    ausgeführt werden. Arduino wird sich danach mehr oder weniger selbstständig
+                    auf dem System installieren.
+                </td></tr>
+                <tr><td><img src="./assets/images/software-arduino-install3.png" /></td><td>
+                    Bestätige eine allfällige Sicherheitsbestätigung und erlaube der Arduino
+                    Software sich auf deinem System zu installieren.
+                </td></tr>
+                <tr><td><img src="./assets/images/software-arduino-install4.png" /></td><td>
+                    Stimme den gegebenen Lizenzbestimmungen zu...
+                </td></tr>
+                <tr><td><img src="./assets/images/software-arduino-install5.png" /></td><td>
+                    Wähle alle verfügbaren components zur Installation und fahre mit weiter fort.
+                </td></tr>
+                <tr><td><img src="./assets/images/software-arduino-install7.png" /></td><td>
+                    Nach der Installation der IDE wird Arduino seinen USB-Treiber installieren.
+                    Dieser muss installiert werden, um die Serielle Kommunikation von Gerät und
+                    PC zu ermöglichen.
+                </td></tr>
+                <tr><td><img src="./assets/images/software-arduino-install8.png" /></td><td>
+                    Warten bis der Installationsvorgang abgeschlossen ist.
+                </td></tr>
+                <tr><td><img src="./assets/images/software-arduino-install9.png" /></td><td>
+                    Danach kann die Arduino IDE direkt über die Windows Suche nach "Arduino"
+                    oder natürlich im Installationsverzeichnis gefunden und gestartet werden.
+                </td></tr>
+                <tr><td><img src="./assets/images/software-arduino-install10.png" /></td><td>
+                    Importiere die RKAG Matrix Bibliothek in der IDE via <em>Sketch &gt; Import Library &gt;
+                    Add Library</em>
+                </td></tr>
+                <tr><td><img src="./assets/images/software-arduino-install11.png" /></td><td>
+                    Wähle das Archiv mit der aktuellen Version der RKAG_Matrix aus und klick open.
+                    Die IDE sollte das Archiv nun selbstständig importieren.
+                </td></tr>
+                <tr><td><img src="./assets/images/software-arduino-install12.png" /></td><td>
+                    Anschliessend können die mitgelieferten Beispiele direkt in der IDE geladen werden, um
+                    Testprogramme auszuprobieren oder eine Vorlage für ein Projekt zu haben. Ein einfaches
+                    Beispiel, der Binärzähler wird auch {{#link-to 'software-examples'}}hier{{/link-to}}
+                    noch ausführlicher erklärt.
+                </td></tr>
+            </tbody>
+        </table>
     </script>
 
 

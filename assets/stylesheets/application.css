@@ -27,6 +27,11 @@ img {
     border: 2px solid #ddd;
 }
 
+tbody > tr > td > img {
+    max-width: 80%;
+    margin: 10px 10%;
+}
+
 html { overflow-y: scroll; }
 
 body {
