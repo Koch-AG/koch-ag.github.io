@@ -27,11 +27,12 @@ img {
     border: 2px solid #ddd;
 }
 
+html { overflow-y: scroll; }
 
 body {
     margin: 0;
     padding; 0;
-    background: #fafafa;
+    background: #fcfcfc;
 }
 
 
@@ -78,13 +79,13 @@ header {
     .panel-link {
         padding: 9px 20px;
         margin: 0;
-        background: #fafafa;
+        background: #fcfcfc;
         border-bottom: 1px solid #ddd;
         transition: background 0.5s ease-in-out;
     }
 
     .panel-link: hover {
-        background: #fafafa;
+        background: #fcfcfc;
         transition: background 0.5s ease-in-out;
     }
 

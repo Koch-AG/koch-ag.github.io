@@ -56,6 +56,9 @@
                         <div class="panel-link">
                             {{#link-to 'hardware-partlist'}} Print Stückliste{{/link-to}}
                         </div>
+                        <div class="panel-link">
+                            {{#link-to 'hardware-documentation'}} Schema & Bestückungsplan{{/link-to}}
+                        </div>
                     </div>
                 </div>
 
@@ -65,9 +68,6 @@
                         <h3 class="panel-title">Software</h3>
                     </div>
                     <div class="panel-body">
-                        <div class="panel-link">
-                            {{#link-to 'software-preparation'}}Vorbereitung{{/link-to}}
-                        </div>
                         <div class="panel-link">
                             {{#link-to 'software-installation'}}Installation{{/link-to}}
                         </div>
@@ -412,6 +412,22 @@
 
     
 
+    <script type="text/x-handlebars" id="hardware-documentation">
+        <h1>Hardware - Technische Unterlagen</h1>
+        <h3>Bestückungsplan Print</h3>
+        <img src="./assets/images/hardware-print-placement.jpg" />
+
+        <h3>Schema Seite 1</h3>
+        <img src="./assets/images/hardware-print-schema1.jpg" />
+
+        <h3>Schema Seite 2</h3>
+        <img src="./assets/images/hardware-print-schema2.jpg" />
+    </script>
+
+
+
+    
+
     <script type="text/x-handlebars" id="software-preparation">
         <h1>Software - Vorbereitung</h1>
         Das RKAG-Matrix Projekt basiert auf dem Arduino Framework bla blub
@@ -432,7 +448,131 @@
 
     
     <script type="text/x-handlebars" id="software-examples">
-    script
+        <h1>Software - Beispiele</h1>
+        <p>
+            Einige funktionierende Softwarebeispiele finden sich unter anderem auch im
+            Ordner der Bibliothek und können von der Arduino-IDE direkt über <em>Examples</em>
+            geladen werden. Die dort gespeicherten Vorlagen können importiert und bearbeitet
+            werden, um einige einfache Aufgabe mit der Matrix auszuführen.
+        </p>
+        <h3>Binärzähler</h3>
+        <p>
+            Der Binärzähler ist eine sehr einfach Beispielsanwendung der Matrix. Dabei wird
+            lediglich die Matrix initialisiert, ein Zähler hochgezählt und der entsprechende
+            Wert auf einer Zeile in der Matrix ausgegeben.
+        </p>
+        <p>
+            Dieses kleine Projekt setzt voraus, dass die RKAG-Matrix Bibliothek bereits wie in 
+            {{#link-to 'software-installation'}}"Installation"{{/link-to}} beschrieben installiert
+            ist, und korrekt importiert werden kann.
+        </p>
+        <p>
+            Als erstes erstellen wir uns also einen neuen Arduino Sketch und importieren die Bibliotheken,
+            die wir zur Verwendung der Matrix Bibliothek benötigen. Dazu zählen <strong>SPI.h</strong> und
+            <strong>Wire.h</strong> für die Serielle Kommunikation per SPI und I2C auf dem Print, so wie die 
+            Matix Bibliothek <strong>Matrix_RKAG</strong> selbst.
+            <pre><code class="c">
+#include &lt;Matrix_RKAG.h&gt;
+#include &lt;SPI.h&gt;
+#include &lt;Wire.h&gt;            
+            </code></pre>
+        </p>
+        <p>&nbsp;</p>
+        <p>
+            Als nächstes definieren wir eine globale Variable, die wir später als Zähler verwenden werden.
+            Wir nennen die Variable in diesem fall <strong>meinZaehler</strong>. Da es sich dabei um eine
+            Zahl handelt, verwenden wir den Datentyp <strong>int</strong> (integer). Unter Arduino speichert
+            dieser Datentyp eine 16bit lange Zahl, was einem Werebereich von -32'768 bis 32'767 entspricht.
+            Den Ausgangswert des Zählers setzen wir auf 0, um ihn von 0 hochzählen zu lassen.
+            <pre><code class="c">
+int meinZaehler = 0;
+            </code></pre>
+        </p>
+        <p>&nbsp;</p>
+        <p>
+            Da wir nun unserer Bibliotheken eingebunden und unsere Zählervariable bereit haben, können wir
+            damit beginnen die eigentliche Funktion des Programms zu programmieren. In einem Arduino Sketch
+            (Programm) gibt es standardmässig zwei Funktionen, <strong>setup()</strong> und <strong>loop()</strong>.
+            Die Funktion <strong>setup()</strong> wird einmal am Anfang des Programms aufgerufen, also werden
+            wir hier unsere Matrix initialisieren. <strong>matrix.init();</strong> muss immer vor der Verwendung der
+            Matrix Funktionen aufgerufen, um das Gerät zu initialisieren.
+            <pre><code class="c">
+void setup() {
+    matrix.init();
+}
+            </code></pre>
+        </p>
+        <p>&nbsp;</p>
+        <p>
+            Nach dem Setup unseres Programmes, kommen wir zum loop. Dieser wird immer wieder ausgeführt, solange
+            das Programm läuft. In der <strong>loop()</strong> Funktion müssen wird nun also unseren Zähler 
+            hochzählen, prüfen ob sein Wert gültig ist, das Ergebnis anzeigen und danach ein wenig waren, damit
+            der Zählerfortschritt von blossem Auge zu erkennen ist.
+            <pre><code class="c">
+void loop() {
+    meinZaehler = meinZaehler + 1;
+
+    if (meinZaehler > 255) {
+        meinZaehler = 0;
+    }
+
+    matrix.write(meinZaehler, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00); 
+
+    delay(1000);
+}
+            </code></pre>
+        </p>
+        <p>
+            Zuerst wird hier der Zähler <em>inkrementiert</em>, also eins nach oben gezählt. Durch
+            <strong>meinZaehler = meinZaehler + 1;</strong> wird der Variable <strong>meinZaehler</strong>
+            der eigene Wert plus eins zugeweiesen. Diesen Schritt könnte man auch mit <strong>meinZaehler++;</strong>
+            abkürzen, was in C eine <em>direkte Inkrementation</em> ist.
+        </p>
+        <p>
+            Als nächstes überprüfen wir, ob der Wert unseres Zählers grösser als 255 ist. Die Matrix besteht
+            nur aus 8 LEDs und kann folglich nur einen Wert mit maximal 8 bit (2^8 = 256) darstellen. Um zu
+            verhindern, dass unser Zähler in einem Bereich weiterzählt, der von der Matrix gar nicht mehr angezeigt
+            werden kann, wird er auf 0 zurückgesetzt, wenn er grösser als 255 ist.
+        </p>
+        <p>
+            Im dritten Schritt wird der Wert auf der Matrix ausgegeben. Die <strong>matrix.write</strong> Funktion
+            verlangt gemäss Dokumentation 8 Zahlen als Eingabe, die dann von oben nach Unten reihenweise auf der
+            LED-Matrix angezeigt werden. Wir geben in unserem Fall den Wert der Variable <strong>meinZaehler</strong>
+            auf der ersten Zeile aus und setzen die anderen Zeilen auf 0, was alle LEDs ausschaltet.
+        </p>
+        <p>
+            Zu guter letzt verwenden wir die <strong>delay()</strong> Funktion, mit der wir eine gewisse Zeit in
+            Millisekunden warten können. In diesem Beispiel warten wir run 1000ms (1 Sekunde), bis das Programm 
+            weiter läuft. Da das Programm nun am Ende von <strong>loop()</strong> angelangt ist, wird es wieder
+            von oben anfangen und den Zähler erneut um eins erhöhen...
+        </p>
+        <p>&nbsp;</p>
+        <p>
+            Unser Fertiges Programm sieht also wie folgt aus:
+            <pre><code class="c">
+#include &lt;Matrix_RKAG.h&gt;
+#include &lt;SPI.h&gt;
+#include &lt;Wire.h&gt;
+
+int meinZaehler = 0;
+
+void setup() {
+    matrix.init();
+}
+
+void loop() {
+    meinZaehler = meinZaehler + 1;
+
+    if (meinZaehler > 255) {
+        meinZaehler = 0;
+    }
+
+    matrix.write(meinZaehler, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00); 
+
+    delay(1000);
+}
+            </code></pre>
+        </p>
     </script>
 
 
@@ -450,26 +590,18 @@
             Sämtliche verfügbaren Methoden sind im Header-File der API abgebildet:
             <pre><code class="c">
 void init();
+
 int read_io();
 
-void write(
-    char byte1,
-    char byte2,
-    char byte3,
-    char byte4,
-    char byte5,
-    char byte6,
-    char byte7,
-    char byte8);
+void write(char byte1, char byte2, char byte3, char byte4, char byte5, char byte6, char byte7, char byte8);
 
-void write_array(
-    char matrix[]);
+void write_array(char matrix[]);
+
+void font_write(int numb);
 
 void clear();
 
 void sample(int numb);
-
-void font_write(int numb);
 
 void pcf_write(int data);
 

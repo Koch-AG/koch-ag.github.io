@@ -21,8 +21,8 @@ App.Router.map(function() {
     this.route('hardware-case');
     this.route('hardware-print');
     this.route('hardware-partlist');
+    this.route('hardware-documentation');
 
-    this.route('software-preparation');
     this.route('software-installation');
     this.route('software-examples');
     this.route('software-documentation');
