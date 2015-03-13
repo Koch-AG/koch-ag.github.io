@@ -15,7 +15,7 @@ window._pageInit = function() {
         hljs.highlightBlock(block);
     });
 
-    $('img').click(function(){
+    $('#content img').click(function(){
         window.open($(this).attr('src'));
     });
 }
