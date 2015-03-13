@@ -45,6 +45,9 @@
                         <div class="panel-link navigation-link">
                             {{#link-to 'index'}} Projektinformationen{{/link-to}}
                         </div>
+                        <div class="panel-link navigation-link">
+                            {{#link-to 'resources'}} Hilfreiche Unterlagen{{/link-to}}
+                        </div>
                     </div>
                 </div>
 
@@ -139,19 +142,51 @@
             Gerätes so einfach wie möglich zu gestalten.
         </p>
         <p>
-            Das Matrix-Projekt befindet sich im Moment noch in einer sehr frühen Entwicklungsphase, folgende
-            Teile der Dokumentation sind im Moment nocht nicht, oder noch nicht vollständig vorhanden: 
-            <em>Gehäuse und Speisung</em>, <em>Print Übersicht</em>, <em>Software Dokumentation</em>
+            Das Matrix-Projekt befindet sich im Moment noch in einer sehr frühen Entwicklungsphase, einige
+            hier dokumentierten Aspekte können sich später unter Umständen ändern.
         </p>
     </script>
 
 
 
 
+    <script type="text/x-handlebars" id="resources">
+        <h1>Hilfreiche Unterlagen</h1>
+        <p>
+            Diese Dokumentation bietet grundlegende Informationen und technische Details zum Matrix Projekt.
+            Um das bauen, warten oder programmieren des Projektes ein wenig zu erleichtern, kann es aber sehr 
+            hilfreich sein, einige Links der folgenden Liste zur Hand zu haben.
+        </p>
+
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td><a href="http://arduino.cc/" target="_blank">arduino.cc</a></td>
+                    <td>Offizielle Arduino Website</td>
+                </tr>
+                <tr>
+                    <td><a href="http://arduino.cc/en/Main/Software" target="_blank">arduino.cc#Software</a></td>
+                    <td>Arduino Software Downloads</td>
+                </tr>
+                <tr>
+                    <td><a href="http://arduino.cc/en/Reference/HomePage" target="_blank">arduino.cc#Reference</a></td>
+                    <td>Arduino "C" Reference. Offizielle Dokumentation der Arduino Programmstrukturen, Variabeltypen, verfügbaren Funktionen usw.</td>
+                </tr>
+            </tbody>
+        </table>
+    </script>
+
+
+
+
+
     <script type="text/x-handlebars" id="hardware-case">
+        <h1>Hardware - Gehäuse und Speisung</h1>
+        {{not-finished}}
         <p>
             Das Gerät kann entweder über Kabel oder Hohlbuchse mit <strong>7V - 20V</strong>
-            oder über ein USB-B Kabel direkt vom PC gespiesen werden.
+            oder über ein USB-B Kabel direkt vom PC gespiesen werden. Zum Programmieren muss
+            das Gerät nur mittels USB-B Kabel an den Computer angeschlossen werden.
         </p>
         <h3>Aktuelle Gehäuseversion</h3>
         <img src="./assets/images/hardware-case-overview.jpg" />
@@ -162,7 +197,13 @@
 
     
     <script type="text/x-handlebars" id="hardware-print">
+        <h1>Hardware - Print Übersicht</h1>
+        {{not-finished}}
+
+        <h3>Komplett bestückter Print</h3>
         <img src="./assets/images/hardware-print-overview.jpg" />
+
+        <h3>Port Expander Pinout Diagramm</h3>
         <img src="./assets/images/hardware-print-pinout.png" />
     </script>
 
@@ -174,7 +215,11 @@
         <h1>Hardware - Stückliste</h1>
         <p>
             Die folgende Stückliste beinhaltet alle Bauteile, die benötigt werden um den Matrix Print
-            vollständig und funktionsfähig zu bestücken.
+            vollständig und funktionsfähig zu bestücken. Diese Liste kann gleichzeitig auch als 
+            Bestellliste verwendt werden. <strong>Pos.</strong> bezeichnet die Position des Bauteiles im Schema.
+            Die <strong>Anz.</strong> Angabe sagt aus, wie viele Bauteile dieses Typs für den gesamten
+            Print benötigt werden, und der <strong>Name</strong> entspricht dem Namen mit dem die Bauteile
+            auf dem Bestückungsplan vermerkt sind. <br /><br />
         </p>
         <table class="table table-striped">
             <tbody>
@@ -426,6 +471,7 @@
 
     <script type="text/x-handlebars" id="hardware-documentation">
         <h1>Hardware - Technische Unterlagen</h1>
+        {{not-finished}}
         <h3>Bestückungsplan Print</h3>
         <img src="./assets/images/hardware-print-placement.jpg" />
 

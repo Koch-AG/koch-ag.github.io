@@ -41,7 +41,8 @@ a:hover {
 }
 
 img {
-    max-width: 100%;
+    max-width: 60%;
+    display: block;
     border: 2px solid #ddd;
 }
 

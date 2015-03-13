@@ -36,6 +36,8 @@ var App = Ember.Application.create();
  */
 App.Router.map(function() {
 
+    this.route('resources');
+
     this.route('hardware-case');
     this.route('hardware-print');
     this.route('hardware-partlist');
@@ -59,4 +61,15 @@ Ember.View.reopen({
         this._super();
         window._pageInit();
     }
+});
+
+
+/**
+ * Warning message for unfinished pages
+ *
+ * This is wrapped in a handlebars helper so we can 
+ * add it as easy as possible to the pages.
+ */
+Ember.Handlebars.helper('not-finished', function(value, options) {
+  return new Ember.Handlebars.SafeString('<div class="alert alert-danger"> <strong>Hinweis:</strong> Diese Seite ist ein Entwurf. Dieser Teil der Dokumentation wird im Verlauf der weiteren Entwicklung dieses  Projektes erweiter. Er dient im Moment lediglich als Platzhalter um grundlegende Informationen zur Verfügung zu stellen und ist keineswegs vollständig!</div>');
 });
