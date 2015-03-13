@@ -70,15 +70,26 @@ header {
     border-bottom: 1px solid #ddd;
 }
 
-    header h1 a { color: #4169E1 !important; }
+    /* old font-based logo
+        header h1 a { color: #4169E1 !important; }
+        header h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 3.5em;
+            letter-spacing: 0.43em;
+            text-shadow: 0 0 1px #555;
+            margin-bottom: 0;
+            font-family: 'Ubuntu-Bold', Tahoma, Arial;
+        }
+    */
     header h1 {
         margin: 0;
         padding: 0;
-        font-size: 3.5em;
-        letter-spacing: 0.43em;
-        text-shadow: 0 0 1px #555;
-        margin-bottom: 0;
-        font-family: 'Ubuntu-Bold', Tahoma, Arial;
+    }
+
+    header h1 img {
+        border: none !important;
+        max-width: 190px;
     }
 
 
