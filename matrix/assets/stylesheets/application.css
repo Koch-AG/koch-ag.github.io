@@ -95,9 +95,9 @@ header {
 
     header h2 a { color: #999999 !important; }
     header h2 {
-        margin-top: 20px;
+        margin-top: 10px;
         margin-bottom: 0;
-        padding-left: 2px;
+        letter-spacing: 0.025em;
         font-size: 2em;
     }
 
@@ -117,6 +117,7 @@ header {
             color: #7b7b7b;
             display: inline-block;
             padding-right: 10px;
+            margin-top: 10px;
         }
 
         header .download-area a {
