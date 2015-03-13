@@ -9,8 +9,14 @@
 
 /**
  * Global page init function
+ *
+ * Scroll to the top of the page on transition
+ * Initialize highlight.js for every code bloack
+ * Add click listener to images for new-tab view
  */
 window._pageInit = function() {
+    $('html, body').animate({ scrollTop: 0 }, 0);
+
     $('pre code').each(function(i, block) {
         hljs.highlightBlock(block);
     });
