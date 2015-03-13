@@ -29,58 +29,61 @@
                 </p>
             </div>
 
-            <h1>KO(H</h1>
-            <h2>Matrix Projekt</h2>
+            <h1><a href="http://kochag.ch">KO(H</a></h1>
+            <h2>{{#link-to 'index'}}Matrix Projekt{{/link-to}}</h2>
         </header>
 
         <div id="wrapper" class="row">
             <section id="sidebar" class="col-md-3">
 
-                <div class="panel panel-default">
-                    <div class="panel-heading">
+                <div class="panel panel-default navigation-category">
+                    <div class="panel-heading navigation-heading">
+                        <div class="pull-right"><i class="fa fa-book"></i></div>
                         <h3 class="panel-title">Übersicht</h3>
                     </div>
-                    <div class="panel-body">
-                        <div class="panel-link">
+                    <div class="panel-body navigation-body">
+                        <div class="panel-link navigation-link">
                             {{#link-to 'index'}} Projektinformationen{{/link-to}}
                         </div>
                     </div>
                 </div>
 
                 
-                <div class="panel panel-default">
-                    <div class="panel-heading">
+                <div class="panel panel-default navigation-category">
+                    <div class="panel-heading navigation-heading">
+                        <div class="pull-right"><i class="fa fa-wrench"></i></div>
                         <h3 class="panel-title">Hardware</h3>
                     </div>
-                    <div class="panel-body">
-                        <div class="panel-link">
+                    <div class="panel-body navigation-body">
+                        <div class="panel-link navigation-link">
                             {{#link-to 'hardware-case'}} Gehäuse und Speisung{{/link-to}}
                         </div>
-                        <div class="panel-link">
+                        <div class="panel-link navigation-link">
                             {{#link-to 'hardware-print'}} Print Übersicht{{/link-to}}
                         </div>
-                        <div class="panel-link">
+                        <div class="panel-link navigation-link">
                             {{#link-to 'hardware-partlist'}} Print Stückliste{{/link-to}}
                         </div>
-                        <div class="panel-link">
+                        <div class="panel-link navigation-link">
                             {{#link-to 'hardware-documentation'}} Schema & Bestückungsplan{{/link-to}}
                         </div>
                     </div>
                 </div>
 
 
-                <div class="panel panel-default">
-                    <div class="panel-heading">
+                <div class="panel panel-default navigation-category">
+                    <div class="panel-heading navigation-heading">
+                        <div class="pull-right"><i class="fa fa-code"></i></div>
                         <h3 class="panel-title">Software</h3>
                     </div>
-                    <div class="panel-body">
-                        <div class="panel-link">
+                    <div class="panel-body navigation-body">
+                        <div class="panel-link navigation-link">
                             {{#link-to 'software-installation'}}Installation{{/link-to}}
                         </div>
-                        <div class="panel-link">
+                        <div class="panel-link navigation-link">
                             {{#link-to 'software-examples'}}Beispiele{{/link-to}}
                         </div>
-                        <div class="panel-link">
+                        <div class="panel-link navigation-link">
                             {{#link-to 'software-documentation'}}Dokumentation{{/link-to}}
                         </div>
                     </div>
@@ -95,7 +98,10 @@
         </div>
 
         <footer>
-            <span class="copyright">&copy; 2015 <a href="http://kochag.ch">René Koch AG</a></span>
+            <div class="pull-right">
+                <span class="copyright">&copy; 2015 <a href="http://kochag.ch">René Koch AG</a></span>
+            </div>
+            <span class="contact">Kontakt <a href="#">bmarty@kochag.ch</a></span>
         </footer>
     </script>
 
@@ -105,7 +111,7 @@
 
 
     <script type="text/x-handlebars" id="index">
-        <h1>Projekt <em>MATRIX</em></h1>
+        <h1>Projektinformationen</h1>
         <p>
             Das Matrix Projekt ist ein einfaches Eleketronikprojekt, das von der René
             Koch AG während der Schnupperlehre zusammen mit den teilnehmenden Schnupperlehrlingen

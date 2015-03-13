@@ -16,7 +16,7 @@ window._pageInit = function() {
     });
 
     $('img').click(function(){
-        window.location.open($(this).attr('src'));
+        window.open($(this).attr('src'));
     });
 }
 
@@ -51,7 +51,12 @@ App.Router.map(function() {
 /**
  * Initialize highlight.js in ember views
  *
- * This is a bit of a hacky approach as of now.
+ * This will run the global page init function after
+ * rendering an ember page view.
  */
-App.SoftwareDocumentationView = Ember.View.extend({ didInsertElement: window._pageInit });
-App.SoftwareExamplesView = Ember.View.extend({ didInsertElement: window._pageInit });
+Ember.View.reopen({
+    didInsertElement: function() {
+        this._super();
+        window._pageInit();
+    }
+});
