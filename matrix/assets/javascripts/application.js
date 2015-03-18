@@ -50,6 +50,7 @@ App.Router.map(function() {
     this.route('hardware-documentation');
 
     this.route('software-installation');
+    this.route('software-introduction');
     this.route('software-examples');
     this.route('software-documentation');
 

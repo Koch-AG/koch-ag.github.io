@@ -88,6 +88,9 @@
                             {{#link-to 'software-installation'}}Installation{{/link-to}}
                         </div>
                         <div class="panel-link navigation-link">
+                            {{#link-to 'software-introduction'}}Einführung{{/link-to}}
+                        </div>
+                        <div class="panel-link navigation-link">
                             {{#link-to 'software-examples'}}Beispiele{{/link-to}}
                         </div>
                         <div class="panel-link navigation-link">
@@ -543,7 +546,7 @@
                 <tr><td><img src="./assets/images/software-arduino-install12.png" /></td><td>
                     Anschliessend können die mitgelieferten Beispiele direkt in der IDE geladen werden, um
                     Testprogramme auszuprobieren oder eine Vorlage für ein Projekt zu haben. Ein einfaches
-                    Beispiel, der Binärzähler wird auch {{#link-to 'software-examples'}}hier{{/link-to}}
+                    Beispiel, der Binärzähler wird auch {{#link-to 'software-introduction'}}hier{{/link-to}}
                     noch ausführlicher erklärt.
                 </td></tr>
             </tbody>
@@ -555,7 +558,7 @@
 
 
     
-    <script type="text/x-handlebars" id="software-examples">
+    <script type="text/x-handlebars" id="software-introduction">
         <h1>Software - Beispiele</h1>
         <p>
             Einige funktionierende Softwarebeispiele finden sich unter anderem auch im
@@ -688,6 +691,18 @@ void loop() {
 
 
     
+    <script type="text/x-handlebars" id="software-examples">
+        <h1>Software - Example</h1>
+        <p>
+            - <a href="examples/matrix-hero.txt">Matrix Hero</a> (Einfaches, Guitar Hero basierendes Spiel)
+        </p>
+    </script>
+
+
+
+
+
+
     <script type="text/x-handlebars" id="software-documentation">
         <h1>Software Dokumentation</h1>
         {{not-finished}}
