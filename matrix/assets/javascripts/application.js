@@ -71,7 +71,7 @@ App.SoftwareExamplesController = Ember.Controller.extend({
             var self = this;
             Ember.$.get('examples/'+example+'.c', function(payload){
                 self.set('currentExample', payload); // should update
-                Ember.$('#se').html(payload);        // will update
+                Ember.$('#se').text(payload);        // will update
                 // hljs.highlightBlock($('#se'));
             });
         }
