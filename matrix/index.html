@@ -20,6 +20,10 @@
 </head>
 <body>
 
+    <noscript>
+        <h3>This site requires javascript enabled to run!</h3>
+    </noscript>
+
     <script type="text/x-handlebars" id="application">
         <header>
             <div class="pull-right download-area">
@@ -700,8 +704,12 @@ void loop() {
             Belieben angepasst werden.
         </p>
         <p>
-            - <a href="examples/matrix-hero.txt">Matrix Hero</a> (Einfaches, Guitar Hero basierendes Spiel)
+            - <a href="#"{{action 'se' 'matrix-hero'}}>Matrix Hero</a> (Einfaches, Guitar Hero basierendes Spiel)
         </p>
+        <p>&nbsp;</p>
+        <p><pre><code class="c" id="se">
+{{currentExample}}
+        </code></pre></p>
     </script>
 
 

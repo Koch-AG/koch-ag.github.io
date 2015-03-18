@@ -58,6 +58,28 @@ App.Router.map(function() {
 
 
 /**
+ * Controller for examples page
+ *
+ * This will be used to display the selected 
+ * example after clicking an entry.
+ */
+App.SoftwareExamplesController = Ember.Controller.extend({
+    currentExample: "Kein Beispiel ausgewählt...",
+
+    actions: {
+        se: function(example){
+            var self = this;
+            Ember.$.get('examples/'+example+'.c', function(payload){
+                self.set('currentExample', payload); // should update
+                Ember.$('#se').html(payload);        // will update
+                // hljs.highlightBlock($('#se'));
+            });
+        }
+    }    
+});
+
+
+/**
  * Initialize highlight.js in ember views
  *
  * This will run the global page init function after
