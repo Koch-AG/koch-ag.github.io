@@ -64,14 +64,11 @@ App.Router.map(function() {
  * example after clicking an entry.
  */
 App.SoftwareExamplesController = Ember.Controller.extend({
-    currentExample: "Kein Beispiel ausgewählt...",
-
     actions: {
         se: function(example){
             var self = this;
             Ember.$.get('examples/'+example+'.c', function(payload){
-                self.set('currentExample', payload); // should update
-                Ember.$('#seh').html('<pre><code class="c" id="exc">'+payload+'</code></pre>');
+                Ember.$('#exc').text(payload);
                 hljs.highlightBlock(document.getElementById('exc'));
             });
         }
