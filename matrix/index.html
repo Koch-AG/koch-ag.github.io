@@ -728,7 +728,7 @@ void loop() {
             Alle wichtigen Funktionen der Software sind in den Beispielen erläutert.
         </p>
         <p>
-            Sämtliche verfügbaren Methoden sind im Header-File der API abgebildet:
+            Sämtliche verfügbaren Methoden sind im Header-File der API abgebildet (V1.2.0):
             <pre><code class="c">
 void init();
 
@@ -738,7 +738,7 @@ void write(char byte1, char byte2, char byte3, char byte4, char byte5, char byte
 
 void write_array(char matrix[]);
 
-void font_write(int numb);
+void write_char(int numb);
 
 void clear();
 
@@ -748,9 +748,9 @@ void pcf_write(int data);
 
 int pcf_read();
 
-int taste_1;
-int taste_2;
-int taste_3;
+int button_1;
+int button_2;
+int button_3;
 
 int potentiometer_0;
             </code></pre>
@@ -758,7 +758,7 @@ int potentiometer_0;
         <p>&nbsp;</p>
         <p>
             Aufgerufen werden können diese beispielsweise via <em>matrix.init();</em> für Methoden
-            oder <em>matrix.taste_1</em> um einen Potentiometer-/Tastenwert zu erhalten.
+            oder <em>matrix.button_1</em> um einen Potentiometer-/buttonnwert zu erhalten.
         </p>
     </script>
 
