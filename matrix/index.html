@@ -114,6 +114,9 @@
                             {{#link-to 'assembly-placement'}}Bestückung{{/link-to}}
                         </div>
                         <div class="panel-link navigation-link">
+                            {{#link-to 'assembly-housing'}}Gehäuse{{/link-to}}
+                        </div>
+                        <div class="panel-link navigation-link">
                             {{#link-to 'assembly-bootloaderfuses'}}Bootloader & Fuses{{/link-to}}
                         </div>
                         <div class="panel-link navigation-link">
@@ -876,6 +879,16 @@ int potentiometer_0;
         <img src="./assets/images/assembly-print.jpg" />
     </script>
 
+    <script type="text/x-handlebars" id="assembly-housing">
+        <h1>Gehäuse</h1>
+        <p>
+            Das Gehäuse der Matrix wird mit dem 3D Drucker hergestellt. Unter dem Text "The Matrix" kann mittels Designspark 
+            und Sketchup noch der eigene Namen eingebracht werden. Die Herstellung des Gehäuse mit dem 3D Drucker dauert
+            ca. 12h.
+        </p>
+        <img src="./assets/images/assembly-housing.png" />
+    </script>
+
     <script type="text/x-handlebars" id="assembly-bootloaderfuses">
         <h1>Bootloader & Fuses</h1>
         <p>
@@ -898,7 +911,7 @@ int potentiometer_0;
 
         <table class="table table-striped">
             <tbody>
-                <tr><td><img src="./assets/images/assembly-bootloader-studio1.png" /></td><td>
+                <tr><td><img src="./assets/images/assembly-bootloader-studio1.png" width="100" /></td><td>
                     Im Atmel Studio den "Programmiermodus" öffnen.
                 </td></tr>
                 <tr><td><img src="./assets/images/assembly-bootloader-studio2.png" /></td><td>
@@ -932,15 +945,40 @@ int potentiometer_0;
 
     <script type="text/x-handlebars" id="assembly-ftdi">
         <h1>FTDI</h1>
-        {{not-finished}}
         <p>
+            Neben dem FTDI USB - UART Wandler befinden sich drei LEDs. Damit der FTDI Chip weiss, welche LED für was da ist muss diese programmiert werden.
+            Dies geht ganz einfach mit dem Tool <a href="http://www.ftdichip.com/Support/Utilities.htm" target="_blank">FT Prog</a>. 
         </p>
+        <img src="./assets/images/assembly-ftdi.jpg" />
+        <br>
+        <table class="table table-striped">
+            <tbody>
+                <tr><td><img src="./assets/images/assembly-ftdi-ftprog1.png" width="100" /></td><td>
+                    Das FT Prog Tool öffnen und mit der Lupe nach angeschlossenen FTDI Geräten suchen. Es empfiehlt sich dabei sämtliche Geräte, 
+                    welche ebenfalls einen FTDI Chip enthalten zu entfernen. (TCBus Interface etc.)
+                </td></tr>
+                <tr><td><img src="./assets/images/assembly-ftdi-ftprog2.png" /></td><td>
+                    Danach sollte ein FTDI Chip gefunden worden ein. Nämlich der auf dem Board.
+                </td></tr>    
+                <tr><td><img src="./assets/images/assembly-ftdi-ftprog3.png" /></td><td>
+                    Zu den "IO Controls" wechseln und die Einstellungen wie im Bild einstellen.
+                </td></tr>
+                <tr><td><img src="./assets/images/assembly-ftdi-ftprog4.png" width="100" /></td><td>
+                    Mit dem Blitz in den Programmiermodus.
+                </td></tr>
+                <tr><td><img src="./assets/images/assembly-ftdi-ftprog5.png" /></td><td>
+                    Die Änderungen mit "Program" auf den Chip schreiben.
+                </td></tr>    
+            </tbody>
+        </table>         
     </script>
 
     <script type="text/x-handlebars" id="assembly-test">
         <h1>Test</h1>
-        {{not-finished}}
         <p>
+            Das Board ist nun komplett konfiguiert. Nun muss die Arduino IDE installiert und mit der Matrix Library geladen werden. Eine Anleitung dazu findet 
+            sich unter <a href="http://koch-ag.github.io/matrix/#/software-installation" target="_blank">Software Installation</a>. Danach können beliebige 
+            Beispiele geladen werden um die Matrix ausgiebig zu testen.
         </p>
     </script>
 
