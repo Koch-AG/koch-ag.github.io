@@ -53,7 +53,11 @@ App.Router.map(function() {
     this.route('software-introduction');
     this.route('software-examples');
     this.route('software-documentation');
-
+	
+    this.route('assembly-placement');
+    this.route('assembly-bootloaderfuses');
+    this.route('assembly-ftdi');
+    this.route('assembly-test');
 });
 
 

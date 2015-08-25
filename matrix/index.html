@@ -103,6 +103,29 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="panel panel-default navigation-category">
+                    <div class="panel-heading navigation-heading">
+                        <div class="pull-right"><i class="fa fa-gavel"></i></div>
+                        <h3 class="panel-title">Zusammenbau</h3>
+                    </div>
+                    <div class="panel-body navigation-body">
+                        <div class="panel-link navigation-link">
+                            {{#link-to 'assembly-placement'}}Bestückung{{/link-to}}
+                        </div>
+                        <div class="panel-link navigation-link">
+                            {{#link-to 'assembly-bootloaderfuses'}}Bootloader & Fuses{{/link-to}}
+                        </div>
+                        <div class="panel-link navigation-link">
+                            {{#link-to 'assembly-ftdi'}}FTDI{{/link-to}}
+                        </div>
+                        <div class="panel-link navigation-link">
+                            {{#link-to 'assembly-test'}}Test{{/link-to}}
+                        </div>
+                    </div>
+                </div>
+
+            
             </section>
 
             <div class="col-md-1 spacer">&nbsp;</div>
@@ -834,6 +857,90 @@ int potentiometer_0;
         <p>
             Aufgerufen werden können diese beispielsweise via <em>matrix.init();</em> für Methoden
             oder <em>matrix.button_1</em> um einen Potentiometer-/Tastenwert zu erhalten.
+        </p>
+    </script>
+
+
+    <script type="text/x-handlebars" id="assembly-placement">
+        <h1>Bestückung</h1>
+        <p>
+            Als erster Fertigungschritt muss der Print bestückt werden. Die Spannungswandler, USB - UART Wandler, 
+            Beschleunigungssensor und Stabilisierung für den Beschleunigungssensor sind bereits vorbestückt. Bei der 
+            Bestückung von Hand fängt man mit den Bauteilen an, welche die geringste Höhe haben. So kann man den 
+            Print jederzeit bequem umdrehen ohne das dabei Bauteile nicht sauber am Print anliegen.
+        </p>
+        <h3>Unbestückter Print</h3>
+        <img src="./assets/images/assembly-new-print.jpg" />
+
+        <h3>Fertig bestückter Print</h3>
+        <img src="./assets/images/assembly-print.jpg" />
+    </script>
+
+    <script type="text/x-handlebars" id="assembly-bootloaderfuses">
+        <h1>Bootloader & Fuses</h1>
+        <p>
+            Der Hauptprozessor (Atmega328P) muss zuerst vorbereitet werden, damit dieser später bequem via USB und Arduino 
+            IDE programmiert werden kann. Dafür müssen die Fuses und der Bootloader angepasst werden. Beides ist mit einem 
+            Atmel ISP Programmer möglich. Wir verwenden dafür den AVRISP mkII. 
+        </p>
+
+        <p>
+            Die Fuses sind sozusagen Kerneinstellungen der CPU. Darin wird z.B. die Taktquelle/geschwindigkeit eingestellt. 
+            Der Bootloader wird dafür benötigt, damit das Board per USB mit der Arduino IDE programmiert werden kann. Ohne 
+            Bootloader müsste dieses bei jeder Softwareänderung via Atmel Programmer neu programmiert werden.
+        </p>
+
+        <p>
+            Um die Fuses und den Bootloader flashen zu können muss das Board per USB gespiesen werden + via Atmel Programmer am PC angeschlossen sein.
+        </p>
+        <img src="./assets/images/assembly-bootloader-hardware.jpg" />
+        <br>
+
+        <table class="table table-striped">
+            <tbody>
+                <tr><td><img src="./assets/images/assembly-bootloader-studio1.png" /></td><td>
+                    Im Atmel Studio den "Programmiermodus" öffnen.
+                </td></tr>
+                <tr><td><img src="./assets/images/assembly-bootloader-studio2.png" /></td><td>
+                    Als erstes muss die Programmiergeschwindigkeit auf ca. 125kHz reduziert werden. Der Hauptprozessor läuft in der Standardkonfiguration 
+                    mit einer Frequenz von 1Mhz (8Mhz RC Oszillator / 8). Die Programmiergeschwindigkeit darf jedoch nur 1/4 des CPU Takts betragen. Dies 
+                    würde theoretisch 250kHz ergeben. Um auf der sicheren Seite zu sein verwenden wir jedoch 125kHz.
+                </td></tr>
+                <tr><td><img src="./assets/images/assembly-bootloader-studio3.png" /></td><td>
+                    Mit einem Klick auf "Read" bei Device signature sollte nun erfolgreich die Prozessor ID gelesen werden können. Diese ist beim Atmega328P 
+                    0x1E950F. Wenn dies nicht möglich ist, so ist mit dem Programmer oder dem Board etwas nicht in Ordnung.
+                </td></tr>
+                <tr><td><img src="./assets/images/assembly-bootloader-studio4.png" /></td><td>
+                    Nun können die Fuses gesetzt werden. Dafür einfach die 3 Hex Werte eingtragen und auf "Program" klicken.
+                    <br>EXTENDED: 0xFE
+                    <br>HIGH: 0xDE
+                    <br>LOW: 0xFF
+                </td></tr>
+                <tr><td><img src="./assets/images/assembly-bootloader-studio5.png" /></td><td>
+                    Da die Fuses nun korrekt gesetzt sind läuft der Prozessor mit 16Mhz. Der Programmiertakt kann nun auf 1Mhz erhöht werden.
+                </td></tr>
+                <tr><td><img src="./assets/images/assembly-bootloader-studio6.png" /></td><td>
+                    Unter "memories" und "flash" kann nun der optiboot_atmega328.hex bootloader gewählt werden. Damit dieser unter dem angegebenen Pfad 
+                    vorhanden ist muss die Arduino IDE installiert sein. Nach dem Auswählen mit dem einem Klick auf "Program" flashen.
+                </td></tr>
+                <tr><td><img src="./assets/images/assembly-bootloader-studio7.png" /></td><td>
+                    Nach dem Auswählen mit dem einem Klick auf "Program" flashen.
+                </td></tr>                
+            </tbody>
+        </table>        
+    </script>
+
+    <script type="text/x-handlebars" id="assembly-ftdi">
+        <h1>FTDI</h1>
+        {{not-finished}}
+        <p>
+        </p>
+    </script>
+
+    <script type="text/x-handlebars" id="assembly-test">
+        <h1>Test</h1>
+        {{not-finished}}
+        <p>
         </p>
     </script>
 
