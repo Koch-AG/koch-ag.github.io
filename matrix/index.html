@@ -867,6 +867,11 @@ int potentiometer_0;
             Aufgerufen werden können diese beispielsweise via <em>matrix.init();</em> für Methoden
             oder <em>matrix.button_1</em> um einen Potentiometer-/Tastenwert zu erhalten.
         </p>
+        <p>
+            Die Methode <em>matrix.read_io();</em> sollte jeweils immer am Anfang vom loop aufgerufen
+            werden, sofern die Buttons, das Accelerometer bzw. das Potentiometer verwendet wird. Diese Methode
+            sorgt dafür, dass die Werte dieser Peripherie aktualisiert werden.
+        </p>
     </script>
 
 
