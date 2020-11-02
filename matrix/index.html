@@ -890,7 +890,58 @@ int potentiometer_0;
 
 	<script type="text/x-handlebars" id="weiteres-expansion">
         <h1>Weiteres - Expansion</h1>
-        <h3>Hello World</h3>
+        <h3>
+            Einführung
+        </h3>
+        <p>
+            Am unteren Ende des Matrix Boards befinden sich die Lötpads, um das Board mit diversen Bauteilen/Baugruppen zu erweitern.
+            Die Pads bieten Zugriff auf die 3.3 und 5 Volt Speisung des Boards, Ground, diverse IO Pins inklusive Analog Pins und den I2C-Bus.
+            Im folgenden Abschnitt lassen sich ein paar Beispiele zu diesen Expansion Ports finden.
+        </p>
+        <h3>
+            Port Expander Diagramm
+            <img src="./assets/images/hardware-print-pinout.png" width="600" />
+        </h3>
+        <h3>
+            Beispiel: Pong
+        </h3>
+        <p>
+            Um das 2 Spieler Pong aus den Beispielen in Betrieb zu nehmen, werden 2 Matrix Boards benötigt. 
+            Zuerst sollte die korrekte Software auf den Boards vorhanden sein. Dabei gilt es zu beachten, 
+            dass das eine Board die die Software für den Spieler 1 enthalten sollte und das andere die Software für Spieler 2.
+            Dazu muss bevor dem Upload, im obersten Teil des Programms das Define für den Spieler auf Spieler 2 gewechselt werden.
+            <img src="./assets/images/Spielerauswahl_Pong.png" width="300" />
+        </p>
+        <p>
+            Sobald beide Boards die korrekte Software haben, müssen die beiden I2C Busse der Boards verbunden werden. Das geschieht,
+            indem man die als SDA und SCL gekennzeichneten Ports der beiden Boards mit einander verbindet.
+            Damit es jedoch keinen Adressenkonfikt der beiden Accelerometer gibt, muss beim einen Board, der Jumper zwischen K17 und K18 augesteckt werden.
+            Dieser Jumper führt zum Adresspin des Accelerometers und passt somit die Adresse an.
+        </p>
+        <p>
+            Nun müssen beide Boards mit Strom versorgt werden. Das erfolgt am einfachsten über die USB Buchse. Wenn alle Schritte richtig durchgeführt worden sind, 
+            sollte nun auf der Matrix von Spieler 1 das Spielfeld und bei Spieler 2 das Scoreboard angezeigt werden. Das Spiel sollte nun mit dem Potentiometer der beiden Boards gesteuert werden können.
+        </p>
+        <h3>
+            Beispiel: Potentiometer
+        </h3>
+        <p>
+            Für dieses Beispiel wird 1 Matrix Board und ein Potentiometer benötigt. Unter den Expansion Ports lassen sich 2 Analog Pins mit den Namen A0 und A1 finden.
+            Diese ermöglichen es eine analoge Spannung einzulesen, wie sie von gewissen Sensoren aber auch von einem Potentiometer erzeugt wird. Um nun das Potentiometer anzuhängen nehmen wir den Pin A1,
+            da A0 bereits vom internen Potentiometer benutzt wird. Es wäre möglich das interne Potentiometer mit dem Jumper rechts davon abzuhängen,
+            dadurch würde man jedoch die Funktion des internen Potentiometers verlieren. Um es nun dort anzuschliessen, hängen wir die äusseren Pins je au 5V und auf Ground. Der mittlere Pin wird auf den A0 Pin gehängt.
+        </p>
+        <p>
+            Der Softwareteil dieses Beispiel ist recht einfach, weswegen wir die Programmierung euch überlassen. Mit den untenstehenden Links könnt ihr einfach den Code slebst schreiben.
+        </p>
+        <p>
+                <a href="https://starthardware.org/analog-input/">Tutorial in Textform</a>
+        </p>
+        <p>
+                <a href="https://www.youtube.com/watch?v=9lrqeswfIQs">Tutorial in Videoform</a>
+        </p>
+
+        
     </script>
 
     <script type="text/x-handlebars" id="assembly-placement">
