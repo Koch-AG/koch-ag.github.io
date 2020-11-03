@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Style-Type" content="text/css" />  
     <meta name="author" content="Sven Gehring" />
     <meta name="author" content="Benjamin Marty" /> 
+	<meta name="author" content="Michael Mächler" /> 
     <meta name="language" content="de" />
 
     <script type="text/javascript" src="./vendor/javascripts/jquery.js"></script>
@@ -103,6 +104,18 @@
                         </div>
                     </div>
                 </div>
+				
+				<div class="panel panel-default navigation-category">
+                    <div class="panel-heading navigation-heading">
+                        <div class="pull-right"><i class="fa fa-code"></i></div>
+                        <h3 class="panel-title">Weiteres</h3>
+                    </div>
+                    <div class="panel-body navigation-body">
+                        <div class="panel-link navigation-link">
+                            {{#link-to 'weiteres-expansion'}}Expansion{{/link-to}}
+                        </div>
+                    </div>
+                </div>
 
                 <div class="panel panel-default navigation-category">
                     <div class="panel-heading navigation-heading">
@@ -163,7 +176,7 @@
         <p>
             Das Ziel dieses Projektes ist, ein Gerät zu erstellen, das nicht nur während der Schnupperlehre 
             verwendet werden kann, sondern auch danach weiterhin einen produktiven Nutzen bietet.
-            Grundsätzlich handelt es sich dabei um eine LED-Matrix aus (bis zu) 64 LEDs die Softwareseitig
+            Grundsätzlich handelt es sich dabei um eine LED-Matrix aus 64 LEDs die Softwareseitig
             komplett frei angesteuert werden können.
         </p>
         <p>
@@ -210,6 +223,10 @@
                     <td><a href="http://arduino.cc/en/Reference/HomePage" target="_blank">arduino.cc#Reference</a></td>
                     <td>Arduino "C" Reference. Offizielle Dokumentation der Arduino Programmstrukturen, Variabeltypen, verfügbaren Funktionen usw.</td>
                 </tr>
+				<tr>
+                    <td><a href="Unterlagen_Matrix.pdf" download>Download File</a></td>
+                    <td>Link zum Herunterladen der Unterlagen des Projekts</td>
+                </tr>
             </tbody>
         </table>
     </script>
@@ -220,11 +237,9 @@
 
     <script type="text/x-handlebars" id="hardware-case">
         <h1>Hardware - Gehäuse und Speisung</h1>
-        {{not-finished}}
         <p>
-            Das Gerät kann entweder über Kabel oder Hohlbuchse mit <strong>7V - 20V</strong>
-            oder über ein USB-B Kabel direkt vom PC gespiesen werden. Zum Programmieren muss
-            das Gerät nur mittels USB-B Kabel an den Computer angeschlossen werden.
+            Das Gerät kann entweder über die + - Klemme oder die Hohlbuchse mit <strong>7V - 20V</strong>
+            oder über ein USB-B Kabel direkt vom PC gespiesen werden. Um das Gerät nur über USB angeschlossen werden, da die andere Speisung preferiert wird.
         </p>
         <h3>Aktuelle Gehäuseversion</h3>
         <img src="./assets/images/hardware-case-overview.jpg" />
@@ -236,7 +251,6 @@
     
     <script type="text/x-handlebars" id="hardware-print">
         <h1>Hardware - Print Übersicht</h1>
-        {{not-finished}}
 
         <h3>Komplett bestückter Print</h3>
         <img src="./assets/images/hardware-print-overview.jpg" />
@@ -263,8 +277,8 @@
         <table class="table table-striped">
            <tbody>
               <tr>
-                 <td><strong>Pos</strong></td>
-                 <td><strong>Anzahl</strong></td>
+                 <td><strong>Pos.</strong></td>
+                 <td><strong>Anz.</strong></td>
                  <td><strong>Name</strong></td>
                  <td><strong>Wert</strong></td>
                  <td><strong>Gehäuse</strong></td>
@@ -568,8 +582,7 @@
     
 
     <script type="text/x-handlebars" id="hardware-documentation">
-        <h1>Hardware - Technische Unterlagen</h1>
-        {{not-finished}}
+        <h1>Hardware - Schema & Bestückungsplan</h1>
 
 
         <h3>Bestückungsplan Print</h3>
@@ -805,8 +818,10 @@ void loop() {
             Belieben angepasst werden.
         </p>
         <p>
-            - <a href="#"{{action 'se' 'bar-counter'}}>Bar Counter</a> Button basierender Balken counter<br />
-            - <a href="#"{{action 'se' 'matrix-hero'}}>Matrix Hero</a> Einfaches, Guitar Hero basierendes Spiel
+            - <a href="#"{{action 'se' 'bar-counter'}}>Bar Counter</a>  Button basierender Balken counter<br />
+            - <a href="#"{{action 'se' 'matrix-hero'}}>Matrix Hero</a>  Einfaches, Guitar Hero basierendes Spiel<br />
+			- <a href="#"{{action 'se' 'pong'}}>Pong</a>  Ping Pong Spiel. Nur mit 2 Geräten Spielbar<br />
+			- <a href="#"{{action 'se' '1_spieler_pong'}}>1 Spieler Pong</a>  Ping Pong Spiel. Mit einem Gerät spielbar
         </p>
         <p>&nbsp;</p>
         <p>
@@ -823,7 +838,6 @@ void loop() {
 
     <script type="text/x-handlebars" id="software-documentation">
         <h1>Software Dokumentation</h1>
-        {{not-finished}}
         <p>
             Die Software Dokumentation ist in der aktuellen Version noch nicht vorhanden.<br />
             Alle wichtigen Funktionen der Software sind in den Beispielen erläutert.
@@ -874,6 +888,61 @@ int potentiometer_0;
         </p>
     </script>
 
+	<script type="text/x-handlebars" id="weiteres-expansion">
+        <h1>Weiteres - Expansion</h1>
+        <h3>
+            Einführung
+        </h3>
+        <p>
+            Am unteren Ende des Matrix Boards befinden sich die Lötpads, um das Board mit diversen Bauteilen/Baugruppen zu erweitern.
+            Die Pads bieten Zugriff auf die 3.3 und 5 Volt Speisung des Boards, Ground, diverse IO Pins inklusive Analog Pins und den I2C-Bus.
+            Im folgenden Abschnitt lassen sich ein paar Beispiele zu diesen Expansion Ports finden.
+        </p>
+        <h3>
+            Port Expander Diagramm
+            <img src="./assets/images/hardware-print-pinout.png" width="600" />
+        </h3>
+        <h3>
+            Beispiel: Pong
+        </h3>
+        <p>
+            Um das 2 Spieler Pong aus den Beispielen in Betrieb zu nehmen, werden 2 Matrix Boards benötigt. 
+            Zuerst sollte die korrekte Software auf den Boards vorhanden sein. Dabei gilt es zu beachten, 
+            dass das eine Board die die Software für den Spieler 1 enthalten sollte und das andere die Software für Spieler 2.
+            Dazu muss bevor dem Upload, im obersten Teil des Programms das Define für den Spieler auf Spieler 2 gewechselt werden.
+            <img src="./assets/images/Spielerauswahl_Pong.png" width="300" />
+        </p>
+        <p>
+            Sobald beide Boards die korrekte Software haben, müssen die beiden I2C Busse der Boards verbunden werden. Das geschieht,
+            indem man die als SDA und SCL gekennzeichneten Ports der beiden Boards mit einander verbindet.
+            Damit es jedoch keinen Adressenkonfikt der beiden Accelerometer gibt, muss beim einen Board, der Jumper zwischen K17 und K18 augesteckt werden.
+            Dieser Jumper führt zum Adresspin des Accelerometers und passt somit die Adresse an.
+        </p>
+        <p>
+            Nun müssen beide Boards mit Strom versorgt werden. Das erfolgt am einfachsten über die USB Buchse. Wenn alle Schritte richtig durchgeführt worden sind, 
+            sollte nun auf der Matrix von Spieler 1 das Spielfeld und bei Spieler 2 das Scoreboard angezeigt werden. Das Spiel sollte nun mit dem Potentiometer der beiden Boards gesteuert werden können.
+        </p>
+        <h3>
+            Beispiel: Potentiometer
+        </h3>
+        <p>
+            Für dieses Beispiel wird 1 Matrix Board und ein Potentiometer benötigt. Unter den Expansion Ports lassen sich 2 Analog Pins mit den Namen A0 und A1 finden.
+            Diese ermöglichen es eine analoge Spannung einzulesen, wie sie von gewissen Sensoren aber auch von einem Potentiometer erzeugt wird. Um nun das Potentiometer anzuhängen nehmen wir den Pin A1,
+            da A0 bereits vom internen Potentiometer benutzt wird. Es wäre möglich das interne Potentiometer mit dem Jumper rechts davon abzuhängen,
+            dadurch würde man jedoch die Funktion des internen Potentiometers verlieren. Um es nun dort anzuschliessen, hängen wir die äusseren Pins je au 5V und auf Ground. Der mittlere Pin wird auf den A0 Pin gehängt.
+        </p>
+        <p>
+            Der Softwareteil dieses Beispiel ist recht einfach, weswegen wir die Programmierung euch überlassen. Mit den untenstehenden Links könnt ihr einfach den Code slebst schreiben.
+        </p>
+        <p>
+                <a href="https://starthardware.org/analog-input/">Tutorial in Textform</a>
+        </p>
+        <p>
+                <a href="https://www.youtube.com/watch?v=9lrqeswfIQs">Tutorial in Videoform</a>
+        </p>
+
+        
+    </script>
 
     <script type="text/x-handlebars" id="assembly-placement">
         <h1>Bestückung</h1>
@@ -892,11 +961,10 @@ int potentiometer_0;
 
     <script type="text/x-handlebars" id="assembly-housing">
         <h1>Gehäuse</h1>
-        {{not-finished}}
         <p>
             Das Gehäuse der Matrix wird mit dem 3D Drucker hergestellt. Unter dem Text "The Matrix" kann mittels Designspark 
-            und Sketchup noch der eigene Namen eingebracht werden. Die Herstellung des Gehäuse mit dem 3D Drucker dauert
-            ca. 12h.
+            noch der eigene Namen eingebracht werden. Die Herstellung des Gehäuse mit dem 3D Drucker dauert
+            ca. 8h.
         </p>
         <img src="./assets/images/assembly-housing.png" />
         <!-- Insert instructions for the wiring of the three push buttons here -->

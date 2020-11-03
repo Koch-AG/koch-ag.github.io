@@ -53,6 +53,8 @@ App.Router.map(function() {
     this.route('software-introduction');
     this.route('software-examples');
     this.route('software-documentation');
+
+    this.route('weiteres-expansion');
 	
     this.route('assembly-placement');
     this.route('assembly-housing')
