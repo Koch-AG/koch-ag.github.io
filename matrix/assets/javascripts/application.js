@@ -24,6 +24,8 @@ window._pageInit = function() {
     $('#content img').click(function(){
         window.open($(this).attr('src'));
     });
+
+    $('#cryear').text("" + (new Date()).getFullYear());
 }
 
 
