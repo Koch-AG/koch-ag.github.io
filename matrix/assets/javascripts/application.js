@@ -63,6 +63,13 @@ App.Router.map(function() {
     this.route('assembly-bootloaderfuses');
     this.route('assembly-ftdi');
     this.route('assembly-test');
+
+    this.route('matrix-index');
+    
+    this.route('matrix-hardware');
+    this.route('matrix-software');
+    this.route('matrix-weiteres');
+    this.route('matrix-zusammenbau');
 });
 
 
