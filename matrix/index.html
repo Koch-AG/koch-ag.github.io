@@ -974,53 +974,197 @@ void loop() {
     <script type="text/x-handlebars" id="software-documentation">
         <h1>Software Dokumentation</h1>
         <p>
-            Die Software Dokumentation ist in der aktuellen Version noch nicht vorhanden.<br />
-            Alle wichtigen Funktionen der Software sind in den Beispielen erläutert.
+            Sämtliche verfügbaren Methoden sind im Header-File der API abgebildet (V1.1.0):
         </p>
-        <p>
-            Sämtliche verfügbaren Methoden sind im Header-File der API abgebildet (V1.2.0):
-            <pre><code class="c">
-void init();
-
-int read_io();
-
-void write(byte byte1, byte byte2, byte byte3, byte byte4, byte byte5, byte byte6, byte byte7, byte byte8);
-
-void write_array(char matrix[]);
-
-void write_char(int numb);
-
-void progressbar(byte value, byte line);
-
-void clear();
-
-void sample(int numb);
-
-void pcf_write(int data);
-
+        <br>
+        Prüft, ob der PCF8574 I/O-Expander verbunden ist, fordert ein Byte Daten über I2C an und wartet auf die Daten.
+<pre><code class="c">
 int pcf_read();
+</code></pre>
 
+Wenn <em>read_io()</em> aufgerufen wird, wird <em>pcf_read()</em> ausgeführt und dessen Ergebnis in pcfState gespeichert.  
+<em>RotaryEncoder_Poti()</em> und <em>getSensor()</em> werden ebenfalls aufgerufen.  
+<em>button_1, button_2 und button_3</em> werden auf 0 gesetzt.  
+Wenn pcfState ungleich 255 ist, wird getButtonPress(pcfState) aufgerufen.
+<pre><code class="c">
+int read_io();
+</code></pre>
+
+Initialisiert den Inhalt einmalig beim Start.
+<pre><code class="c">
+void init();
+</code></pre>
+
+Löscht die Daten aus der LED-Matrix.
+<pre><code class="c">
+void clear();
+</code></pre>
+
+Schreibt die einzelnen Daten-Spalten an eine bestimmte Position im Array.
+<pre><code class="c">
+void write (byte byte1, byte byte2, byte byte3, byte byte4,
+                        byte byte5, byte byte6, byte byte7, byte byte8);
+</code></pre>
+
+Nimmt ein Array mit <em>8 Bytes (matrix[])</em> und kopiert dessen Werte einzeln in das <em>data[]-Array</em>.
+<pre><code class="c">
+void write_array(byte matrix[]);
+</code></pre>
+
+Zeigt ein Zeichen auf der Matrixanzeige an, indem die Zeichendaten aus der Schriftart geladen, das Display gelöscht und die entsprechenden Pixeldaten geschrieben werden.
+<pre><code class="c">
+void write_char(char character);
+</code></pre>
+
+Setzt die Farbe der LEDs.
+<pre><code class="c">
+void setColor(byte r, byte g, byte b, byte BGC_r = 0, byte BGC_g = 0, byte BGC_b = 0);
+</code></pre>
+
+Konfiguriert die Einstellungen für das Potentiometer.
+<pre><code class="c">
+void ConfigPoti(int max = 1024, int min = 0, int faktor = -40);
+</code></pre>
+
+Zeigt Beispielmuster für die LED-Matrix an.
+<pre><code class="c">
+void sample(int pattern);
+</code></pre>
+
+Bestimmt, welcher Knopf auf der Platine gedrückt wurde.
+<pre><code class="c">
+int getButtonPress(char pcfState);
+</code></pre>
+
+Aktualisiert virtuelle Potentiometer-Werte basierend auf Drehencoder-Eingaben, mit schrittweiser Änderung und optionalen Min-/Max-Grenzen.
+<pre><code class="c">
+void RotaryEncoder_Poti();
+</code></pre>
+
+Liest X-, Y- und Z-Beschleunigungswerte vom STK8321-Sensor und speichert sie in den übergebenen Ausgabepointern.
+<pre><code class="c">
+void getSensorData(float *X_DataOut, float *Y_DataOut, float *Z_DataOut);
+</code></pre>
+
+Liest Beschleunigungsdaten und weist sie internen Variablen zu, wobei eine Koordinatentransformation durch Vertauschen und Negieren der X- und Y-Achsen erfolgt.
+<pre><code class="c">
+void getSensor();
+</code></pre>
+
+Zeigt einen horizontalen Fortschrittsbalken auf einer bestimmten LED-Matrixzeile an, indem eine Bitmaske basierend auf dem Wert verschoben und das Display aktualisiert wird.
+<pre><code class="c">
+void progressbar(byte value, byte line);
+</code></pre>
+
+Zeigt Beispiel-Töne für den Buzzer.
+<pre><code class="c">
+void Buzzer(int tone);
+</code></pre>
+
+Bewegt das Servo auf eine bestimmte Position.
+<pre><code class="c">
+void setServo1(int grad = 0);
+</code></pre>
+
+Bewegt das Servo auf eine bestimmte Position.
+<pre><code class="c">
+void setServo2(int grad = 0);
+</code></pre>
+
+Setzt die Zeichen auf der 14-Segment-Anzeige.
+<pre><code class="c">
+void setSegmentAnzeige(char character1, char character2, char character3, char character4);
+</code></pre>
+
+Schreibt ein Leerzeichen auf alle 14-Segment-Positionen, wodurch die Anzeige gelöscht wird.
+<pre><code class="c">
+void clearSegmentAnzeige();
+</code></pre>
+
+Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.
+<pre><code class="c">
 int button_1;
+</code></pre>
+
+Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.
+<pre><code class="c">
 int button_2;
+</code></pre>
+
+Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.
+<pre><code class="c">
 int button_3;
+</code></pre>
 
+Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.
+<pre><code class="c">
+int button_Up;
+</code></pre>
+
+Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.
+<pre><code class="c">
+int button_Right;
+</code></pre>
+
+Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.
+<pre><code class="c">
+int button_Down;
+</code></pre>
+
+Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.
+<pre><code class="c">
+int button_Left;
+</code></pre>
+
+Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.
+<pre><code class="c">
+int button_Center;
+</code></pre>
+
+Speichert den Beschleunigungswert für die X-Achse.
+<pre><code class="c">
 float accelerometer_x;
-float accelerometer_y;
-float accelerometer_z;
+</code></pre>
 
+Speichert den Beschleunigungswert für die Y-Achse.
+<pre><code class="c">
+float accelerometer_y;
+</code></pre>
+
+Speichert den Beschleunigungswert für die Z-Achse.
+<pre><code class="c">
+float accelerometer_z;
+</code></pre>
+
+Speichert den Wert des ersten Potentiometers.
+<pre><code class="c">
 int potentiometer_0;
-            </code></pre>
-        </p>
+</code></pre>
+
+Speichert den Wert des zweiten Potentiometers.
+<pre><code class="c">
+int potentiometer_1;
+</code></pre>
+
+Speichert den Wert des dritten Potentiometers.
+<pre><code class="c">
+int potentiometer_2;
+</code></pre>
         <p>&nbsp;</p>
         <p>
-            Aufgerufen werden können diese beispielsweise via <em>matrix.init();</em> für Methoden
-            oder <em>matrix.button_1</em> um einen Potentiometer-/Tastenwert zu erhalten.
+            Aufgerufen werden können diese beispielsweise via <em>magentaobj.init();</em> für Methoden
+            oder z.B. <em>magentaobj.button_1</em> um einen Tastenwert zu erhalten.
         </p>
         <p>
-            Die Methode <em>matrix.read_io();</em> sollte jeweils immer am Anfang vom loop aufgerufen
+            Die Methode <em>magentaobj.read_io();</em> sollte jeweils immer am Anfang vom loop aufgerufen
             werden, sofern die Buttons, das Accelerometer bzw. das Potentiometer verwendet wird. Diese Methode
             sorgt dafür, dass die Werte dieser Peripherie aktualisiert werden.
         </p>
+        <p>
+            Wenn man das Magenta Core Projekt hat aber alte Beispiel Codes ausprobieren möchte kann man diese ohne
+            probleme auf das Projekt laden da z.B. <B>matrix.button_1</B> gleich wie magentaobj.button_1 funktioniert.
+        </p>
+
     </script>
 
 	<script type="text/x-handlebars" id="weiteres-expansion">
