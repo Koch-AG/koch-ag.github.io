@@ -52,6 +52,9 @@ App.Router.map(function() {
     this.route('hardware-documentation');
 
     this.route('software-installation');
+    this.route('software-template-installation');
+    this.route('software-new-project-installation');
+    this.route('software-code-compile-guide');
     this.route('software-introduction');
     this.route('software-examples');
     this.route('software-documentation');
@@ -65,7 +68,6 @@ App.Router.map(function() {
     this.route('assembly-test');
 
     this.route('matrix-index');
-    
     this.route('matrix-hardware');
     this.route('matrix-software');
     this.route('matrix-weiteres');
