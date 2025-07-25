@@ -762,61 +762,78 @@
     
     <script type="text/x-handlebars" id="software-installation">
         <h1>Software - Installation</h1>
-        Das Matrix Projekt kann jederzeit einfach mit der Arduio-IDE neu programmiert werden.
-        Alles was dazu gebraucht wird, ist ein Windows oder Linux PC, ein USB-B Kabel und das Matrix 
-        Gerät an sich.
+        <p>Das Magenta Core Projekt kann jederzeit einfach mit der Arduio-IDE neu programmiert werden.
+        Alles was dazu gebraucht wird, ist ein Windows oder Linux PC, ein USB-C Kabel und das Magenta
+        Core Gerät an sich.</p>
 
         <h3>Installation der Software</h3>
         <table class="table table-striped">
             <tbody>
-                <tr><td><img src="./assets/images/matrix/software-arduino-install1_matrix.png" /></td><td>
-                    Um ein Arduino-Programm zu entwickeln, muss die Arduino IDE (Editor) von der
-                    <a href="http://arduino.cc">Arduino Website</a> heruntergeladen werden. Der 
-                    aktuellste Download findet sich unter <em>Download</em> &gt; Windows
+                <tr><td><img src="./assets/images/magenta/software_install1_magenta.png" /></td><td>
+                    1. Gib <B>VSCode download</B> in einen Browser ein
+                    <br>
+                    2. Auf den rot umkreisten Link drücken
                 </td></tr>
-                <tr><td><img src="./assets/images/matrix/software-arduino-install2_matrix.png" /></td><td>
-                    Nach dem der Download abgeschlossen ist, muss der heruntergeladene Installer
-                    ausgeführt werden. Arduino wird sich danach mehr oder weniger selbstständig
-                    auf dem System installieren.
+                <tr><td><img src="./assets/images/magenta/software_install2_magenta.png" /></td><td>
+                    3. Je nach Betriebssystem müssen andere Daten herunterladen geladen werden (in der Anleitung wird Windows genutzt)
                 </td></tr>
-                <tr><td><img src="./assets/images/matrix/software-arduino-install3_matrix.png" /></td><td>
-                    Bestätige eine allfällige Sicherheitsbestätigung und erlaube der Arduino
-                    Software sich auf deinem System zu installieren.
+                <tr><td><img src="./assets/images/magenta/software_install3_magenta.png" /></td><td>
+                    4. Warten bis es fertig heruntergelanden hat und dann auf den kleinen Ordner drücken.
                 </td></tr>
-                <tr><td><img src="./assets/images/matrix/software-arduino-install4_matrix.png" /></td><td>
-                    Stimme den gegebenen Lizenzbestimmungen zu...
+                <tr><td><img src="./assets/images/magenta/software_install4_magenta.png" /></td><td>
+                    5. Wenn der Ordner gedrückt wurde dann werden die Dwonloads im Explorer geöffnet.
+                    Die neuste Datei öffnen (VSCodeUserSetup-x64-x.xx.x.exe)
                 </td></tr>
-                <tr><td><img src="./assets/images/matrix/software-arduino-install5_matrix.png" /></td><td>
-                    Wähle alle verfügbaren Komponenten zur Installation und fahre mit weiter fort.
+                <tr><td><img src="./assets/images/magenta/software_install5_magenta.png" /></td><td>
+                    6. Nach dem öffnen sicherstellen das die Vereinbarungen Akzeptiert sind.
+                    <br>
+                    7. Wenn das der Fall ist dann auf <B>Weiter</B> drücken
                 </td></tr>
-                <tr><td><img src="./assets/images/matrix/software-arduino-install7_matrix.png" /></td><td>
-                    Nach der Installation der IDE wird Arduino seinen USB-Treiber installieren.
-                    Dieser muss installiert werden, um die Serielle Kommunikation von Gerät und
-                    PC zu ermöglichen.
+                <tr><td><img src="./assets/images/magenta/software_install6_magenta.png" /></td><td>
+                    8. Alle Hacken setzten
+                    <br>
+                    9. Dann auf <B>Weiter</B> drücken
                 </td></tr>
-                <tr><td><img src="./assets/images/matrix/software-arduino-install8_matrix.png" /></td><td>
-                    Warten bis der Installationsvorgang abgeschlossen ist.
+                <tr><td><img src="./assets/images/magenta/software_install7_magenta.png" /></td><td>
+                    10. auf <B>Installieren</B> drücken
                 </td></tr>
-                <tr><td><img src="./assets/images/matrix/software-arduino-install9_matrix.png" /></td><td>
-                    Danach kann die Arduino IDE direkt über die Windows Suche nach "Arduino"
-                    oder natürlich im Installationsverzeichnis gefunden und gestartet werden.
+                <tr><td><img src="./assets/images/magenta/software_install8_magenta.png" /></td><td>
+                    Warten bis alles installiert ist
                 </td></tr>
-                <tr><td><img src="./assets/images/matrix/software-arduino-install10_matrix.png" /></td><td>
-                    Importiere die RKAG Matrix Bibliothek in der IDE via <em>Sketch &gt; Include Library &gt;
-                    Add .ZIP Library</em>
-                </td></tr>
-                <tr><td><img src="./assets/images/matrix/software-arduino-install11_matrix.png" /></td><td>
-                    Wähle das Archiv mit der aktuellen Version der RKAG_Matrix aus und klick open.
-                    Die IDE sollte das Archiv nun selbstständig importieren.
-                </td></tr>
-                <tr><td><img src="./assets/images/matrix/software-arduino-install12_matrix.png" /></td><td>
-                    Anschliessend können die mitgelieferten Beispiele direkt in der IDE geladen werden, um
-                    Testprogramme auszuprobieren oder eine Vorlage für ein Projekt zu haben. Ein einfaches
-                    Beispiel, der Binärzähler wird auch {{#link-to 'software-introduction'}}hier{{/link-to}}
-                    noch ausführlicher erklärt.
+                <tr><td><img src="./assets/images/magenta/software_install9_magenta.png" /></td><td>
+                    11. Zum Schluss noch auf <B>Fertigstellen</B> drücken
                 </td></tr>
             </tbody>
         </table>
+
+        <h3>PlatformIO Installation</h3>
+        <table class="table table-striped">
+            <tbody>
+                <tr><td><img src="./assets/images/magenta/software_platformIO_install1_magenta.png" /></td><td>
+                    1. Wenn VSCode geöffnet ist, gibt es auf der linken Seite, eine Ansichtsauswahl. Dort auf das Symbol mit den vier Vierecken drücken.
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_platformIO_install2_magenta.png" /></td><td>
+                    2. In der Suchleiste <B>PlatformIO IDE</B> eingeben
+                    <br>
+                    3. Dann die IDE auswählen die einen orangen Ameisenkopf hat
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_platformIO_install3_magenta.png" /></td><td>
+                    4. auf Install drücken
+                </td></tr>
+            </tbody>
+        </table>
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'software-template-installation'}}<B>Template</B>{{/link-to}}
+        </div>
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'software-new-project-installation'}}<B>Neues Projekt</B>{{/link-to}}
+        </div>
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'software-code-compile-guide'}}<B>Code Kompilieren</B>{{/link-to}}
+        </div>
     </script>
 
     <script type="text/x-handlebars" id="software-introduction">
