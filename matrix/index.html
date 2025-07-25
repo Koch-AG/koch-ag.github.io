@@ -996,31 +996,27 @@
     <script type="text/x-handlebars" id="software-introduction">
         <h1>Software - Beispiele</h1>
         <p>
-            Einige funktionierende Softwarebeispiele finden sich unter anderem auch im
-            Ordner der Bibliothek und können von der Arduino-IDE direkt über <em>Examples</em>
-            geladen werden. Die dort gespeicherten Vorlagen können importiert und bearbeitet
-            werden, um einige einfache Aufgabe mit der Matrix auszuführen.
+            Ein funktionierendes Softwarebeispiel findet sich unter anderem auch im
+            Ordner der Bibliothek und können von der Arduino-IDE direkt über <B>Examples</B>
+            geladen werden. Die dort gespeicherte Vorlage kann importiert und bearbeitet
+            werden, um einige einfache Aufgabe mit der LED Matrix auszuführen.
         </p>
         <h3>Binärzähler</h3>
         <p>
-            Der Binärzähler ist eine sehr einfach Beispielsanwendung der Matrix. Dabei wird
-            lediglich die Matrix initialisiert, ein Zähler hochgezählt und der entsprechende
-            Wert auf einer Zeile in der Matrix ausgegeben.
+            Der Binärzähler ist eine sehr einfach Beispielsanwendung der LED magentaobj. Dabei wird
+            lediglich die LED Matrix initialisiert, ein Zähler hochgezählt und der entsprechende
+            Wert auf einer Zeile in der LED Matrix ausgegeben.
         </p>
         <p>
-            Dieses kleine Projekt setzt voraus, dass die RKAG-Matrix Bibliothek bereits wie in 
+            Dieses kleine Projekt setzt voraus, dass die Magenta_lib Bibliothek bereits wie in 
             {{#link-to 'software-installation'}}"Installation"{{/link-to}} beschrieben installiert
             ist, und korrekt importiert werden kann.
         </p>
         <p>
-            Als erstes erstellen wir uns also einen neuen Arduino Sketch und importieren die Bibliotheken,
-            die wir zur Verwendung der Matrix Bibliothek benötigen. Dazu zählen <strong>SPI.h</strong> und
-            <strong>Wire.h</strong> für die Serielle Kommunikation per SPI und I2C auf dem Print, so wie die 
-            Matix Bibliothek <strong>Matrix_RKAG</strong> selbst.
+            Als erstes erstellen wir uns also einen neuen Arduino Sketch und importieren die Bibliothek. 
+        
             <pre><code class="c">
-#include &lt;Matrix_RKAG.h&gt;
-#include &lt;SPI.h&gt;
-#include &lt;Wire.h&gt;            
+#include &lt;Magenta_lib.h&gt;          
             </code></pre>
         </p>
         <p>&nbsp;</p>
@@ -1036,15 +1032,15 @@ int meinZaehler = 0;
         </p>
         <p>&nbsp;</p>
         <p>
-            Da wir nun unsere Bibliotheken eingebunden und unsere Zählervariable bereit haben, können wir
+            Da wir nun unserer Bibliothek eingebunden und unsere Zählervariable bereit haben, können wir
             damit beginnen die eigentliche Funktion des Programms zu programmieren. In einem Arduino Sketch
             (Programm) gibt es standardmässig zwei Funktionen, <strong>setup()</strong> und <strong>loop()</strong>.
             Die Funktion <strong>setup()</strong> wird einmal am Anfang des Programms aufgerufen, also werden
-            wir hier unsere Matrix initialisieren. <strong>matrix.init();</strong> muss immer vor der Verwendung der
-            Matrix Funktionen aufgerufen, um das Gerät zu initialisieren.
+            wir hier unsere LED Matrix initialisieren. <strong>magentaobj.init();</strong> muss immer vor der Verwendung der
+            Funktionen aufgerufen, um das Gerät zu initialisieren.
             <pre><code class="c">
 void setup() {
-    matrix.init();
+    magentaobj.init();
 }
             </code></pre>
         </p>
@@ -1062,7 +1058,7 @@ void loop() {
         meinZaehler = 0;
     }
 
-    matrix.write(meinZaehler, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00); 
+    magentaobj.write(meinZaehler, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00); 
 
     delay(1000);
 }
@@ -1075,15 +1071,15 @@ void loop() {
             abkürzen, was in C eine <em>direkte Inkrementation</em> ist.
         </p>
         <p>
-            Als nächstes überprüfen wir, ob der Wert unseres Zählers grösser als 255 ist. Die Matrix besteht
+            Als nächstes überprüfen wir, ob der Wert unseres Zählers grösser als 255 ist. Die LED Matrix besteht
             nur aus 8 LEDs und kann folglich nur einen Wert mit maximal 8 bit (2^8 = 256) darstellen. Um zu
-            verhindern, dass unser Zähler in einem Bereich weiterzählt, der von der Matrix gar nicht mehr angezeigt
+            verhindern, dass unser Zähler in einem Bereich weiterzählt, der von der LED Matrix gar nicht mehr angezeigt
             werden kann, wird er auf 0 zurückgesetzt, wenn er grösser als 255 ist.
         </p>
         <p>
-            Im dritten Schritt wird der Wert auf der Matrix ausgegeben. Die <strong>matrix.write</strong> Funktion
+            Im dritten Schritt wird der Wert auf der LED Matrix ausgegeben. Die <strong>magentaobj.write</strong> Funktion
             verlangt gemäss Dokumentation 8 Zahlen als Eingabe, die dann von oben nach Unten reihenweise auf der
-            LED-Matrix angezeigt werden. Wir geben in unserem Fall den Wert der Variable <strong>meinZaehler</strong>
+            LED Matrix angezeigt werden. Wir geben in unserem Fall den Wert der Variable <strong>meinZaehler</strong>
             auf der ersten Zeile aus und setzen die anderen Zeilen auf 0, was alle LEDs ausschaltet.
         </p>
         <p>
@@ -1096,14 +1092,12 @@ void loop() {
         <p>
             Unser Fertiges Programm sieht also wie folgt aus:
             <pre><code class="c">
-#include &lt;Matrix_RKAG.h&gt;
-#include &lt;SPI.h&gt;
-#include &lt;Wire.h&gt;
+#include &lt;Magenta_lib.h&gt;
 
 int meinZaehler = 0;
 
 void setup() {
-    matrix.init();
+    magentaobj.init();
 }
 
 void loop() {
@@ -1113,7 +1107,7 @@ void loop() {
         meinZaehler = 0;
     }
 
-    matrix.write(meinZaehler, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00); 
+    magentaobj.write(meinZaehler, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00); 
 
     delay(1000);
 }
