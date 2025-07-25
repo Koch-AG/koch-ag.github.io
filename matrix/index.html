@@ -876,6 +876,65 @@
         <div class="panel-link navigation-link">
             {{#link-to 'software-code-compile-guide'}}<B>Code Kompilieren</B>{{/link-to}}
         </div>
+    </script>
+
+    <script type="text/x-handlebars" id="software-new-project-installation">
+        <h1>Software - Neues Projekt installieren</h1>
+        <table class="table table-striped">
+            <tbody>
+                <tr><td><img src="./assets/images/magenta/software_new_project_install1_magenta.png" /></td><td>
+                    1. Nach dem Installieren wird auf der linken Seite noch ein Symbol angezeigt, 
+                    dass aussieht wie das Bild der PlatformIO IDE. Auf dieses Symbol drücken
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_new_project_install2_magenta.png" /></td><td>
+                    2. Wenn man schon ein Projekt hat dann kann man <B>Pick a folder</B> anklicken, 
+                    da wir aber noch keins haben drücken wir <B>Creat New Project</B>
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_new_project_install3_magenta.png" /></td><td>
+                    3. Auf <B>New Project</B> drücken
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_new_project_install4_magenta.png" /></td><td>
+                    4. Dem Projekt einen Namen geben
+                    <br>
+                    5. Das Board auswählen (<B>Espressif ESP32-S3-DevKitM-1</B>)
+                    <br>
+                    6. Das Framework angeben (<B>Arduino</B>)
+                    <br>
+                    7. Den Hacken für <B>Location</B> rausnehmen und dann einen Ordner aussuchen
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_new_project_install5_magenta.png" /></td><td>
+                    8. Nochmals auf den Ameisenkopf drücken
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_new_project_install6_magenta.png" /></td><td>
+                    9. Unten hat man mehrere Optionen. Dort auf <B>Libraries</B> drücken
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_new_project_install7_magenta.png" /></td><td>
+                    10. In der Suchleiste <B>MagentaCore</B> eingeben
+                    <br>
+                    11. Dann die Library aussuchen die von <B>Nora Hueppi</B> erstellt wurde
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_new_project_install8_magenta.png" /></td><td>
+                    12. Auf <B>Add to Project</B> drücken
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_new_project_install9_magenta.png" /></td><td>
+                    13. Projekt aussuchen für die Library
+                    <br>
+                    14. Wenn das Projekt ausgesucht ist dann auf <B>Add</B> drücken
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_new_project_install10_magenta.png" /></td><td>
+                    15. Auf die beiden Blätter Symbolen drücken
+                    <br>
+                    16. Auf src (Source) und dann auf <B>main.cpp</B> drücken
+                    <br>
+                    17. Beim <B>#include Arduino.h</B> löschen und <B>#include Magenta_lib.h</B> schreiben
+                </td></tr>
+            </tbody>
+        </table>
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'software-code-compile-guide'}}<B>Code Kompilieren</B>{{/link-to}}
+        </div>
+    </script>
     <script type="text/x-handlebars" id="software-introduction">
         <h1>Software - Beispiele</h1>
         <p>
