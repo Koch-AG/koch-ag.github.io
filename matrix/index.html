@@ -1956,7 +1956,7 @@ int potentiometer_2;
         </p>
         <h3>Binärzähler</h3>
         <p>
-            Der Binärzähler ist eine sehr einfach Beispielsanwendung der Matrix. Dabei wird
+            Der Binärzähler ist eine sehr einfach Beispielsanwendung der magentaobj. Dabei wird
             lediglich die Matrix initialisiert, ein Zähler hochgezählt und der entsprechende
             Wert auf einer Zeile in der Matrix ausgegeben.
         </p>
@@ -1971,9 +1971,7 @@ int potentiometer_2;
             <strong>Wire.h</strong> für die Serielle Kommunikation per SPI und I2C auf dem Print, so wie die 
             Matix Bibliothek <strong>Matrix_RKAG</strong> selbst.
             <pre><code class="c">
-#include &lt;Matrix_RKAG.h&gt;
-#include &lt;SPI.h&gt;
-#include &lt;Wire.h&gt;            
+#include &lt;Magenta_lib.h&gt;            
             </code></pre>
         </p>
         <p>&nbsp;</p>
@@ -1993,11 +1991,11 @@ int meinZaehler = 0;
             damit beginnen die eigentliche Funktion des Programms zu programmieren. In einem Arduino Sketch
             (Programm) gibt es standardmässig zwei Funktionen, <strong>setup()</strong> und <strong>loop()</strong>.
             Die Funktion <strong>setup()</strong> wird einmal am Anfang des Programms aufgerufen, also werden
-            wir hier unsere Matrix initialisieren. <strong>matrix.init();</strong> muss immer vor der Verwendung der
+            wir hier unsere Matrix initialisieren. <strong>magentaobj.init();</strong> muss immer vor der Verwendung der
             Matrix Funktionen aufgerufen, um das Gerät zu initialisieren.
             <pre><code class="c">
 void setup() {
-    matrix.init();
+    magentaobj.init();
 }
             </code></pre>
         </p>
@@ -2015,7 +2013,7 @@ void loop() {
         meinZaehler = 0;
     }
 
-    matrix.write(meinZaehler, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00); 
+    magentaobj.write(meinZaehler, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00); 
 
     delay(1000);
 }
@@ -2034,7 +2032,7 @@ void loop() {
             werden kann, wird er auf 0 zurückgesetzt, wenn er grösser als 255 ist.
         </p>
         <p>
-            Im dritten Schritt wird der Wert auf der Matrix ausgegeben. Die <strong>matrix.write</strong> Funktion
+            Im dritten Schritt wird der Wert auf der Matrix ausgegeben. Die <strong>magentaobj.write</strong> Funktion
             verlangt gemäss Dokumentation 8 Zahlen als Eingabe, die dann von oben nach Unten reihenweise auf der
             LED-Matrix angezeigt werden. Wir geben in unserem Fall den Wert der Variable <strong>meinZaehler</strong>
             auf der ersten Zeile aus und setzen die anderen Zeilen auf 0, was alle LEDs ausschaltet.
@@ -2049,14 +2047,12 @@ void loop() {
         <p>
             Unser Fertiges Programm sieht also wie folgt aus:
             <pre><code class="c">
-#include &lt;Matrix_RKAG.h&gt;
-#include &lt;SPI.h&gt;
-#include &lt;Wire.h&gt;
+#include &lt;Magenta_lib.h&gt;
 
 int meinZaehler = 0;
 
 void setup() {
-    matrix.init();
+    magentaobj.init();
 }
 
 void loop() {
@@ -2066,7 +2062,7 @@ void loop() {
         meinZaehler = 0;
     }
 
-    matrix.write(meinZaehler, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00); 
+    magentaobj.write(meinZaehler, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00); 
 
     delay(1000);
 }
@@ -2138,11 +2134,11 @@ int potentiometer_0;
         </p>
         <p>&nbsp;</p>
         <p>
-            Aufgerufen werden können diese beispielsweise via <em>matrix.init();</em> für Methoden
-            oder <em>matrix.button_1</em> um einen Potentiometer-/Tastenwert zu erhalten.
+            Aufgerufen werden können diese beispielsweise via <em>magentaobj.init();</em> für Methoden
+            oder <em>magentaobj.button_1</em> um einen Potentiometer-/Tastenwert zu erhalten.
         </p>
         <p>
-            Die Methode <em>matrix.read_io();</em> sollte jeweils immer am Anfang vom loop aufgerufen
+            Die Methode <em>magentaobj.read_io();</em> sollte jeweils immer am Anfang vom loop aufgerufen
             werden, sofern die Buttons, das Accelerometer bzw. das Potentiometer verwendet wird. Diese Methode
             sorgt dafür, dass die Werte dieser Peripherie aktualisiert werden.
         </p>
@@ -2359,7 +2355,7 @@ int potentiometer_0;
 
         <br>
         <br>
-         <div class="panel-link navigation-link">
+        <div class="panel-link navigation-link">
             {{#link-to 'matrix-index'}}<B>Index</B>{{/link-to}}
         </div>
 
