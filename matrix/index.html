@@ -1018,7 +1018,7 @@
             Wert auf einer Zeile in der LED Matrix ausgegeben.
         </p>
         <p>
-            Dieses kleine Projekt setzt voraus, dass die Magenta_lib Bibliothek bereits wie in 
+            Dieses kleine Projekt setzt voraus, dass die <b>Magenta_lib</b> Bibliothek bereits wie in 
             {{#link-to 'software-installation'}}"Installation"{{/link-to}} beschrieben installiert
             ist, und korrekt importiert werden kann.
         </p>
@@ -1046,7 +1046,7 @@ int meinZaehler = 0;
             damit beginnen die eigentliche Funktion des Programms zu programmieren. In einem Arduino Sketch
             (Programm) gibt es standardmässig zwei Funktionen, <strong>setup()</strong> und <strong>loop()</strong>.
             Die Funktion <strong>setup()</strong> wird einmal am Anfang des Programms aufgerufen, also werden
-            wir hier unsere LED Matrix initialisieren. <strong>magentaobj.init();</strong> muss immer vor der Verwendung der
+            wir hier unsere LED Matrix initialisieren. <strong>magentaobj.init()</strong> muss immer vor der Verwendung der
             Funktionen aufgerufen, um das Gerät zu initialisieren.
             <pre><code class="c">
 void setup() {
@@ -1087,7 +1087,7 @@ void loop() {
             werden kann, wird er auf 0 zurückgesetzt, wenn er grösser als 255 ist.
         </p>
         <p>
-            Im dritten Schritt wird der Wert auf der LED Matrix ausgegeben. Die <strong>magentaobj.write</strong> Funktion
+            Im dritten Schritt wird der Wert auf der LED Matrix ausgegeben. Die <strong>magentaobj.write()</strong> Funktion
             verlangt gemäss Dokumentation 8 Zahlen als Eingabe, die dann von oben nach Unten reihenweise auf der
             LED Matrix angezeigt werden. Wir geben in unserem Fall den Wert der Variable <strong>meinZaehler</strong>
             auf der ersten Zeile aus und setzen die anderen Zeilen auf 0, was alle LEDs ausschaltet.
