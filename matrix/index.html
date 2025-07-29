@@ -78,6 +78,9 @@
                             {{#link-to 'hardware-partlist'}} Print Stückliste{{/link-to}}
                         </div>
                         <div class="panel-link navigation-link">
+                            {{#link-to 'hardware-bom'}} BoM{{/link-to}}
+                        </div>
+                        <div class="panel-link navigation-link">
                             {{#link-to 'hardware-documentation'}} Schema & Bestückungsplan{{/link-to}}
                         </div>
                     </div>
@@ -697,6 +700,11 @@
               </tr>           
            </tbody>
         </table>
+    </script>
+
+    <script type="text/x-handlebars" id="hardware-bom">
+        <h1>Hardware - BoM (Bill of Material)</h1>
+        <iframe src="./ibom.html" width="100%" height="1000px" style="border:1px solid #ccc;"></iframe>
     </script>
 
     <script type="text/x-handlebars" id="hardware-documentation">
