@@ -1148,189 +1148,259 @@ void loop() {
     <script type="text/x-handlebars" id="software-documentation">
         <h1>Software Dokumentation</h1>
         <p>
-            Sämtliche verfügbaren Methoden sind im Header-File der API abgebildet (V1.1.0):
+            Sämtliche verfügbaren Methoden sind im Header-File der API (eine API, Application Programming Interface, 
+            ist eine Sammlung von Funktionen und Befehelen)
+            abgebildet (V1.1.0):
         </p>
         <br>
-        Prüft, ob der PCF8574 I/O-Expander verbunden ist, fordert ein Byte Daten über I2C an und wartet auf die Daten.
+<h3>pcf_read</h3>
+<p>Die Funktion liest den Zustand mehrerer Tasten oder Eingänge aus, die an einen Portexpander angeschlossen sind. 
+Dieser Chip ist über eine I²C-Verbindung mit dem Gerät verbunden.Zuerst prüft die Funktion, ob der Portexpander erreichbar ist. 
+Wenn ja, fordert sie die aktuellen Daten vom Chip an. Der Chip sendet ein Byte zurück, in dem gespeichert ist, 
+welche der acht Eingänge gerade aktiv (z. B. Taster gedrückt) oder inaktiv sind.
+Die Funktion gibt diesen Wert zurück, damit das Hauptprogramm weiß, welche Tasten gerade gedrückt sind.</p>
 <pre><code class="c">
 int pcf_read();
-</code></pre>
+</code></pre> 
 
-Wenn <em>read_io()</em> aufgerufen wird, wird <em>pcf_read()</em> ausgeführt und dessen Ergebnis in pcfState gespeichert.  
-<em>RotaryEncoder_Poti()</em> und <em>getSensor()</em> werden ebenfalls aufgerufen.  
-<em>button_1, button_2 und button_3</em> werden auf 0 gesetzt.  
-Wenn pcfState ungleich 255 ist, wird getButtonPress(pcfState) aufgerufen.
+<h3>read_io</h3>
+<p>Die Funktion verarbeitet Daten im Hintergrund und gibt den Wert des Schieberegisters zurück, an das die Taster angeschlossen sind.
+Das Entprellen der Taster wird durchgeführt und der Tasterzustand wird in den Variablen button_1 bis button_3 gespeichert.
+Außerdem berechnet sie die Potentiometer-Werte der Drehgeber (Rotary-Encoder) und speichert sie in potentiometer_0 bis potentiometer_2.
+Zum Schluss liest sie auch die Werte des Beschleunigungssensors (ACC-Sensor) aus und speichert sie in den entsprechenden Variablen accelerometer_x bis accelerometer_z.</p>
 <pre><code class="c">
 int read_io();
 </code></pre>
 
-Initialisiert den Inhalt einmalig beim Start.
+<h3>init</h3>
+<p>Die Funktion init() bereitet alle Hardware-Komponenten des MagentaCore vor.
+Sie startet die I²C-Verbindung, schaltet die LED-Matrix ein, setzt die Drehgeber auf null und aktiviert sie.
+Vier PWM-Timer werden reserviert, zwei Servos eingerichtet, das Display gestartet und die LED-Farben gesetzt.
+Am Ende wird eine Hintergrundaufgabe für den Buzzer gestartet.</p>
 <pre><code class="c">
 void init();
 </code></pre>
 
-Löscht die Daten aus der LED-Matrix.
+<h3>clear</h3>
+<p>Die Funktion clear() sorgt dafür, dass alle LEDs ausgeschaltet werden. Sie löscht quasi die aktuellen Lichtmuster, 
+sodass die LED-Leiste wieder komplett dunkel ist. Damit kannst du die LED-Anzeige zurücksetzen und von vorne beginnen.</p>
 <pre><code class="c">
 void clear();
 </code></pre>
 
-Schreibt die einzelnen Daten-Spalten an eine bestimmte Position im Array.
+<h3>write</h3>
+<p>Die Funktion write() übernimmt acht Werte, sogenannte Bytes, und speichert sie in einem Daten-Array. 
+Diese Bytes können zum Beispiel Farben oder Helligkeiten der LEDs sein. Nachdem die Werte in das Array gespeichert sind, 
+wird eine andere Funktion aufgerufen, die diese Daten dann an die LED-Leiste schickt, damit die LEDs die neuen 
+Einstellungen anzeigen. Kurz gesagt: write() aktualisiert die Daten für die LEDs mit neuen Werten und sorgt dafür, 
+dass die LEDs die Änderungen auch wirklich anzeigen.</p>
 <pre><code class="c">
 void write (byte byte1, byte byte2, byte byte3, byte byte4,
                         byte byte5, byte byte6, byte byte7, byte byte8);
 </code></pre>
 
-Nimmt ein Array mit <em>8 Bytes (matrix[])</em> und kopiert dessen Werte einzeln in das <em>data[]-Array</em>.
+<h3>write_array</h3>
+<p>Die Funktion write_array() nimmt ein Array namens matrix mit acht Werten und kopiert diese Werte in 
+das eigene Daten-Array data. Das bedeutet, sie übernimmt die aktuellen Werte aus matrix und speichert sie, 
+um später die LEDs mit diesen neuen Einstellungen zu steuern. Kurz gesagt: Diese Funktion 
+aktualisiert die LED-Daten mit einer ganzen Reihe von Werten auf einmal.</p>
 <pre><code class="c">
 void write_array(byte matrix[]);
 </code></pre>
 
-Zeigt ein Zeichen auf der Matrixanzeige an, indem die Zeichendaten aus der Schriftart geladen, das Display gelöscht und die entsprechenden Pixeldaten geschrieben werden.
+<h3>write_char</h3>
+<p>Die Funktion write_char() zeigt ein einzelnes Zeichen auf der LED-Matrix. Sie löscht vorher die Anzeige, 
+liest das passende Zeichen aus einer Schriftart-Tabelle, und aktiviert dann die LEDs, um das Zeichen darzustellen. 
+Am Ende werden die Daten an die LEDs gesendet, damit das Zeichen sichtbar ist.</p>
 <pre><code class="c">
 void write_char(char character);
 </code></pre>
 
-Setzt die Farbe der LEDs.
+<h3>setColor</h3>
+<p>Die Funktion setColor() legt die Haupt- und Hintergrundfarben fest, indem du die Rot-, Grün- und Blauwerte in 
+Dezimal (0-255), Hex (0x00-0xFF) oder Binär (0b00000000-0b11111111) angeben kannst. Dabei gilt: Je kleiner die Zahl, 
+desto dunkler bzw. weniger leuchtend ist die LED. Die Werte werden in den Variablen basecolor und backgroundcolor 
+gespeichert, wobei die einzelnen Farbanteile in einer Zahl zusammengeführt werden. So kannst du die Farben flexibel 
+einstellen und später leicht auf die LEDs anwenden.</p>
 <pre><code class="c">
 void setColor(byte r, byte g, byte b, byte BGC_r = 0, byte BGC_g = 0, byte BGC_b = 0);
 </code></pre>
 
-Konfiguriert die Einstellungen für das Potentiometer.
+<h3>ConfigPoti</h3>
+<p>Die Funktion ConfigPoti() stellt die Max- und Min-Werte für den Potentiometer ein und speichert 
+die Schrittgröße (faktor) in stepSize. Wenn Max kleiner als Min ist, werden sie vertauscht, damit alles stimmt.</p>
 <pre><code class="c">
 void ConfigPoti(int max = 1024, int min = 0, int faktor = -40);
 </code></pre>
 
-Zeigt Beispielmuster für die LED-Matrix an.
+<h3>sample</h3>
+<p>Die Funktion sample() zeigt verschiedene Muster auf der LED-Matrix, abhängig vom pattern-Wert. 
+Für Pattern 0 und 1 setzt sie die Farben und füllt die Daten mit wechselnden Streifenmustern 
+(abwechselnd 0101... und 1010...). Nach der Auswahl wird die Daten an die LEDs gesendet. Für andere Pattern bleibt sie leer.</p>
 <pre><code class="c">
 void sample(int pattern);
 </code></pre>
 
-Bestimmt, welcher Knopf auf der Platine gedrückt wurde.
+<h3>getButtonPress</h3>
+<p>Die Funktion getButtonPress() prüft den Status eines Tastencodes (pcfState) anhand bitweiser AND-Operationen. 
+Wenn bestimmte Bits (z.B. BUTTON_RE_L, BUTTON_RE_M, etc.) auf 0 sind, erkennt sie, dass die entsprechende Taste gedrückt wurde, 
+setzt eine Variable (z.B. button_1) auf 1 und gibt den Tastencode zurück. Wenn keine Taste erkannt wird, gibt sie 0 zurück.</p>
 <pre><code class="c">
 int getButtonPress(char pcfState);
 </code></pre>
 
-Aktualisiert virtuelle Potentiometer-Werte basierend auf Drehencoder-Eingaben, mit schrittweiser Änderung und optionalen Min-/Max-Grenzen.
+<h3>RotaryEncoder_Poti</h3>
+<p>Die Funktion RotaryEncoder_Poti() liest die Zählerstände von drei Drehencoder, multipliziert sie mit einem Schritt-Wert 
+(stepSize) und addiert sie zu den Potentiometer-Werten. Anschließend werden die Werte auf die festgelegten Maximal- und Minimalwerte 
+(maxPoti, minPoti) begrenzt, um Über- oder Unterlauf zu vermeiden.</p>
 <pre><code class="c">
 void RotaryEncoder_Poti();
 </code></pre>
 
-Liest X-, Y- und Z-Beschleunigungswerte vom STK8321-Sensor und speichert sie in den übergebenen Ausgabepointern.
+<h3>getSensorData</h3>
+<p>Die Funktion getSensor() liest die Sensordaten für die Achsen x, y, z und speichert sie in den Variablen accelerometer_x, 
+accelerometer_y und accelerometer_z. Dabei werden die Werte für die Achsen x und y umgekehrt bzw. negiert, um die Orientierung anzupassen.</p>
 <pre><code class="c">
 void getSensorData(float *X_DataOut, float *Y_DataOut, float *Z_DataOut);
 </code></pre>
 
-Liest Beschleunigungsdaten und weist sie internen Variablen zu, wobei eine Koordinatentransformation durch Vertauschen und Negieren der X- und Y-Achsen erfolgt.
+<h3>getSensor</h3>
+<p>Die Funktion getSensorData() setzt die Zeiger für die x-, y- und z-Werte auf 0 und ruft dann die Methode STK8321_Getregister_data() auf, 
+um die aktuellen Sensordaten in die übergebenen Variablen zu laden.</p>
 <pre><code class="c">
 void getSensor();
 </code></pre>
 
-Zeigt einen horizontalen Fortschrittsbalken auf einer bestimmten LED-Matrixzeile an, indem eine Bitmaske basierend auf dem Wert verschoben und das Display aktualisiert wird.
+<h3>progressbar</h3>
+<p>Die Funktion progressbar() aktualisiert die Daten für eine Leiste (Line) auf der LED-Matrix, indem sie einen Wert (value) verwendet, 
+um den Fortschritt darzustellen. Sie verschiebt eine Maske (0xFF00) um value Bits nach rechts und extrahiert die unteren 8 Bits, 
+um die Leiste entsprechend zu füllen. Anschließend werden die Daten an die LEDs übertragen.</p>
 <pre><code class="c">
 void progressbar(byte value, byte line);
 </code></pre>
 
-Zeigt Beispiel-Töne für den Buzzer.
+<h3>Buzzer</h3>
+<p>Die Funktion Buzzer() spielt unterschiedliche Töne ab, je nachdem, welchen Wert tone hat. Für 0, 1 
+oder 2 wird jeweils eine bestimmte Melodie oder Tonfolge (z.B. BeepHigh, BeepLow, HauntedHouse) am Buzzer-Pin gestartet.</p>
 <pre><code class="c">
 void Buzzer(int tone);
 </code></pre>
 
-Bewegt das Servo auf eine bestimmte Position.
+<h3>setServo1</h3>
+<p>Die Funktion setServo1() setzt die Position des Servomotors servo1 auf den angegebenen Winkel grad. Dabei wird die Methode write() verwendet, um die Servo-Position zu steuern.</p>
 <pre><code class="c">
 void setServo1(int grad = 0);
 </code></pre>
 
-Bewegt das Servo auf eine bestimmte Position.
+<h3>setServo2</h3>
+<p>Die Funktion setServo2() setzt die Position des Servomotors servo2 auf den angegebenen Winkel grad. Dabei wird die Methode write() verwendet, um die Servo-Position zu steuern.</p>
 <pre><code class="c">
 void setServo2(int grad = 0);
 </code></pre>
 
-Setzt die Zeichen auf der 14-Segment-Anzeige.
+<h3>setSegmentAnzeige</h3>
+<p>Die Funktion setSegmentAnzeige() zeigt vier einzelne Zeichen (character1 bis character4) auf einer 4-stelligen Anzeige an, 
+indem sie die Methode writeChar() für jede Position (0 bis 3) aufruft. Damit werden die gewünschten Zeichen auf der Anzeige dargestellt.</p>
 <pre><code class="c">
 void setSegmentAnzeige(char character1, char character2, char character3, char character4);
 </code></pre>
 
-Schreibt ein Leerzeichen auf alle 14-Segment-Positionen, wodurch die Anzeige gelöscht wird.
+<h3>clearSegmentAnzeige</h3>
+<p>Die Funktion clearSegmentAnzeige() löscht die Anzeige, indem sie auf allen vier Positionen Leerzeichen (' ') schreibt. Dadurch erscheint auf der 4-stelligen Anzeige nichts.</p>
 <pre><code class="c">
 void clearSegmentAnzeige();
 </code></pre>
 
-Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.
+<h3>button_1</h3>
+<p>Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.</p>
 <pre><code class="c">
 int button_1;
 </code></pre>
 
-Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.
+<h3>button_2</h3>
+<p>Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.</p>
 <pre><code class="c">
 int button_2;
 </code></pre>
 
-Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.
+<h3>button_3</h3>
+<p>Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.</p>
 <pre><code class="c">
 int button_3;
 </code></pre>
 
-Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.
+<h3>button_Up</h3>
+<p>Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.</p>
 <pre><code class="c">
 int button_Up;
 </code></pre>
 
-Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.
+<h3>button_Right</h3>
+<p>Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.</p>
 <pre><code class="c">
 int button_Right;
 </code></pre>
 
-Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.
+<h3>button_Down</h3>
+<p>Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.</p>
 <pre><code class="c">
 int button_Down;
 </code></pre>
 
-Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.
+<h3>button_Left</h3>
+<p>Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.</p>
 <pre><code class="c">
 int button_Left;
 </code></pre>
 
-Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.
+<h3>button_Center</h3>
+<p>Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.</p>
 <pre><code class="c">
 int button_Center;
 </code></pre>
 
-Speichert den Beschleunigungswert für die X-Achse.
+<h3>accelerometer_x</h3>
+<p>Speichert den Beschleunigungswert für die X-Achse.</p>
 <pre><code class="c">
 float accelerometer_x;
 </code></pre>
 
-Speichert den Beschleunigungswert für die Y-Achse.
+<h3>accelerometer_y</h3>
+<p>Speichert den Beschleunigungswert für die Y-Achse.</p>
 <pre><code class="c">
 float accelerometer_y;
 </code></pre>
 
-Speichert den Beschleunigungswert für die Z-Achse.
+<h3>accelerometer_z</h3>
+<p>Speichert den Beschleunigungswert für die Z-Achse.</p>
 <pre><code class="c">
 float accelerometer_z;
 </code></pre>
 
-Speichert den Wert des ersten Potentiometers.
+<h3>potentiometer_0</h3>
+<p>Speichert den Wert des ersten Potentiometers.</p>
 <pre><code class="c">
 int potentiometer_0;
 </code></pre>
 
-Speichert den Wert des zweiten Potentiometers.
+<h3>potentiometer_1</h3>
+<p>Speichert den Wert des zweiten Potentiometers.</p>
 <pre><code class="c">
 int potentiometer_1;
 </code></pre>
 
-Speichert den Wert des dritten Potentiometers.
+<h3>potentiometer_2</h3>
+<p>Speichert den Wert des dritten Potentiometers.</p>
 <pre><code class="c">
 int potentiometer_2;
 </code></pre>
         <p>&nbsp;</p>
         <p>
-            Aufgerufen werden können diese beispielsweise via <em>magentaobj.init();</em> für Methoden
-            oder z.B. <em>magentaobj.button_1</em> um einen Tastenwert zu erhalten.
+            Um Funktionen oder Variabelen aufrufen zu können muss vor dem Funktions-, Variabelnamen <b>magentaobj.</b> stehen.
+            Z.B. <b>magentaobj.read()</b> oder <b>magentaobj.button_1</b>
         </p>
         <p>
-            Die Methode <em>magentaobj.read_io();</em> sollte jeweils immer am Anfang vom loop aufgerufen
+            Die Methode <b>magentaobj.read_io();</b> sollte jeweils immer am Anfang vom loop aufgerufen
             werden, sofern die Buttons, das Accelerometer bzw. das Potentiometer verwendet wird. Diese Methode
             sorgt dafür, dass die Werte dieser Peripherie aktualisiert werden.
         </p>
