@@ -49,6 +49,7 @@ App.Router.map(function() {
     this.route('hardware-case');
     this.route('hardware-print');
     this.route('hardware-partlist');
+    this.route('hardware-bom');
     this.route('hardware-documentation');
 
     this.route('software-installation');
@@ -63,8 +64,6 @@ App.Router.map(function() {
 	
     this.route('assembly-placement');
     this.route('assembly-housing')
-    this.route('assembly-bootloaderfuses');
-    this.route('assembly-ftdi');
     this.route('assembly-test');
 
     this.route('matrix-index');
