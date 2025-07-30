@@ -1176,14 +1176,14 @@ int read_io();
 <p>Die Funktion init() bereitet alle Hardware-Komponenten des MagentaCore vor.
 Sie startet die I²C-Verbindung, schaltet die LED-Matrix ein, setzt die Drehgeber auf null und aktiviert sie.
 Vier PWM-Timer werden reserviert, zwei Servos eingerichtet, das Display gestartet und die LED-Farben gesetzt.
-Am Ende wird eine Hintergrundaufgabe für den Buzzer gestartet.</p>
+Am Ende wird ein Hintergrundprogramm für den Buzzer gestartet.</p>
 <pre><code class="c">
 void init();
 </code></pre>
 
 <h3>clear</h3>
 <p>Die Funktion clear() sorgt dafür, dass alle LEDs ausgeschaltet werden. Sie löscht quasi die aktuellen Lichtmuster, 
-sodass die LED-Leiste wieder komplett dunkel ist. Damit kannst du die LED-Anzeige zurücksetzen und von vorne beginnen.</p>
+sodass die LED-Leiste auf die Hintergrundfarbe zurückgesetzt wird. Damit kann man die LED-Anzeige zurücksetzen und von vorne beginnen.</p>
 <pre><code class="c">
 void clear();
 </code></pre>
@@ -1200,8 +1200,8 @@ void write (byte byte1, byte byte2, byte byte3, byte byte4,
 </code></pre>
 
 <h3>write_array</h3>
-<p>Die Funktion write_array() nimmt ein Array namens matrix mit acht Werten und kopiert diese Werte in 
-das eigene Daten-Array data. Das bedeutet, sie übernimmt die aktuellen Werte aus matrix und speichert sie, 
+<p>Die Funktion write_array() nimmt ein Array mit acht Werten und kopiert diese Werte in 
+in den internen Speicher. Das bedeutet, sie übernimmt die aktuellen Werte aus dem mitgegebenen Array und speichert sie, 
 um später die LEDs mit diesen neuen Einstellungen zu steuern. Kurz gesagt: Diese Funktion 
 aktualisiert die LED-Daten mit einer ganzen Reihe von Werten auf einmal.</p>
 <pre><code class="c">
@@ -1219,9 +1219,11 @@ void write_char(char character);
 <h3>setColor</h3>
 <p>Die Funktion setColor() legt die Haupt- und Hintergrundfarben fest, indem du die Rot-, Grün- und Blauwerte in 
 Dezimal (0-255), Hex (0x00-0xFF) oder Binär (0b00000000-0b11111111) angeben kannst. Dabei gilt: Je kleiner die Zahl, 
-desto dunkler bzw. weniger leuchtend ist die LED. Die Werte werden in den Variablen basecolor und backgroundcolor 
-gespeichert, wobei die einzelnen Farbanteile in einer Zahl zusammengeführt werden. So kannst du die Farben flexibel 
-einstellen und später leicht auf die LEDs anwenden.</p>
+desto dunkler bzw. weniger leuchtend ist die LED. Die Werte werden in den Variablen basecolor (r, g, b) und 
+backgroundcolor (BGC_r, BGC_g, BGC_b) gespeichert, wobei die einzelnen Farbanteile in einer Zahl zusammengeführt werden. 
+So kannst du die Farben flexibel einstellen und später leicht auf die LEDs anwenden. Die farben für die basecolor 
+müssen gesetzt werden. Backgroundcolor müssen nicht gesetzt werden, wenn die HIntergrundfarbe nicht bestimmt wird ist 
+sie auf 0 (aus) gesetzt.</p>
 <pre><code class="c">
 void setColor(byte r, byte g, byte b, byte BGC_r = 0, byte BGC_g = 0, byte BGC_b = 0);
 </code></pre>
@@ -1287,20 +1289,24 @@ void Buzzer(int tone);
 </code></pre>
 
 <h3>setServo1</h3>
-<p>Die Funktion setServo1() setzt die Position des Servomotors servo1 auf den angegebenen Winkel grad. Dabei wird die Methode write() verwendet, um die Servo-Position zu steuern.</p>
+<p>Die Funktion setServo1() setzt das Servo auf die in Grad (0-180) angegebene position. Das Servo vergleicht im Hintergrund die aktuelle 
+Position mit der gewünschten Position.</p>
 <pre><code class="c">
 void setServo1(int grad = 0);
 </code></pre>
 
 <h3>setServo2</h3>
-<p>Die Funktion setServo2() setzt die Position des Servomotors servo2 auf den angegebenen Winkel grad. Dabei wird die Methode write() verwendet, um die Servo-Position zu steuern.</p>
+<p>Die Funktion setServo2() setzt das Servo auf die in Grad (0-180) angegebene position. Das Servo vergleicht im Hintergrund die aktuelle 
+Position mit der gewünschten Position.</p>
 <pre><code class="c">
 void setServo2(int grad = 0);
 </code></pre>
 
 <h3>setSegmentAnzeige</h3>
 <p>Die Funktion setSegmentAnzeige() zeigt vier einzelne Zeichen (character1 bis character4) auf einer 4-stelligen Anzeige an, 
-indem sie die Methode writeChar() für jede Position (0 bis 3) aufruft. Damit werden die gewünschten Zeichen auf der Anzeige dargestellt.</p>
+indem sie die Methode writeChar() für jede Position (0 bis 3) aufruft. Damit werden die gewünschten Zeichen auf der Anzeige dargestellt.
+Um die Buchstaben mitgeben zu können kann mann z.B. in der Klammer <b>'A', 'A', 'A', 'A'</b> hinein schreiben, dann würde die SegmentAnzeige
+<em>A A A A</em> anzeigen. Man kan alle Buchstaben zwischen A-Z wählen und durch das 4-Buchstabige Wörter schreiben.</p>
 <pre><code class="c">
 void setSegmentAnzeige(char character1, char character2, char character3, char character4);
 </code></pre>
@@ -1311,24 +1317,15 @@ void setSegmentAnzeige(char character1, char character2, char character3, char c
 void clearSegmentAnzeige();
 </code></pre>
 
-<h3>button_1</h3>
-<p>Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.</p>
+<h3>buttons</h3>
+<p>Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.
+Wenn Buttons = 1 sind heisst es das die Knöpfe gedrückt sind.</p>
 <pre><code class="c">
 int button_1;
-</code></pre>
-
-<h3>button_2</h3>
-<p>Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.</p>
-<pre><code class="c">
 int button_2;
-</code></pre>
-
-<h3>button_3</h3>
-<p>Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.</p>
-<pre><code class="c">
 int button_3;
 </code></pre>
-
+<!-- 
 <h3>button_Up</h3>
 <p>Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.</p>
 <pre><code class="c">
@@ -1357,7 +1354,7 @@ int button_Left;
 <p>Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.</p>
 <pre><code class="c">
 int button_Center;
-</code></pre>
+</code></pre> -->
 
 <h3>accelerometer_x</h3>
 <p>Speichert den Beschleunigungswert für die X-Achse.</p>
@@ -1377,23 +1374,14 @@ float accelerometer_y;
 float accelerometer_z;
 </code></pre>
 
-<h3>potentiometer_0</h3>
+<h3>potentiometer</h3>
 <p>Speichert den Wert des ersten Potentiometers.</p>
 <pre><code class="c">
 int potentiometer_0;
-</code></pre>
-
-<h3>potentiometer_1</h3>
-<p>Speichert den Wert des zweiten Potentiometers.</p>
-<pre><code class="c">
 int potentiometer_1;
-</code></pre>
-
-<h3>potentiometer_2</h3>
-<p>Speichert den Wert des dritten Potentiometers.</p>
-<pre><code class="c">
 int potentiometer_2;
 </code></pre>
+
         <p>&nbsp;</p>
         <p>
             Um Funktionen oder Variabelen aufrufen zu können muss vor dem Funktions-, Variabelnamen <b>magentaobj.</b> stehen.
@@ -1407,6 +1395,10 @@ int potentiometer_2;
         <p>
             Wenn man das Magenta Core Projekt hat aber alte Beispiel Codes ausprobieren möchte kann man diese ohne
             probleme auf das Projekt laden da z.B. <B>matrix.button_1</B> gleich wie magentaobj.button_1 funktioniert.
+        </p>
+        <p>
+            Mann kann die Matrix Library mit <b>beiden Projekten</b> benutzen (Magenta Core und Matrix). Die Magenta Core Library kann <b>nur mit
+            dem Magenta Core Projekt</b> nutzen.
         </p>
 
     </script>
