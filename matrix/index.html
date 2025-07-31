@@ -1002,7 +1002,7 @@
     </script>
 
     <script type="text/x-handlebars" id="software-introduction">
-        <h1>Software - Beispiele</h1>
+        <h1>Software - Einführung</h1>
         <p>
             Ein funktionierendes Softwarebeispiel findet sich unter anderem auch im
             Ordner der Bibliothek und können von der Arduino-IDE direkt über <B>Examples</B>
@@ -1011,7 +1011,7 @@
         </p>
         <h3>Binärzähler</h3>
         <p>
-            Der Binärzähler ist eine sehr einfach Beispielsanwendung der LED magentaobj. Dabei wird
+            Der Binärzähler ist eine sehr einfach Beispielsanwendung der LED Matrix. Dabei wird
             lediglich die LED Matrix initialisiert, ein Zähler hochgezählt und der entsprechende
             Wert auf einer Zeile in der LED Matrix ausgegeben.
         </p>
@@ -1031,8 +1031,8 @@
         <p>
             Als nächstes definieren wir eine globale Variable, die wir später als Zähler verwenden werden.
             Wir nennen die Variable in diesem fall <strong>meinZaehler</strong>. Da es sich dabei um eine
-            Zahl handelt, verwenden wir den Datentyp <strong>int</strong> (integer). Unter Arduino speichert
-            dieser Datentyp eine 16bit lange Zahl, was einem Wertebereich von -32'768 bis 32'767 entspricht.
+            Zahl handelt, verwenden wir den Datentyp <strong>int</strong> (integer). Der ESP32 speichert
+            diesen Datentyp als eine 32bit lange Zahl, was einem Wertebereich von -2'147'483'648 bis 2'147'483'647 entspricht.
             Den Ausgangswert des Zählers setzen wir auf 0, um ihn von 0 hochzählen zu lassen.
             <pre><code class="c">
 int meinZaehler = 0;
@@ -1056,7 +1056,7 @@ void setup() {
         <p>
             Nach dem Setup unseres Programmes, kommen wir zum loop. Dieser wird immer wieder ausgeführt, solange
             das Programm läuft. In der <strong>loop()</strong> Funktion müssen wird nun also unseren Zähler 
-            hochzählen, prüfen ob sein Wert gültig ist, das Ergebnis anzeigen und danach ein wenig waren, damit
+            hochzählen, prüfen ob sein Wert gültig ist, das Ergebnis anzeigen und danach ein wenig warten, damit
             der Zählerfortschritt von blossem Auge zu erkennen ist.
             <pre><code class="c">
 void loop() {
@@ -1094,7 +1094,8 @@ void loop() {
             Zu guter Letzt verwenden wir die <strong>delay()</strong> Funktion, mit der wir eine gewisse Zeit in
             Millisekunden warten können. In diesem Beispiel warten wir run 1000ms (1 Sekunde), bis das Programm 
             weiter läuft. Da das Programm nun am Ende von <strong>loop()</strong> angelangt ist, wird es wieder
-            von oben anfangen und den Zähler erneut um eins erhöhen...
+            von oben anfangen und den Zähler um eins erhöhen. Dieser Vorgang wird so oft wiederholt bis der Zähler 
+            den Wert 256 hat. Danach wird der Zähler wieder auf 0 gesetzt.
         </p>
         <p>&nbsp;</p>
         <p>
