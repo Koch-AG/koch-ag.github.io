@@ -49,9 +49,13 @@ App.Router.map(function() {
     this.route('hardware-case');
     this.route('hardware-print');
     this.route('hardware-partlist');
+    this.route('hardware-bom');
     this.route('hardware-documentation');
 
     this.route('software-installation');
+    this.route('software-template-installation');
+    this.route('software-new-project-installation');
+    this.route('software-code-compile-guide');
     this.route('software-introduction');
     this.route('software-examples');
     this.route('software-documentation');
@@ -60,9 +64,13 @@ App.Router.map(function() {
 	
     this.route('assembly-placement');
     this.route('assembly-housing')
-    this.route('assembly-bootloaderfuses');
-    this.route('assembly-ftdi');
     this.route('assembly-test');
+
+    this.route('matrix-index');
+    this.route('matrix-hardware');
+    this.route('matrix-software');
+    this.route('matrix-weiteres');
+    this.route('matrix-zusammenbau');
 });
 
 

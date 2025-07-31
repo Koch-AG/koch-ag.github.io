@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="./vendor/fonts/css/font-awesome.css" />
     <link rel="stylesheet" href="./assets/stylesheets/application.css" />
 
-    <title>KochAG Matrix Projekt</title>
+    <title>KochAG Magenta Core Projekt</title>
 </head>
 <body>
 
@@ -29,18 +29,18 @@
     <script type="text/x-handlebars" id="application">
         <header>
             <div class="pull-right download-area">
-                <p>Aktuelle Version: <strong>1.3</strong></p>
+                <p>Aktuelle Version: <strong>1.1.0</strong></p>
                 <p>
-                    <i class="fa fa-github"></i> <a href="https://github.com/Koch-AG/Matrix" target="_blank">Source code</a><br />
-                    <i class="fa fa-download"></i> <a href="https://github.com/Koch-AG/Matrix/releases" target="_blank">Download code</a>
+                    <i class="fa fa-github"></i> <a href="https://github.com/Koch-AG/magentacore_sw" target="_blank">Source code</a><br />
+                    <i class="fa fa-download"></i> <a href="https://github.com/Koch-AG/magentacore_sw/releases" target="_blank">Download code</a>
                 </p>
             </div>
 
             <h1><a href="http://kochag.ch">
                 <!-- KO(H -->
-                <img src="./assets/images/kochlogo.png" />
+                <img src="./assets/images/matrix/kochlogo_matrix.png" />
             </a></h1>
-            <h2>{{#link-to 'index'}}Matrix Projekt{{/link-to}}</h2>
+            <h2>{{#link-to 'index'}}Magenta Core Projekt{{/link-to}}</h2>
         </header>
 
         <div id="wrapper" class="row">
@@ -76,6 +76,9 @@
                         </div>
                         <div class="panel-link navigation-link">
                             {{#link-to 'hardware-partlist'}} Print Stückliste{{/link-to}}
+                        </div>
+                        <div class="panel-link navigation-link">
+                            {{#link-to 'hardware-bom'}} Interaktiver Bestückungsplan{{/link-to}}
                         </div>
                         <div class="panel-link navigation-link">
                             {{#link-to 'hardware-documentation'}} Schema & Bestückungsplan{{/link-to}}
@@ -130,13 +133,22 @@
                             {{#link-to 'assembly-housing'}}Gehäuse{{/link-to}}
                         </div>
                         <div class="panel-link navigation-link">
-                            {{#link-to 'assembly-bootloaderfuses'}}Bootloader & Fuses{{/link-to}}
-                        </div>
-                        <div class="panel-link navigation-link">
-                            {{#link-to 'assembly-ftdi'}}FTDI{{/link-to}}
-                        </div>
-                        <div class="panel-link navigation-link">
                             {{#link-to 'assembly-test'}}Test{{/link-to}}
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="panel panel-default navigation-category">
+                    <div class="panel-heading navigation-heading">
+                        <div class="pull-right"><i class="fa fa-book"></i></div>
+                        <h3 class="panel-title">Alte Versionen
+                        </h3>
+                    </div>
+                    <div class="panel-body navigation-body">
+                        <div class="panel-link navigation-link">
+                            {{#link-to 'matrix-index'}} Matrix (1.x){{/link-to}}
                         </div>
                     </div>
                 </div>
@@ -155,16 +167,1343 @@
             <div class="pull-right">
                 <span class="copyright">&copy; <span id="cryear">2020</span> <a href="http://kochag.ch">René Koch AG</a></span>
 	    </div>
-            <span class="contact">Kontakt <a href="mailto:lehrling@kochag.ch">lehrling@kochag.ch</a></span>
+            <span class="contact">Kontakt <a href="mailto:entwicklung@kochag.ch">entwicklung@kochag.ch</a></span>
         </footer>
     </script>
 
 
 
-
-
-
     <script type="text/x-handlebars" id="index">
+        <h1>Projektinformationen</h1>
+        <p>
+            Das Magenta Core Projekt ist ein einfaches Elektronik-Projekt, das von der René
+            Koch AG während der Schnupperlehre zusammen mit den teilnehmenden Schnupperlehrlingen
+            gefertigt wird. Die Software des Projektes basiert auf dem offenen Arduino System,
+            mit dem es möglich ist, das Gerät auch nach der Schnupperlehre Zuhause oder in der 
+            Schule einfach neu zu programmieren und weiter zu verwenden.
+        </p>
+        <p>
+            Das Ziel dieses Projektes ist, ein Gerät zu erstellen, das nicht nur während der Schnupperlehre 
+            verwendet werden kann, sondern auch danach weiterhin einen produktiven Nutzen bietet.
+            Grundsätzlich handelt es sich dabei um eine LED-Matrix aus 64 RGB LEDs die Softwareseitig
+            komplett frei angesteuert werden können.
+        </p>
+        <p>
+            Zusätzlich beinhaltet die Projekthardware noch drei Rotary Encoder, einen Joystick, ein Buzzer (Piepser), ein 14-Segment und ein 
+            Accelerometer (Beschleunigungssensor), die über die Software ausgelesen und für eigene Anwendungen
+            genutzt werden können.
+        </p>
+
+        <h3>Diese Dokumentation</h3>
+        <p>
+            Bei dieser Dokumentation handelt es sich um eine öffentliche Projektdokumentation. Das Projekt
+            sollte mit den hier gegeben Informationen selbstständig zu bauen, warten oder programmieren sein.
+            Die Dokumentation beinhaltet detaillierte Informationen zur Software, um das Programmieren des
+            Gerätes so einfach wie möglich zu gestalten.
+        </p>
+        <p>
+            Das Magenta Core-Projekt befindet sich im Moment noch in einer sehr frühen Entwicklungsphase, einige
+            der hier dokumentierten Aspekte können sich später unter Umständen ändern.
+        </p>
+    </script>
+
+    <script type="text/x-handlebars" id="resources">
+        <h1>Hilfreiche Unterlagen</h1>
+        <p>
+            Diese Dokumentation bietet grundlegende Informationen und technische Details zum Magenta Core Projekt.
+            Um das bauen, warten oder programmieren des Projektes ein wenig zu erleichtern, kann es aber sehr 
+            hilfreich sein, einige Links der folgenden Liste zur Hand zu haben.
+        </p>
+
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td><a href="http://arduino.cc/" target="_blank">Arduino</a></td>
+                    <td>Offizielle Arduino Website</td>
+                </tr>
+                <tr>
+                    <td><a href="https://code.visualstudio.com/download" target="_blank">VSCode Download</a></td>
+                    <td>VSCode Software Downloads</td>
+                </tr>
+                <tr>
+                    <td><a href="https://github.com/Koch-AG/magentacore_sw/releases" target="_blank">Magenta Core Library Download</a></td>
+                    <td>Download der Magenta Core Library</td>
+                </tr>
+                <!-- <tr>
+                    <td><a href="https://github.com/Koch-AG/magentacore_sw" target="_blank">Magenta Core Print</a></td>
+                    <td>Magenta Core Hardware</td>
+                </tr> -->
+                <tr>
+                    <td><a href="https://docs.arduino.cc/language-reference/" target="_blank">Programmier Hilfe</a></td>
+                    <td>Arduino "C" Reference. Offizielle Dokumentation der Arduino Programmstrukturen, Variabeltypen, 
+                        <br>
+                        verfügbaren Funktionen usw.</td>
+                </tr>
+				<tr>
+                    <td><a href="./assets/files/magenta/Unterlagen_magenta.pdf" download>Download File</a></td>
+                    <td>Link zum Herunterladen der Unterlagen des Projekts</td>
+                </tr>
+            </tbody>
+        </table>
+    </script>
+
+    <script type="text/x-handlebars" id="hardware-case">
+        <h1>Hardware - Gehäuse und Speisung</h1>
+        <p>
+            Das Gerät kann entweder über die + - Klemme durch eine <strong>9V</strong> Blockbatterie oder durch ein Speisegerät mit <strong>6V - 12V</strong> gespiesen werden.
+            Oder über ein USB-C Kabel direkt vom PC.
+        </p>
+        <img src="./assets/images/magenta/hardware_case_powering_magenta.png" />
+        <h3>Aktuelle Gehäuseversion</h3>
+        <img src="./assets/images/magenta/hardware_case_magenta.png" />
+    </script>
+    
+    <script type="text/x-handlebars" id="hardware-print">
+        <h1>Hardware - Print Übersicht</h1>
+
+        <h3>Komplett bestückter Print</h3>
+        <img src="./assets/images/magenta/hardware_print_magenta.png" />
+
+        <h3>Erweiterungs Anschlüsse</h3>
+        <img src="./assets/images/magenta/hardware_connection_GPIO_magenta.png" />
+        
+        <h3>Weitere Strom Anschlüsse</h3>
+        <img src="./assets/images/magenta/hardware_connection_power_magenta.png" />
+    </script>
+    
+    <script type="text/x-handlebars" id="hardware-partlist">
+        <h1>Hardware - Stückliste</h1>
+        <p>
+            Die folgende Stückliste beinhaltet alle Bauteile, die benötigt werden um den MagentaCore Print V2.1.0
+            vollständig und funktionsfähig zu bestücken. Diese Liste kann gleichzeitig auch als 
+            Bestellliste verwendet werden. <strong>Pos.</strong> ist eine Nummer zur Übersicht. Sie ist wichtig für Aufbau und Bestellungen, 
+            hat jedoch keine technische Relevanz. Die <strong>Anz.</strong> Angabe sagt aus, wie viele Bauteile dieses Typs für den gesamten
+            Print benötigt werden, und der <strong>Name</strong> entspricht dem Namen mit dem die Bauteile
+            auf dem Bestückungsplan vermerkt sind. <br /><br />
+            Unter <strong>Bestücken</strong> sind die Bauteile die auf dem Schnuppi print schon bestückt sind und 
+            unter <strong>Schon Bestückt</strong> sind die Bauteile, welche schon vorbestückt sind. Schnupperlehrlinge müssen nur die anderen Bauteile bestücken.
+        </p>
+
+        <h3>Bestücken</h3>
+        <table class="table table-striped">
+           <tbody>
+              <tr>
+                 <td><strong>Pos.</strong></td>
+                 <td><strong>Anz.</strong></td>
+                 <td><strong>Name</strong></td>
+                 <td><strong>Wert</strong></td>
+                 <td><strong>Gehäuse</strong></td>
+                 <td><strong>Bezug</strong></td>
+                 <td><strong>Artikelnr</strong></td>
+              </tr>
+              <tr>
+                 <td>1</td>
+                 <td>4</td>
+                 <td>C14, C16, C40, C44</td>
+                 <td>100nF</td>
+                 <td>0805</td>
+                 <td>LCSC</td>
+                 <td>C38141</td>
+              </tr>
+              <tr>
+                 <td>2</td>
+                 <td>2</td>
+                 <td>C15,C17</td>
+                 <td>10µF</td>
+                 <td>0805</td>
+                 <td>LCSC</td>
+                 <td>C344171</td>
+              </tr>
+              <tr>
+                 <td>3</td>
+                 <td>6</td>
+                 <td>C34 - C39</td>
+                 <td>10nF</td>
+                 <td>0805</td>
+                 <td>Lager</td>
+                 <td> </td>
+              </tr>
+              <tr>
+                 <td>5</td>
+                 <td>46</td>
+                 <td>R14, R16, R18, R20, R22, R24, R26, R28, R30, R32, R38, R39, R41 - R58, R60, R62 - R76</td>
+                 <td>10kΩ</td>
+                 <td>0805</td>
+                 <td>LCSC</td>
+                 <td>C5140188</td>
+              </tr>
+              <tr>
+                 <td>6</td>
+                 <td>9</td>
+                 <td>R15, R17, R19, R21, R23, R25, R27, R29, R31</td>
+                 <td>20kΩ</td>
+                 <td>0805</td>
+                 <td>Lager</td>
+                 <td> </td>
+              </tr>
+              <tr>
+                 <td>7</td>
+                 <td>6</td>
+                 <td>R6, R10 - R13, R40</td>
+                 <td>1kΩ</td>
+                 <td>0805</td>
+                 <td>Lager</td>
+                 <td></td>
+              </tr>
+              <tr>
+                 <td>8</td>
+                 <td>1</td>
+                 <td>R59</td>
+                 <td>39kΩ</td>
+                 <td>0805</td>
+                 <td>Lager</td>
+                 <td> </td>
+              </tr>
+              <tr>
+                 <td>9</td>
+                 <td>1</td>
+                 <td>D3</td>
+                 <td>Purple</td>
+                 <td>0805</td>
+                 <td>LCSC</td>
+                 <td>C7371915</td>
+              </tr>
+              <tr>
+                 <td>10</td>
+                 <td>1</td>
+                 <td>D69</td>
+                 <td>1N4148WST4</td>
+                 <td>SOD-323</td>
+                 <td>LCSC</td>
+                 <td>C2128</td>
+              </tr>
+              <tr>
+                 <td>11</td>
+                 <td>2</td>
+                 <td>U3, U4</td>
+                 <td>SN74HCS59</td>
+                 <td>SOIC-16W</td>
+                 <td>LCSC</td>
+                 <td>C2867583</td>
+              </tr>
+              <tr>
+                 <td>12</td>
+                 <td>1</td>
+                 <td>U5</td>
+                 <td>JMF-4473BP3-59P6.8</td>
+                 <td>Display_14Segment</td>
+                 <td>Digikey</td>
+                 <td>1568-COM-21214-ND</td>
+              </tr>
+              <tr>
+                 <td>13</td>
+                 <td>1</td>
+                 <td>U6</td>
+                 <td>PCF8574A</td>
+                 <td>SOIC-16W</td>
+                 <td>LCSC</td>
+                 <td>C2867583</td>
+              </tr>
+              <tr>
+                 <td>14</td>
+                 <td>2 (+5)</td>
+                 <td>SW2 - SW6, SW10, SW12</td>
+                 <td>SW_DPST_x2</td>
+                 <td>Taster</td>
+                 <td>LCSC</td>
+                 <td>C127509</td>
+              </tr>
+              <tr>
+                 <td>15</td>
+                 <td>3</td>
+                 <td>SW7 - SW9</td>
+                 <td>RotaryEncoder</td>
+                 <td>PEC11R-4220F-S0012_ RotaryEncoder</td>
+                 <td>Digikey</td>
+                 <td>PEC11R-4220F-S0012-ND</td>
+              </tr>
+              <tr>
+                 <td>16</td>
+                 <td>1</td>
+                 <td>SW1</td>
+                 <td>Switch Slide SPDT 100mA 12V</td>
+                 <td>SW-OS102011MA10QN1</td>
+                 <td>Lager</td>
+                 <td> </td>
+              </tr>
+              <tr>
+                 <td>17</td>
+                 <td>11</td>
+                 <td>Q5 - Q13, Q18, Q20</td>
+                 <td>BC807</td>
+                 <td>SOT-23</td>
+                 <td>LCSC</td>
+                 <td>C466642</td>
+              </tr>
+              <tr>
+                 <td>18</td>
+                 <td>3</td>
+                 <td>Q16, Q17, Q19</td>
+                 <td>BC817</td>
+                 <td>SOT-23</td>
+                 <td>LCSC</td>
+                 <td>C549442</td>
+              </tr>
+              <tr>
+                 <td>19</td>
+                 <td>1</td>
+                 <td>BUZZER1</td>
+                 <td>MLT-8530</td>
+                 <td>BUZ-SMD_4P</td>
+                 <td>LCSC</td>
+                 <td>C94599</td>
+              </tr>
+              <tr>
+                 <td>20</td>
+                 <td>1</td>
+                 <td>JS1</td>
+                 <td>JS 5208</td>
+                 <td>JS5208_Joystick</td>
+                 <td>Digikey</td>
+                 <td>EG4561-ND</td>
+              </tr>
+              <tr>
+                 <td>21</td>
+                 <td>1</td>
+                 <td>Q14</td>
+                 <td>BSN20</td>
+                 <td>SOT-23-3</td>
+                 <td>Lager</td>
+                 <td> </td>
+              </tr>             
+           </tbody>
+        </table>
+
+        <h3>Schon Bestückt</h3>
+        <table class="table table-striped">
+           <tbody>
+              <tr>
+                 <td><strong>Pos.</strong></td>
+                 <td><strong>Anz.</strong></td>
+                 <td><strong>Name</strong></td>
+                 <td><strong>Wert</strong></td>
+                 <td><strong>Gehäuse</strong></td>
+                 <td><strong>Bezug</strong></td>
+                 <td><strong>Artikelnr</strong></td>
+              </tr>
+              <tr>
+                 <td>1</td>
+                 <td>21</td>
+                 <td>C1, C8, C11, C18 - C33, C42, C46</td>
+                 <td>100nF</td>
+                 <td>0805</td>
+                 <td>LCSC</td>
+                 <td>C38141</td>
+              </tr>
+              <tr>
+                 <td>2</td>
+                 <td>5</td>
+                 <td>C9, C12, C43, C45, C47</td>
+                 <td>10µF</td>
+                 <td>0805</td>
+                 <td>LCSC</td>
+                 <td>C344171</td>
+              </tr>
+              <tr>
+                 <td>4</td>
+                 <td>1</td>
+                 <td>(C48)</td>
+                 <td>1µF</td>
+                 <td>0805</td>
+                 <td>Lager</td>
+                 <td> </td>
+              </tr>
+              <tr>
+                 <td>22</td>
+                 <td>4</td>
+                 <td>C2, C4, C6, C13</td>
+                 <td>220µF</td>
+                 <td>CAP-SMD</td>
+                 <td>LCSC</td>
+                 <td>C19270710</td>
+              </tr>
+              <tr>
+                 <td>23</td>
+                 <td>3</td>
+                 <td>C3, C7, C10</td>
+                 <td>10µF</td>
+                 <td>0805</td>
+                 <td>LCSC</td>
+                 <td>C5240379</td>
+              </tr>
+              <tr>
+                 <td>24</td>
+                 <td>1</td>
+                 <td>C5</td>
+                 <td>22pF</td>
+                 <td>0805</td>
+                 <td>LCSC</td>
+                 <td>C379875</td>
+              </tr>
+              <tr>
+                 <td>25</td>
+                 <td>1</td>
+                 <td>C41</td>
+                 <td>4.7µF</td>
+                 <td>0805</td>
+                 <td>LCSC</td>
+                 <td>C1779</td>
+              </tr>
+              <tr>
+                 <td>26</td>
+                 <td>3</td>
+                 <td>R36, R37, R61</td>
+                 <td>10kΩ</td>
+                 <td>0805</td>
+                 <td>LCSC</td>
+                 <td>C5140188</td>
+              </tr>
+              <tr>
+                 <td>27</td>
+                 <td>3</td>
+                 <td>R7 - R9</td>
+                 <td>1MΩ</td>
+                 <td>0805</td>
+                 <td>LCSC</td>
+                 <td>C2907302</td>
+              </tr>
+              <tr>
+                 <td>28</td>
+                 <td>2</td>
+                 <td>R1, R2</td>
+                 <td>5.1kΩ</td>
+                 <td>0805</td>
+                 <td>LCSC</td>
+                 <td>C26023</td>
+              </tr>
+              <tr>
+                 <td>29</td>
+                 <td>2</td>
+                 <td>R3, R5</td>
+                 <td>100kΩ</td>
+                 <td>SOD-323</td>
+                 <td>LCSC</td>
+                 <td>C2907293</td>
+              </tr>
+              <tr>
+                 <td>30</td>
+                 <td>1</td>
+                 <td>R4</td>
+                 <td>22kΩ</td>
+                 <td>0805</td>
+                 <td>LCSC</td>
+                 <td>C2907309</td>
+              </tr>
+              <tr>
+                 <td>31</td>
+                 <td>2</td>
+                 <td>L1, L2</td>
+                 <td>SLF12565T-680M2R0-PF</td>
+                 <td>IND-SMD</td>
+                 <td>LCSC</td>
+                 <td>C136216</td>
+              </tr>
+              <tr>
+                 <td>32</td>
+                 <td>64</td>
+                 <td>D4 - D67</td>
+                 <td>WS2812B-2020</td>
+                 <td>LED_WS2812B-2020_PLCC4</td>
+                 <td>LCSC</td>
+                 <td>C965555</td>
+              </tr>
+              <tr>
+                 <td>33</td>
+                 <td>1</td>
+                 <td>D1</td>
+                 <td>PRTR5V0U2X_C2827688</td>
+                 <td>SOT-143</td>
+                 <td>LCSC</td>
+                 <td>C2827688</td>
+              </tr>
+              <tr>
+                 <td>34</td>
+                 <td>1</td>
+                 <td>D2</td>
+                 <td>SS210</td>
+                 <td>D_SMA</td>
+                 <td>LCSC</td>
+                 <td>C5140019</td>
+              </tr>
+              <tr>
+                 <td>35</td>
+                 <td>1</td>
+                 <td>U1</td>
+                 <td>ESP32-S3-WROOM-1</td>
+                 <td>ESP32-S3-WROOM-1</td>
+                 <td>LCSC</td>
+                 <td>C2913204</td>
+              </tr>
+              <tr>
+                 <td>36</td>
+                 <td>1</td>
+                 <td>U2</td>
+                 <td>SY8113BADC</td>
+                 <td>TSOT-23-6</td>
+                 <td>LCSC</td>
+                 <td>C78989</td>
+              </tr>
+              <tr>
+                 <td>37</td>
+                 <td>1</td>
+                 <td>X1</td>
+                 <td>USB3.1C16PFSMT</td>
+                 <td>USB-C-SMD_ TYPE-C-USB-17</td>
+                 <td>LCSC</td>
+                 <td>C167321</td>
+              </tr>
+              <tr>
+                 <td>38</td>
+                 <td>3</td>
+                 <td>Q1, Q2, Q4</td>
+                 <td>AO3401A</td>
+                 <td>SOT-23</td>
+                 <td>LCSC</td>
+                 <td>C15127</td>
+              </tr>
+              <tr>
+                 <td>39</td>
+                 <td>1</td>
+                 <td>IC1</td>
+                 <td>XL1509-5.0E</td>
+                 <td>SOIC-8</td>
+                 <td>LCSC</td>
+                 <td>C61063</td>
+              </tr>
+              <tr>
+                 <td>40</td>
+                 <td>1</td>
+                 <td>IC2</td>
+                 <td>STK8321</td>
+                 <td>LGA-12</td>
+                 <td>LCSC</td>
+                 <td>C966924</td>
+              </tr>  
+              <tr>
+                 <td>41</td>
+                 <td>1</td>
+                 <td>Q3</td>
+                 <td>2N7002_C916396</td>
+                 <td>SOT-23-3</td>
+                 <td>LCSC</td>
+                 <td>C916396</td>
+              </tr>           
+           </tbody>
+        </table>
+    </script>
+
+    <script type="text/x-handlebars" id="hardware-bom">
+        <h1>Hardware - Interaktiver Bestückungsplan</h1>
+        <iframe src="./ibom.html" width="100%" height="1000px" style="border:1px solid #ccc;"></iframe>
+    </script>
+
+    <script type="text/x-handlebars" id="hardware-documentation">
+        <h1>Hardware - Schema & Bestückungsplan</h1>
+
+
+        <h3>Layout</h3>
+        <img src="./assets/images/magenta/hardware_layout_magenta.png" />
+        <p></p>
+        <form method="get" action="./assets/files/magenta/hardware_layout_magenta.pdf">
+        <button type="submit" class="btn btn-sm btn-primary">PDF Download</button>
+        </form>
+
+        <h3>Bestückungs plan</h3>
+        <img src="./assets/images/magenta/hardware_placement_magenta.png" />
+        <p></p>
+        <form method="get" action="./assets/files/magenta/hardware_placement_magenta.pdf">
+        <button type="submit" class="btn btn-sm btn-primary">PDF Download</button>
+        </form>
+
+        <h3>Schema Stammblatt</h3>
+        <img src="./assets/images/magenta/hardware_schema_stammblatt_magenta.png" />
+        <p></p>
+        <form method="get" action="./assets/files/magenta/hardware_schema_stammblatt_magenta.pdf">
+        <button type="submit" class="btn btn-sm btn-primary">PDF Download</button>
+        </form>
+
+        <h3>Schema Power</h3>
+        <img src="./assets/images/magenta/hardware_schema_power_magenta.png" />
+        <p></p>
+        <form method="get" action="./assets/files/magenta/hardware_schema_power_magenta.pdf">
+        <button type="submit" class="btn btn-sm btn-primary">PDF Download</button>
+        </form>
+
+        <h3>Schema 14-Segment Anzeige</h3>
+        <img src="./assets/images/magenta/hardware_schema_14SegmentAnzeige_magenta.png" />
+        <p></p>
+        <form method="get" action="./assets/files/magenta/hardware_schema_14SegmentAnzeige_magenta.pdf">
+        <button type="submit" class="btn btn-sm btn-primary">PDF Download</button>
+        </form>
+
+        <h3>Schema LED Matrix</h3>
+        <img src="./assets/images/magenta/hardware_schema_LEDMatrix_magenta.png" />
+        <p></p>
+        <form method="get" action="./assets/files/magenta/hardware_schema_LEDMatrix_magenta.pdf">
+        <button type="submit" class="btn btn-sm btn-primary">PDF Download</button>
+        </form>
+
+        <h3>Schema Schnuppi Machine Interface</h3>
+        <img src="./assets/images/magenta/hardware_schema_schnuppiMachineInterface_magenta.png" />
+        <p></p>
+        <form method="get" action="./assets/files/magenta/hardware_schema_schnuppiMachineInterface_magenta.pdf">
+        <button type="submit" class="btn btn-sm btn-primary">PDF Download</button>
+        </form>
+
+        <h3>Schema Connections</h3>
+        <img src="./assets/images/magenta/hardware_schema_connection_magenta.png" />
+        <p></p>
+        <form method="get" action="./assets/files/magenta/hardware_schema_connection_magenta.pdf">
+        <button type="submit" class="btn btn-sm btn-primary">PDF Download</button>
+        </form>
+    </script>
+    
+    <script type="text/x-handlebars" id="software-installation">
+        <h1>Software - Installation</h1>
+        <p>Das Magenta Core Projekt kann jederzeit einfach mit der PlatformIO-IDE neu programmiert werden.
+        Alles was dazu gebraucht wird, ist ein Windows oder Linux PC, ein USB-C Kabel und das Magenta
+        Core Gerät an sich.</p>
+
+        <h3>Installation der Software</h3>
+        <table class="table table-striped">
+            <tbody>
+                <tr><td><img src="./assets/images/magenta/software_install1_magenta.png" /></td><td>
+                    1. Gib <B>VSCode download</B> in einen Browser ein
+                    <br>
+                    2. Auf den rot umkreisten Link drücken
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_install2_magenta.png" /></td><td>
+                    3. Je nach Betriebssystem müssen andere Daten herunterladen geladen werden (in der Anleitung wird Windows genutzt)
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_install3_magenta.png" /></td><td>
+                    4. Warten bis es fertig heruntergelanden hat und dann auf den kleinen Ordner drücken.
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_install4_magenta.png" /></td><td>
+                    5. Wenn der Ordner gedrückt wurde dann werden die Dwonloads im Explorer geöffnet.
+                    Die neuste Datei öffnen (VSCodeUserSetup-x64-x.xx.x.exe)
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_install5_magenta.png" /></td><td>
+                    6. Nach dem öffnen sicherstellen das die Vereinbarungen Akzeptiert sind.
+                    <br>
+                    7. Wenn das der Fall ist dann auf <B>Weiter</B> drücken
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_install6_magenta.png" /></td><td>
+                    8. Alle Hacken setzten
+                    <br>
+                    9. Dann auf <B>Weiter</B> drücken
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_install7_magenta.png" /></td><td>
+                    10. auf <B>Installieren</B> drücken
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_install8_magenta.png" /></td><td>
+                    Warten bis alles installiert ist
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_install9_magenta.png" /></td><td>
+                    11. Zum Schluss noch auf <B>Fertigstellen</B> drücken
+                </td></tr>
+            </tbody>
+        </table>
+
+        <h3>PlatformIO Installation</h3>
+        <table class="table table-striped">
+            <tbody>
+                <tr><td><img src="./assets/images/magenta/software_platformIO_install1_magenta.png" /></td><td>
+                    1. Wenn VSCode geöffnet ist, gibt es auf der linken Seite, eine Ansichtsauswahl. Dort auf das Symbol mit den vier Vierecken drücken.
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_platformIO_install2_magenta.png" /></td><td>
+                    2. In der Suchleiste <B>PlatformIO IDE</B> eingeben
+                    <br>
+                    3. Dann die IDE auswählen die einen orangen Ameisenkopf hat
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_platformIO_install3_magenta.png" /></td><td>
+                    4. auf Install drücken
+                </td></tr>
+            </tbody>
+        </table>
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'software-template-installation'}}<B>Template</B>{{/link-to}}
+        </div>
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'software-new-project-installation'}}<B>Neues Projekt</B>{{/link-to}}
+        </div>
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'software-code-compile-guide'}}<B>Code Kompilieren</B>{{/link-to}}
+        </div>
+    </script>
+
+    <script type="text/x-handlebars" id="software-template-installation">
+        <h1>Software - Template herunterladen</h1>
+        <h4>1. auf diesen Link: <a href="https://github.com/Koch-AG/magentacore_arduino_template">Magenta Template</a> drücken</h4>
+        <table class="table table-striped">
+            <tbody>
+                <tr><td><img src="./assets/images/magenta/software_template_install1_magenta.png" /></td><td>
+                    Wenn man auf die Seite gekommen ist, sollte ein grünner Knopf die Aufmerksamkeit auf sich ziehen.  
+                    Auf diesem Knopf steht: <B> Code</B> 
+                    <br>
+                    2. Gib <B>VSCode download</B> in einen Browser ein
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_template_install2_magenta.png" /></td><td>
+                    3. Dann öffnet sich so ein kleines Fenster und da dann auf <B>Download ZIP</B> klicken 
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_template_install3_magenta.png" /></td><td>
+                    4. Oben rechst in der Ecke des Bildschirmes erscheint dann dieses Fenster. 
+                    Da auf Alle <B>Downloads</B> anzeigen drücken
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_template_install4_magenta.png" /></td><td>
+                    5. Einen Rechtsklick auf das ZIP-File machen. Es wird sich ein Fenster öffnen. 
+                    Dort das sechst oberste anklicken das heisst <B>Alle Extrahieren..</B>
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_template_install5_magenta.png" /></td><td>
+                    6. Dann auf <B>Extrahieren</B> drücken. 
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_template_install6_magenta.png" /></td><td>
+                    7. Es öffnet sich ein solches Fenster. Auf <B>Weitere Optionen anzeigen</B> drücken. 
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_template_install7_magenta.png" /></td><td>
+                    8. auf <B>Mit Code öffnen</B> klicken 
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_template_install8_magenta.png" /></td><td>
+                    9. Kurz warten, bis sich alles eingestellt hat. Dann auf <B>src</B> klicken. Unter src kommt 
+                    dann das <B>main.cpp</B> File das Öffnen und dann los programmieren.
+                </td></tr>
+            </tbody>
+        </table>
+        <div class="panel-link navigation-link">
+            {{#link-to 'software-code-compile-guide'}}<B>Code Kompilieren</B>{{/link-to}}
+        </div>
+    </script>
+
+    <script type="text/x-handlebars" id="software-new-project-installation">
+        <h1>Software - Neues Projekt installieren</h1>
+        <table class="table table-striped">
+            <tbody>
+                <tr><td><img src="./assets/images/magenta/software_new_project_install1_magenta.png" /></td><td>
+                    1. Nach dem Installieren wird auf der linken Seite noch ein Symbol angezeigt, 
+                    dass aussieht wie das Bild der PlatformIO IDE. Auf dieses Symbol drücken
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_new_project_install2_magenta.png" /></td><td>
+                    2. Wenn man schon ein Projekt hat dann kann man <B>Pick a folder</B> anklicken, 
+                    da wir aber noch keins haben drücken wir <B>Creat New Project</B>
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_new_project_install3_magenta.png" /></td><td>
+                    3. Auf <B>New Project</B> drücken
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_new_project_install4_magenta.png" /></td><td>
+                    4. Dem Projekt einen Namen geben
+                    <br>
+                    5. Das Board auswählen (<B>Espressif ESP32-S3-DevKitM-1</B>)
+                    <br>
+                    6. Das Framework angeben (<B>Arduino</B>)
+                    <br>
+                    7. Den Hacken für <B>Location</B> rausnehmen und dann einen Ordner aussuchen
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_new_project_install5_magenta.png" /></td><td>
+                    8. Nochmals auf den Ameisenkopf drücken
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_new_project_install6_magenta.png" /></td><td>
+                    9. Unten hat man mehrere Optionen. Dort auf <B>Libraries</B> drücken
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_new_project_install7_magenta.png" /></td><td>
+                    10. In der Suchleiste <B>MagentaCore</B> eingeben
+                    <br>
+                    11. Dann die Library aussuchen die von <B>Nora Hueppi</B> erstellt wurde
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_new_project_install8_magenta.png" /></td><td>
+                    12. Auf <B>Add to Project</B> drücken
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_new_project_install9_magenta.png" /></td><td>
+                    13. Projekt aussuchen für die Library
+                    <br>
+                    14. Wenn das Projekt ausgesucht ist dann auf <B>Add</B> drücken
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_new_project_install10_magenta.png" /></td><td>
+                    15. Auf die beiden Blätter Symbolen drücken
+                    <br>
+                    16. Auf src (Source) und dann auf <B>main.cpp</B> drücken
+                    <br>
+                    17. Beim <B>#include Arduino.h</B> löschen und <B>#include Magenta_lib.h</B> schreiben
+                </td></tr>
+            </tbody>
+        </table>
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'software-code-compile-guide'}}<B>Code Kompilieren</B>{{/link-to}}
+        </div>
+    </script>
+
+    <script type="text/x-handlebars" id="software-code-compile-guide">
+        <h1>Software - Installation</h1>
+        <table class="table table-striped">
+            <tbody>
+                <tr><td><img src="./assets/images/magenta/software_compiling1_magenta.png" /></td><td>
+                    1. auf den Ameisenkopf drücken.
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_compiling2_magenta.png" /></td><td>
+                    2. auf Build drücken und warten.
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_compiling3_magenta.png" /></td><td>
+                    Im <B>TERMINAL</B> wird angezeigt, ob es 
+                    <br>
+                    funktioniert hat oder nicht.
+                    <br>
+                    Wenn es Funktioniert hat dann 
+                    <br>
+                    steht, wie oben im Bild 
+                    <br>
+                    <B>SUCCESS</B> und wenn es nicht 
+                    <br>
+                    funktioniert hat, steht <B>FAILED</B>.
+                    <br>
+                    Wenn <B>FAILED</B> steht dann hat 
+                    <br>
+                    es einen Fehler im Code und 
+                    <br>
+                    man muss ihn überarbeiten.
+                </td></tr>
+                <tr><td><img src="./assets/images/magenta/software_compiling4_magenta.png" /></td><td>
+                    Als nächstes kann man entweder 
+                    <br>
+                    auf <B>Upload</B> oder 
+                    <br>
+                    <B>Upload and Monitor</B> drücken. 
+                    <br>
+                    <B>Upload and Monitor</B> ist
+                    <br>
+                    Sinnvoll, wenn man mit einem 
+                    <br>
+                    printf etwas ausgeben möchte
+                </td></tr><
+                tr><td><img src="./assets/images/magenta/software_compiling5_magenta.png" /></td><td>
+                    Auf da wird im <B>TERMINAL</B> 
+                    <br>
+                    angezeigt, ob das Hochladen 
+                    <br>
+                    funktioniert hat oder nicht. 
+                    Das wird auch wieder mit 
+                    <br>
+                    <B>SUCCESS</B> oder mit <B>FAIL</B> angezeigt.
+                </td></tr>
+                
+            </tbody>
+        </table>
+    </script>
+
+    <script type="text/x-handlebars" id="software-introduction">
+        <h1>Software - Einführung</h1>
+        <p>
+            Ein funktionierendes Softwarebeispiel findet sich unter anderem auch im
+            Ordner der Bibliothek und können von der Arduino-IDE direkt über <B>Examples</B>
+            geladen werden. Die dort gespeicherte Vorlage kann importiert und bearbeitet
+            werden, um einige einfache Aufgabe mit der LED Matrix auszuführen.
+        </p>
+        <h3>Binärzähler</h3>
+        <p>
+            Der Binärzähler ist eine sehr einfach Beispielsanwendung der LED Matrix. Dabei wird
+            lediglich die LED Matrix initialisiert, ein Zähler hochgezählt und der entsprechende
+            Wert auf einer Zeile in der LED Matrix ausgegeben.
+        </p>
+        <p>
+            Dieses kleine Projekt setzt voraus, dass die <b>Magenta_lib</b> Bibliothek bereits wie in 
+            {{#link-to 'software-installation'}}"Installation"{{/link-to}} beschrieben installiert
+            ist, und korrekt importiert werden kann.
+        </p>
+        <p>
+            Als erstes erstellen wir uns also einen neuen Arduino Sketch und importieren die Bibliothek. 
+        
+            <pre><code class="c">
+#include &lt;Magenta_lib.h&gt;          
+            </code></pre>
+        </p>
+        <p>&nbsp;</p>
+        <p>
+            Als nächstes definieren wir eine globale Variable, die wir später als Zähler verwenden werden.
+            Wir nennen die Variable in diesem fall <strong>meinZaehler</strong>. Da es sich dabei um eine
+            Zahl handelt, verwenden wir den Datentyp <strong>int</strong> (integer). Der ESP32 speichert
+            diesen Datentyp als eine 32bit lange Zahl, was einem Wertebereich von -2'147'483'648 bis 2'147'483'647 entspricht.
+            Den Ausgangswert des Zählers setzen wir auf 0, um ihn von 0 hochzählen zu lassen.
+            <pre><code class="c">
+int meinZaehler = 0;
+            </code></pre>
+        </p>
+        <p>&nbsp;</p>
+        <p>
+            Da wir nun unserer Bibliothek eingebunden und unsere Zählervariable bereit haben, können wir
+            damit beginnen die eigentliche Funktion des Programms zu programmieren. In einem Arduino Sketch
+            (Programm) gibt es standardmässig zwei Funktionen, <strong>setup()</strong> und <strong>loop()</strong>.
+            Die Funktion <strong>setup()</strong> wird einmal am Anfang des Programms aufgerufen, also werden
+            wir hier unsere LED Matrix initialisieren. <strong>magentaobj.init()</strong> muss immer vor der Verwendung der
+            Funktionen aufgerufen, um das Gerät zu initialisieren.
+            <pre><code class="c">
+void setup() {
+    magentaobj.init();
+}
+            </code></pre>
+        </p>
+        <p>&nbsp;</p>
+        <p>
+            Nach dem Setup unseres Programmes, kommen wir zum loop. Dieser wird immer wieder ausgeführt, solange
+            das Programm läuft. In der <strong>loop()</strong> Funktion müssen wird nun also unseren Zähler 
+            hochzählen, prüfen ob sein Wert gültig ist, das Ergebnis anzeigen und danach ein wenig warten, damit
+            der Zählerfortschritt von blossem Auge zu erkennen ist.
+            <pre><code class="c">
+void loop() {
+    meinZaehler = meinZaehler + 1;
+
+    if (meinZaehler > 255) {
+        meinZaehler = 0;
+    }
+
+    magentaobj.write(meinZaehler, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00); 
+
+    delay(1000);
+}
+            </code></pre>
+        </p>
+        <p>
+            Zuerst wird hier der Zähler <em>inkrementiert</em>, also eins nach oben gezählt. Durch
+            <strong>meinZaehler = meinZaehler + 1;</strong> wird der Variable <strong>meinZaehler</strong>
+            der eigene Wert plus eins zugewiesen. Diesen Schritt könnte man auch mit <strong>meinZaehler++;</strong>
+            abkürzen, was in C eine <em>direkte Inkrementation</em> ist.
+        </p>
+        <p>
+            Als nächstes überprüfen wir, ob der Wert unseres Zählers grösser als 255 ist. Die LED Matrix besteht
+            nur aus 8 LEDs und kann folglich nur einen Wert mit maximal 8 bit (2^8 = 256) darstellen. Um zu
+            verhindern, dass unser Zähler in einem Bereich weiterzählt, der von der LED Matrix gar nicht mehr angezeigt
+            werden kann, wird er auf 0 zurückgesetzt, wenn er grösser als 255 ist.
+        </p>
+        <p>
+            Im dritten Schritt wird der Wert auf der LED Matrix ausgegeben. Die <strong>magentaobj.write()</strong> Funktion
+            verlangt gemäss Dokumentation 8 Zahlen als Eingabe, die dann von oben nach Unten reihenweise auf der
+            LED Matrix angezeigt werden. Wir geben in unserem Fall den Wert der Variable <strong>meinZaehler</strong>
+            auf der ersten Zeile aus und setzen die anderen Zeilen auf 0, was alle LEDs ausschaltet.
+        </p>
+        <p>
+            Zu guter Letzt verwenden wir die <strong>delay()</strong> Funktion, mit der wir eine gewisse Zeit in
+            Millisekunden warten können. In diesem Beispiel warten wir run 1000ms (1 Sekunde), bis das Programm 
+            weiter läuft. Da das Programm nun am Ende von <strong>loop()</strong> angelangt ist, wird es wieder
+            von oben anfangen und den Zähler um eins erhöhen. Dieser Vorgang wird so oft wiederholt bis der Zähler 
+            den Wert 256 hat. Danach wird der Zähler wieder auf 0 gesetzt.
+        </p>
+        <p>&nbsp;</p>
+        <p>
+            Unser Fertiges Programm sieht also wie folgt aus:
+            <pre><code class="c">
+#include &lt;Magenta_lib.h&gt;
+
+int meinZaehler = 0;
+
+void setup() {
+    magentaobj.init();
+}
+
+void loop() {
+    meinZaehler = meinZaehler + 1;
+
+    if (meinZaehler > 255) {
+        meinZaehler = 0;
+    }
+
+    magentaobj.write(meinZaehler, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00); 
+
+    delay(1000);
+}
+            </code></pre>
+        </p>
+    </script>
+
+    <script type="text/x-handlebars" id="software-examples">
+        <h1>Software - Example</h1>
+        <p>
+            Dieses Beispielsprojekt ist <em>mehr oder weniger</em> praktische Anwendungen
+            für die Matrix, die in Zusammenarbeit mit den Schnupperlingen währen der Schnupperlehre
+            programmiert wurden. Das Beispiel kann direkt kopiert, eingefügt und nach
+            Belieben angepasst werden.
+        </p>
+        <p>
+            - <a href="#"{{action 'se' 'bar-counter_magenta'}}>Bar Counter</a>  Button basierender Balken counter<br />
+            <!-- - <a href="#"{{action 'se' 'matrix-hero_magenta'}}>Matrix Hero</a>  Einfaches, Guitar Hero basierendes Spiel<br />
+			- <a href="#"{{action 'se' 'pong_magenta'}}>Pong</a>  Ping Pong Spiel. Nur mit 2 Geräten Spielbar<br />
+			- <a href="#"{{action 'se' '1_spieler_pong_magenta'}}>1 Spieler Pong</a>  Ping Pong Spiel. Mit einem Gerät spielbar -->
+        </p>
+        <p>&nbsp;</p>
+        <p>
+            <pre><code class="c" id="exc">
+                Kein Beispiel ausgewählt...
+            </code></pre>
+        </p>
+    </script>
+
+    <script type="text/x-handlebars" id="software-documentation">
+        <h1>Software Dokumentation</h1>
+        <p>
+            Sämtliche verfügbaren Methoden sind im Header-File der API (eine API, Application Programming Interface, 
+            ist eine Sammlung von Funktionen und Befehelen)
+            abgebildet (V1.1.0):
+        </p>
+        <br>
+<h3>pcf_read</h3>
+<p>Die Funktion liest den Zustand mehrerer Tasten oder Eingänge aus, die an einen Portexpander angeschlossen sind. 
+Dieser Chip ist über eine I²C-Verbindung mit dem Gerät verbunden.Zuerst prüft die Funktion, ob der Portexpander erreichbar ist. 
+Wenn ja, fordert sie die aktuellen Daten vom Chip an. Der Chip sendet ein Byte zurück, in dem gespeichert ist, 
+welche der acht Eingänge gerade aktiv (z. B. Taster gedrückt) oder inaktiv sind.
+Die Funktion gibt diesen Wert zurück, damit das Hauptprogramm weiß, welche Tasten gerade gedrückt sind.</p>
+<pre><code class="c">
+int pcf_read();
+</code></pre> 
+
+<h3>read_io</h3>
+<p>Die Funktion verarbeitet Daten im Hintergrund und gibt den Wert des Schieberegisters zurück, an das die Taster angeschlossen sind.
+Das Entprellen der Taster wird durchgeführt und der Tasterzustand wird in den Variablen button_1 bis button_3 gespeichert.
+Außerdem berechnet sie die Potentiometer-Werte der Drehgeber (Rotary-Encoder) und speichert sie in potentiometer_0 bis potentiometer_2.
+Zum Schluss liest sie auch die Werte des Beschleunigungssensors (ACC-Sensor) aus und speichert sie in den entsprechenden Variablen accelerometer_x bis accelerometer_z.</p>
+<pre><code class="c">
+int read_io();
+</code></pre>
+
+<h3>init</h3>
+<p>Die Funktion init() bereitet alle Hardware-Komponenten des MagentaCore vor.
+Sie startet die I²C-Verbindung, schaltet die LED-Matrix ein, setzt die Drehgeber auf null und aktiviert sie.
+Vier PWM-Timer werden reserviert, zwei Servos eingerichtet, das Display gestartet und die LED-Farben gesetzt.
+Am Ende wird ein Hintergrundprogramm für den Buzzer gestartet.</p>
+<pre><code class="c">
+void init();
+</code></pre>
+
+<h3>clear</h3>
+<p>Die Funktion clear() sorgt dafür, dass alle LEDs ausgeschaltet werden. Sie löscht quasi die aktuellen Lichtmuster, 
+sodass die LED-Leiste auf die Hintergrundfarbe zurückgesetzt wird. Damit kann man die LED-Anzeige zurücksetzen und von vorne beginnen.</p>
+<pre><code class="c">
+void clear();
+</code></pre>
+
+<h3>write</h3>
+<p>Die Funktion write() übernimmt acht Werte, sogenannte Bytes, und speichert sie in einem Daten-Array. 
+Diese Bytes können zum Beispiel Farben oder Helligkeiten der LEDs sein. Nachdem die Werte in das Array gespeichert sind, 
+wird eine andere Funktion aufgerufen, die diese Daten dann an die LED-Leiste schickt, damit die LEDs die neuen 
+Einstellungen anzeigen. Kurz gesagt: write() aktualisiert die Daten für die LEDs mit neuen Werten und sorgt dafür, 
+dass die LEDs die Änderungen auch wirklich anzeigen.</p>
+<pre><code class="c">
+void write (byte byte1, byte byte2, byte byte3, byte byte4,
+                        byte byte5, byte byte6, byte byte7, byte byte8);
+</code></pre>
+
+<h3>write_array</h3>
+<p>Die Funktion write_array() nimmt ein Array mit acht Werten und kopiert diese Werte in 
+in den internen Speicher. Das bedeutet, sie übernimmt die aktuellen Werte aus dem mitgegebenen Array und speichert sie, 
+um später die LEDs mit diesen neuen Einstellungen zu steuern. Kurz gesagt: Diese Funktion 
+aktualisiert die LED-Daten mit einer ganzen Reihe von Werten auf einmal.</p>
+<pre><code class="c">
+void write_array(byte matrix[]);
+</code></pre>
+
+<h3>write_char</h3>
+<p>Die Funktion write_char() zeigt ein einzelnes Zeichen auf der LED-Matrix. Sie löscht vorher die Anzeige, 
+liest das passende Zeichen aus einer Schriftart-Tabelle, und aktiviert dann die LEDs, um das Zeichen darzustellen. 
+Am Ende werden die Daten an die LEDs gesendet, damit das Zeichen sichtbar ist.</p>
+<pre><code class="c">
+void write_char(char character);
+</code></pre>
+
+<h3>setColor</h3>
+<p>Die Funktion setColor() legt die Haupt- und Hintergrundfarben fest, indem du die Rot-, Grün- und Blauwerte in 
+Dezimal (0-255), Hex (0x00-0xFF) oder Binär (0b00000000-0b11111111) angeben kannst. Dabei gilt: Je kleiner die Zahl, 
+desto dunkler bzw. weniger leuchtend ist die LED. Die Werte werden in den Variablen basecolor (r, g, b) und 
+backgroundcolor (BGC_r, BGC_g, BGC_b) gespeichert, wobei die einzelnen Farbanteile in einer Zahl zusammengeführt werden. 
+So kannst du die Farben flexibel einstellen und später leicht auf die LEDs anwenden. Die farben für die basecolor 
+müssen gesetzt werden. Backgroundcolor müssen nicht gesetzt werden, wenn die HIntergrundfarbe nicht bestimmt wird ist 
+sie auf 0 (aus) gesetzt.</p>
+<pre><code class="c">
+void setColor(byte r, byte g, byte b, byte BGC_r = 0, byte BGC_g = 0, byte BGC_b = 0);
+</code></pre>
+
+<h3>ConfigPoti</h3>
+<p>Die Funktion ConfigPoti() stellt die Max- und Min-Werte für den Potentiometer ein und speichert 
+die Schrittgröße (faktor) in stepSize. Wenn Max kleiner als Min ist, werden sie vertauscht, damit alles stimmt.</p>
+<pre><code class="c">
+void ConfigPoti(int max = 1024, int min = 0, int faktor = -40);
+</code></pre>
+
+<h3>sample</h3>
+<p>Die Funktion sample() zeigt verschiedene Muster auf der LED-Matrix, abhängig vom pattern-Wert. 
+Für Pattern 0 und 1 setzt sie die Farben und füllt die Daten mit wechselnden Streifenmustern 
+(abwechselnd 0101... und 1010...). Nach der Auswahl wird die Daten an die LEDs gesendet. Für andere Pattern bleibt sie leer.</p>
+<pre><code class="c">
+void sample(int pattern);
+</code></pre>
+
+<h3>getButtonPress</h3>
+<p>Die Funktion getButtonPress() prüft den Status eines Tastencodes (pcfState) anhand bitweiser AND-Operationen. 
+Wenn bestimmte Bits (z.B. BUTTON_RE_L, BUTTON_RE_M, etc.) auf 0 sind, erkennt sie, dass die entsprechende Taste gedrückt wurde, 
+setzt eine Variable (z.B. button_1) auf 1 und gibt den Tastencode zurück. Wenn keine Taste erkannt wird, gibt sie 0 zurück.</p>
+<pre><code class="c">
+int getButtonPress(char pcfState);
+</code></pre>
+
+<h3>RotaryEncoder_Poti</h3>
+<p>Die Funktion RotaryEncoder_Poti() liest die Zählerstände von drei Drehencoder, multipliziert sie mit einem Schritt-Wert 
+(stepSize) und addiert sie zu den Potentiometer-Werten. Anschließend werden die Werte auf die festgelegten Maximal- und Minimalwerte 
+(maxPoti, minPoti) begrenzt, um Über- oder Unterlauf zu vermeiden.</p>
+<pre><code class="c">
+void RotaryEncoder_Poti();
+</code></pre>
+
+<h3>getSensorData</h3>
+<p>Die Funktion getSensor() liest die Sensordaten für die Achsen x, y, z und speichert sie in den Variablen accelerometer_x, 
+accelerometer_y und accelerometer_z. Dabei werden die Werte für die Achsen x und y umgekehrt bzw. negiert, um die Orientierung anzupassen.</p>
+<pre><code class="c">
+void getSensorData(float *X_DataOut, float *Y_DataOut, float *Z_DataOut);
+</code></pre>
+
+<h3>getSensor</h3>
+<p>Die Funktion getSensorData() setzt die Zeiger für die x-, y- und z-Werte auf 0 und ruft dann die Methode STK8321_Getregister_data() auf, 
+um die aktuellen Sensordaten in die übergebenen Variablen zu laden.</p>
+<pre><code class="c">
+void getSensor();
+</code></pre>
+
+<h3>progressbar</h3>
+<p>Die Funktion progressbar() aktualisiert die Daten für eine Leiste (Line) auf der LED-Matrix, indem sie einen Wert (value) verwendet, 
+um den Fortschritt darzustellen. Sie verschiebt eine Maske (0xFF00) um value Bits nach rechts und extrahiert die unteren 8 Bits, 
+um die Leiste entsprechend zu füllen. Anschließend werden die Daten an die LEDs übertragen.</p>
+<pre><code class="c">
+void progressbar(byte value, byte line);
+</code></pre>
+
+<h3>Buzzer</h3>
+<p>Die Funktion Buzzer() spielt unterschiedliche Töne ab, je nachdem, welchen Wert tone hat. Für 0, 1 
+oder 2 wird jeweils eine bestimmte Melodie oder Tonfolge (z.B. BeepHigh, BeepLow, HauntedHouse) am Buzzer-Pin gestartet.</p>
+<pre><code class="c">
+void Buzzer(int tone);
+</code></pre>
+
+<h3>setServo1</h3>
+<p>Die Funktion setServo1() setzt das Servo auf die in Grad (0-180) angegebene position. Das Servo vergleicht im Hintergrund die aktuelle 
+Position mit der gewünschten Position.</p>
+<pre><code class="c">
+void setServo1(int grad = 0);
+</code></pre>
+
+<h3>setServo2</h3>
+<p>Die Funktion setServo2() setzt das Servo auf die in Grad (0-180) angegebene position. Das Servo vergleicht im Hintergrund die aktuelle 
+Position mit der gewünschten Position.</p>
+<pre><code class="c">
+void setServo2(int grad = 0);
+</code></pre>
+
+<h3>setSegmentAnzeige</h3>
+<p>Die Funktion setSegmentAnzeige() zeigt vier einzelne Zeichen (character1 bis character4) auf einer 4-stelligen Anzeige an, 
+indem sie die Methode writeChar() für jede Position (0 bis 3) aufruft. Damit werden die gewünschten Zeichen auf der Anzeige dargestellt.
+Um die Buchstaben mitgeben zu können kann man z.B. in der Klammer <b>'A', 'A', 'A', 'A'</b> hinein schreiben, dann würde die SegmentAnzeige
+<em>A A A A</em> anzeigen. Man kan alle Buchstaben zwischen A-Z wählen und durch das 4-Buchstabige Wörter schreiben.</p>
+<pre><code class="c">
+void setSegmentAnzeige(char character1, char character2, char character3, char character4);
+</code></pre>
+
+<h3>clearSegmentAnzeige</h3>
+<p>Die Funktion clearSegmentAnzeige() löscht die Anzeige, indem sie auf allen vier Positionen Leerzeichen (' ') schreibt. Dadurch erscheint auf der 4-stelligen Anzeige nichts.</p>
+<pre><code class="c">
+void clearSegmentAnzeige();
+</code></pre>
+
+<h3>buttons</h3>
+<p>Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.
+Wenn Buttons = 1 sind heisst es das die Knöpfe gedrückt sind.</p>
+<pre><code class="c">
+int button_1;
+int button_2;
+int button_3;
+</code></pre>
+<!-- 
+<h3>button_Up</h3>
+<p>Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.</p>
+<pre><code class="c">
+int button_Up;
+</code></pre>
+
+<h3>button_Right</h3>
+<p>Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.</p>
+<pre><code class="c">
+int button_Right;
+</code></pre>
+
+<h3>button_Down</h3>
+<p>Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.</p>
+<pre><code class="c">
+int button_Down;
+</code></pre>
+
+<h3>button_Left</h3>
+<p>Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.</p>
+<pre><code class="c">
+int button_Left;
+</code></pre>
+
+<h3>button_Center</h3>
+<p>Speichert den Zustand (z.B. gedrückt oder nicht) des Buttons.</p>
+<pre><code class="c">
+int button_Center;
+</code></pre> -->
+
+<h3>accelerometer_x</h3>
+<p>Speichert den Beschleunigungswert für die X-Achse.</p>
+<pre><code class="c">
+float accelerometer_x;
+</code></pre>
+
+<h3>accelerometer_y</h3>
+<p>Speichert den Beschleunigungswert für die Y-Achse.</p>
+<pre><code class="c">
+float accelerometer_y;
+</code></pre>
+
+<h3>accelerometer_z</h3>
+<p>Speichert den Beschleunigungswert für die Z-Achse.</p>
+<pre><code class="c">
+float accelerometer_z;
+</code></pre>
+
+<h3>potentiometer</h3>
+<p>Speichert den Wert des ersten Potentiometers.</p>
+<pre><code class="c">
+int potentiometer_0;
+int potentiometer_1;
+int potentiometer_2;
+</code></pre>
+
+        <p>&nbsp;</p>
+        <p>
+            Um Funktionen oder Variabelen aufrufen zu können muss vor dem Funktions-, Variabelnamen <b>magentaobj.</b> stehen.
+            Z.B. <b>magentaobj.read()</b> oder <b>magentaobj.button_1</b>
+        </p>
+        <p>
+            Die Methode <b>magentaobj.read_io();</b> sollte jeweils immer am Anfang vom loop aufgerufen
+            werden, sofern die Buttons, das Accelerometer bzw. das Potentiometer verwendet wird. Diese Methode
+            sorgt dafür, dass die Werte dieser Peripherie aktualisiert werden.
+        </p>
+        <p>
+            Wenn man das Magenta Core Projekt hat aber alte Beispiel Codes ausprobieren möchte kann man diese ohne
+            probleme auf das Projekt laden da z.B. <B>matrix.button_1</B> gleich wie magentaobj.button_1 funktioniert.
+        </p>
+        <p>
+            Man kann die Matrix Beispiele mit <b>beiden Projekten</b> benutzen (Magenta Core und Matrix). Die zukünftigen Magenta Core Beispiele 
+            kann man <b>nur mit dem Magenta Core Projekt</b> nutzen.
+        </p>
+
+    </script>
+
+	<script type="text/x-handlebars" id="weiteres-expansion">
+        <h1>Weiteres - Expansion</h1>
+        <h3>
+            Einführung
+        </h3>
+        <p>
+            Am rechten Rand, neben der LED Matrix und unter den Rotary Encoder, befinden sich die Lötpads, um das Board mit diversen Bauteilen/Baugruppen zu erweitern.
+            Die Pads bieten Zugriff auf die 3.3 und 5 Volt Speisung des Boards, Ground, diverse IO Pins inklusive Analog Pins und den I2C-Bus.
+            <!-- Im folgenden Abschnitt lassen sich ein paar Beispiele zu diesen Expansion Ports finden. -->
+        </p>
+        <h3>
+            Erweiterungs Anschlüsse
+            <img src="./assets/images/magenta/hardware_connection_GPIO_magenta.png" width="600" />
+            <img src="./assets/images/magenta/hardware_connection_power_magenta.png" width="600" />
+        </h3>
+        <!-- <h3>
+            Beispiel: Pong
+        </h3>
+        <p>
+            Um das 2 Spieler Pong aus den Beispielen in Betrieb zu nehmen, werden 2 Matrix Boards benötigt. 
+            Zuerst sollte die korrekte Software auf den Boards vorhanden sein. Dabei gilt es zu beachten, 
+            dass das eine Board die die Software für den Spieler 1 enthalten sollte und das andere die Software für Spieler 2.
+            Dazu muss bevor dem Upload, im obersten Teil des Programms das Define für den Spieler auf Spieler 2 gewechselt werden.
+            <img src="./assets/images/matrix/Spielerauswahl_Pong_matrix.png" width="300" />
+        </p>
+        <p>
+            Sobald beide Boards die korrekte Software haben, müssen die beiden I2C Busse der Boards verbunden werden. Das geschieht,
+            indem man die als SDA und SCL gekennzeichneten Ports der beiden Boards mit einander verbindet.
+            Damit es jedoch keinen Adressenkonfikt der beiden Accelerometer gibt, muss beim einen Board, der Jumper zwischen K17 und K18 augesteckt werden.
+            Dieser Jumper führt zum Adresspin des Accelerometers und passt somit die Adresse an.
+        </p>
+        <p>
+            Nun müssen beide Boards mit Strom versorgt werden. Das erfolgt am einfachsten über die USB Buchse. Wenn alle Schritte richtig durchgeführt worden sind, 
+            sollte nun auf der Matrix von Spieler 1 das Spielfeld und bei Spieler 2 das Scoreboard angezeigt werden. Das Spiel sollte nun mit dem Potentiometer der beiden Boards gesteuert werden können.
+        </p>
+        <h3>
+            Beispiel: Potentiometer
+        </h3>
+        <p>
+            Für dieses Beispiel wird 1 Matrix Board und ein Potentiometer benötigt. Unter den Expansion Ports lassen sich 2 Analog Pins mit den Namen A0 und A1 finden.
+            Diese ermöglichen es eine analoge Spannung einzulesen, wie sie von gewissen Sensoren aber auch von einem Potentiometer erzeugt wird. Um nun das Potentiometer anzuhängen nehmen wir den Pin A1,
+            da A0 bereits vom internen Potentiometer benutzt wird. Es wäre möglich das interne Potentiometer mit dem Jumper rechts davon abzuhängen,
+            dadurch würde man jedoch die Funktion des internen Potentiometers verlieren. Um es nun dort anzuschliessen, hängen wir die äusseren Pins je au 5V und auf Ground. Der mittlere Pin wird auf den A0 Pin gehängt.
+        </p>
+        <p>
+            Der Softwareteil dieses Beispiel ist recht einfach, weswegen wir die Programmierung euch überlassen. Mit den untenstehenden Links könnt ihr einfach den Code slebst schreiben.
+        </p>
+        <p>
+                <a href="https://starthardware.org/analog-input/">Tutorial in Textform</a>
+        </p>
+        <p>
+                <a href="https://www.youtube.com/watch?v=9lrqeswfIQs">Tutorial in Videoform</a>
+        </p> -->
+
+        
+    </script>
+
+    <script type="text/x-handlebars" id="assembly-placement">
+        <h1>Bestückung</h1>
+        <p>Als erster Fertigungschritt muss der Print bestückt werden. Die Spannungswandler, USB-C Schnitstelle, 
+        Microcontroller Beschleunigungssensor und Stabilisierung für den Beschleunigungssensor sind bereits vorbestückt. Bei der 
+        Bestückung von Hand fängt man mit den Bauteilen an, welche die geringste Höhe haben. So kann man den 
+        Print jederzeit bequem umdrehen ohne das dabei Bauteile nicht sauber am Print anliegen.</p>
+
+        <h3>Unbestückter Print</h3>
+        <img src="./assets/images/magenta/hardware_empty_print_magenta.png" />
+
+        <h3>Komplett bestückter Print</h3>
+        <img src="./assets/images/magenta/hardware_print_magenta.png" />
+    </script>
+
+    <script type="text/x-handlebars" id="assembly-housing">
+        <h1>Gehäuse</h1>
+        <p>
+            Das Gehäuse von Magenta Core wird mit dem 3D Drucker hergestellt. Unter dem Text <B>Magenta Core</B> kann mittels Fusion 360 
+            noch der eigene Namen eingebracht werden. Die Herstellung des Gehäuse mit dem 3D Drucker dauert ca. 5h.
+            <br>
+            Das Gehäuse wird zwei Farbig gedruckt. Das Gitter für die LED Matrix wird in schwarz gedruckt und das man die LED durch das Gehäuse
+            siet ist das Gehäuse an diesen Stellen nur 2mm dick. Die Nöppel für die Rotary Encoder Werden schwarz gedruckt sowie der Name 
+            und eine Schicht unter dem Namen. 
+        </p>
+        <h3>3D Bild des Gehäuses</h3>
+        <img src="./assets/images/magenta/assembly_case_3D_magenta.png" />
+        <h3>Gedrucktes Gehäuse</h3>
+        <img src="./assets/images/magenta/hardware_case_magenta.png" />
+    </script>
+
+    <script type="text/x-handlebars" id="assembly-test">
+        <h1>Test</h1>
+        <p>
+            Das Board ist nun komplett konfiguiert. Nun muss die Arduino IDE installiert und mit der Magenta Core Library geladen werden. Eine Anleitung dazu findet 
+            sich unter <a href="http://koch-ag.github.io/matrix/#/software-installation" target="_blank">Software Installation</a>. Danach können beliebige 
+            Beispiele geladen werden um die Matrix ausgiebig zu testen.
+        </p>
+        <img src="./assets/images/magenta/assembly_test_magenta.png" />
+        <br>
+        <!-- <p>Hier ist der Link <a href="https://github.com/Koch-AG/magentacore_sw" target="_blank">Magenta Core Test</a> zur Software um den Print zu testen.</p> -->
+    </script>
+
+    <script type="text/x-handlebars" id="matrix-index">
         <h1>Projektinformationen</h1>
         <p>
             Das Matrix Projekt ist ein einfaches Elektronik-Projekt, das von der René
@@ -196,12 +1535,8 @@
             Das Matrix-Projekt befindet sich im Moment noch in einer sehr frühen Entwicklungsphase, einige
             der hier dokumentierten Aspekte können sich später unter Umständen ändern.
         </p>
-    </script>
-
-
-
-
-    <script type="text/x-handlebars" id="resources">
+        <br>
+        <br>
         <h1>Hilfreiche Unterlagen</h1>
         <p>
             Diese Dokumentation bietet grundlegende Informationen und technische Details zum Matrix Projekt.
@@ -224,47 +1559,51 @@
                     <td>Arduino "C" Reference. Offizielle Dokumentation der Arduino Programmstrukturen, Variabeltypen, verfügbaren Funktionen usw.</td>
                 </tr>
 				<tr>
-                    <td><a href="Unterlagen_Matrix.pdf" download>Download File</a></td>
+                    <td><a href="Unterlagen_matrix.pdf" download>Download File</a></td>
                     <td>Link zum Herunterladen der Unterlagen des Projekts</td>
                 </tr>
             </tbody>
         </table>
+
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'matrix-hardware'}}<B>Hardware</B>{{/link-to}}
+        </div>
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'matrix-software'}}<B>Software</B>{{/link-to}}
+        </div>
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'matrix-weiteres'}}<B>Weiteres</B>{{/link-to}}
+        </div>
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'matrix-zusammenbau'}}<B>Zusammenbau</B>{{/link-to}}
+        </div>
     </script>
 
-
-
-
-
-    <script type="text/x-handlebars" id="hardware-case">
-        <h1>Hardware - Gehäuse und Speisung</h1>
-        <p>
+    <script type="text/x-handlebars" id="matrix-hardware">
+        <h1>Hardware</h1>
+        <h2><B>Gehäuse und Speisung</B></h2>
+         <p>
             Das Gerät kann entweder über die + - Klemme oder die Hohlbuchse mit <strong>7V - 20V</strong>
             oder über ein USB-B Kabel direkt vom PC gespiesen werden. Um das Gerät nur über USB angeschlossen werden, da die andere Speisung preferiert wird.
         </p>
         <h3>Aktuelle Gehäuseversion</h3>
-        <img src="./assets/images/hardware-case-overview.jpg" />
-    </script>
+        <img src="./assets/images/matrix/hardware-case-overview_matrix.jpg" />
 
-
-
-
-    
-    <script type="text/x-handlebars" id="hardware-print">
-        <h1>Hardware - Print Übersicht</h1>
-
+        <br>
+        <br>
+        <h2><B>Print Übersicht</B></h2>
         <h3>Komplett bestückter Print</h3>
-        <img src="./assets/images/hardware-print-overview.jpg" />
-
+        <img src="./assets/images/matrix/hardware-print-overview_matrix.jpg" />
         <h3>Port Expander Pinout Diagramm</h3>
-        <img src="./assets/images/hardware-print-pinout.png" />
-    </script>
+        <img src="./assets/images/matrix/hardware-print-pinout_matrix.png" />
 
-
-
-
-    
-    <script type="text/x-handlebars" id="hardware-partlist">
-        <h1>Hardware - Stückliste</h1>
+        <br>
+        <br>
+        <h2><B>Print Stürckliste</B></h2>
         <p>
             Die folgende Stückliste beinhaltet alle Bauteile, die benötigt werden um den Matrix Print V1.1.0
             vollständig und funktionsfähig zu bestücken. Diese Liste kann gleichzeitig auch als 
@@ -572,48 +1911,57 @@
                  <td></td>
                  <td>Lager</td>
                  <td>4419.0001</td>
-              </tr>              
-           </tbody>
+              </tr>
+            </tbody>
         </table>
-    </script>
-
-
-
-    
-
-    <script type="text/x-handlebars" id="hardware-documentation">
-        <h1>Hardware - Schema & Bestückungsplan</h1>
-
-
+        
+        <br>
+        <br>
+        <h2><B>Schema & Bestückungsplan</B></h2>
         <h3>Bestückungsplan Print</h3>
-        <img src="./assets/images/hardware-print-placement.jpg" />
+        <img src="./assets/images/matrix/hardware-print-placement_matrix.jpg" />
         <p></p>
-        <form method="get" action="./assets/files/hardware-print-placement.pdf">
+        <form method="get" action="./assets/files/matrix/hardware-print-placement_matrix.pdf">
         <button type="submit" class="btn btn-sm btn-primary">PDF Download</button>
         </form>
 
         <h3>Schema Seite 1</h3>
-        <img src="./assets/images/hardware-print-schema1.jpg" />
+        <img src="./assets/images/matrix/hardware-print-schema1_matrix.jpg" />
         <p></p>
-        <form method="get" action="./assets/files/hardware-print-schema1.pdf">
+        <form method="get" action="./assets/files/matrix/hardware-print-schema1_matrix.pdf">
         <button type="submit" class="btn btn-sm btn-primary">PDF Download</button>
         </form>
 
         <h3>Schema Seite 2</h3>
-        <img src="./assets/images/hardware-print-schema2.jpg" />
+        <img src="./assets/images/matrix/hardware-print-schema2_matrix.jpg" />
         <p></p>
-        <form method="get" action="./assets/files/hardware-print-schema2.pdf">
+        <form method="get" action="./assets/files/matrix/hardware-print-schema2_matrix.pdf">
         <button type="submit" class="btn btn-sm btn-primary">PDF Download</button>
         </form>
+
+        <br>
+        <br>
+         <div class="panel-link navigation-link">
+            {{#link-to 'matrix-index'}}<B>Index</B>{{/link-to}}
+        </div>
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'matrix-software'}}<B>Software</B>{{/link-to}}
+        </div>
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'matrix-weiteres'}}<B>Weiteres</B>{{/link-to}}
+        </div>
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'matrix-zusammenbau'}}<B>Zusammenbau</B>{{/link-to}}
+        </div>
+
     </script>
 
-
-
-
-
-    
-    <script type="text/x-handlebars" id="software-installation">
-        <h1>Software - Installation</h1>
+    <script type="text/x-handlebars" id="matrix-software">
+        <h1>Software</h1>
+        <h2><B>Installation</B></h2>
         Das Matrix Projekt kann jederzeit einfach mit der Arduio-IDE neu programmiert werden.
         Alles was dazu gebraucht wird, ist ein Windows oder Linux PC, ein USB-B Kabel und das Matrix 
         Gerät an sich.
@@ -621,47 +1969,47 @@
         <h3>Installation der Software</h3>
         <table class="table table-striped">
             <tbody>
-                <tr><td><img src="./assets/images/software-arduino-install1.png" /></td><td>
+                <tr><td><img src="./assets/images/matrix/software-arduino-install1_matrix.png" /></td><td>
                     Um ein Arduino-Programm zu entwickeln, muss die Arduino IDE (Editor) von der
                     <a href="http://arduino.cc">Arduino Website</a> heruntergeladen werden. Der 
                     aktuellste Download findet sich unter <em>Download</em> &gt; Windows
                 </td></tr>
-                <tr><td><img src="./assets/images/software-arduino-install2.png" /></td><td>
+                <tr><td><img src="./assets/images/matrix/software-arduino-install2_matrix.png" /></td><td>
                     Nach dem der Download abgeschlossen ist, muss der heruntergeladene Installer
                     ausgeführt werden. Arduino wird sich danach mehr oder weniger selbstständig
                     auf dem System installieren.
                 </td></tr>
-                <tr><td><img src="./assets/images/software-arduino-install3.png" /></td><td>
+                <tr><td><img src="./assets/images/matrix/software-arduino-install3_matrix.png" /></td><td>
                     Bestätige eine allfällige Sicherheitsbestätigung und erlaube der Arduino
                     Software sich auf deinem System zu installieren.
                 </td></tr>
-                <tr><td><img src="./assets/images/software-arduino-install4.png" /></td><td>
+                <tr><td><img src="./assets/images/matrix/software-arduino-install4_matrix.png" /></td><td>
                     Stimme den gegebenen Lizenzbestimmungen zu...
                 </td></tr>
-                <tr><td><img src="./assets/images/software-arduino-install5.png" /></td><td>
+                <tr><td><img src="./assets/images/matrix/software-arduino-install5_matrix.png" /></td><td>
                     Wähle alle verfügbaren Komponenten zur Installation und fahre mit weiter fort.
                 </td></tr>
-                <tr><td><img src="./assets/images/software-arduino-install7.png" /></td><td>
+                <tr><td><img src="./assets/images/matrix/software-arduino-install7_matrix.png" /></td><td>
                     Nach der Installation der IDE wird Arduino seinen USB-Treiber installieren.
                     Dieser muss installiert werden, um die Serielle Kommunikation von Gerät und
                     PC zu ermöglichen.
                 </td></tr>
-                <tr><td><img src="./assets/images/software-arduino-install8.png" /></td><td>
+                <tr><td><img src="./assets/images/matrix/software-arduino-install8_matrix.png" /></td><td>
                     Warten bis der Installationsvorgang abgeschlossen ist.
                 </td></tr>
-                <tr><td><img src="./assets/images/software-arduino-install9.png" /></td><td>
+                <tr><td><img src="./assets/images/matrix/software-arduino-install9_matrix.png" /></td><td>
                     Danach kann die Arduino IDE direkt über die Windows Suche nach "Arduino"
                     oder natürlich im Installationsverzeichnis gefunden und gestartet werden.
                 </td></tr>
-                <tr><td><img src="./assets/images/software-arduino-install10.png" /></td><td>
+                <tr><td><img src="./assets/images/matrix/software-arduino-install10_matrix.png" /></td><td>
                     Importiere die RKAG Matrix Bibliothek in der IDE via <em>Sketch &gt; Include Library &gt;
                     Add .ZIP Library</em>
                 </td></tr>
-                <tr><td><img src="./assets/images/software-arduino-install11.png" /></td><td>
+                <tr><td><img src="./assets/images/matrix/software-arduino-install11_matrix.png" /></td><td>
                     Wähle das Archiv mit der aktuellen Version der RKAG_Matrix aus und klick open.
                     Die IDE sollte das Archiv nun selbstständig importieren.
                 </td></tr>
-                <tr><td><img src="./assets/images/software-arduino-install12.png" /></td><td>
+                <tr><td><img src="./assets/images/matrix/software-arduino-install12_matrix.png" /></td><td>
                     Anschliessend können die mitgelieferten Beispiele direkt in der IDE geladen werden, um
                     Testprogramme auszuprobieren oder eine Vorlage für ein Projekt zu haben. Ein einfaches
                     Beispiel, der Binärzähler wird auch {{#link-to 'software-introduction'}}hier{{/link-to}}
@@ -669,15 +2017,10 @@
                 </td></tr>
             </tbody>
         </table>
-    </script>
 
-
-
-
-
-    
-    <script type="text/x-handlebars" id="software-introduction">
-        <h1>Software - Beispiele</h1>
+        <br>
+        <br>
+        <h2><B>Einführung</B></h2>
         <p>
             Einige funktionierende Softwarebeispiele finden sich unter anderem auch im
             Ordner der Bibliothek und können von der Arduino-IDE direkt über <em>Examples</em>
@@ -686,7 +2029,7 @@
         </p>
         <h3>Binärzähler</h3>
         <p>
-            Der Binärzähler ist eine sehr einfach Beispielsanwendung der Matrix. Dabei wird
+            Der Binärzähler ist eine sehr einfach Beispielsanwendung der matrix. Dabei wird
             lediglich die Matrix initialisiert, ein Zähler hochgezählt und der entsprechende
             Wert auf einer Zeile in der Matrix ausgegeben.
         </p>
@@ -701,9 +2044,7 @@
             <strong>Wire.h</strong> für die Serielle Kommunikation per SPI und I2C auf dem Print, so wie die 
             Matix Bibliothek <strong>Matrix_RKAG</strong> selbst.
             <pre><code class="c">
-#include &lt;Matrix_RKAG.h&gt;
-#include &lt;SPI.h&gt;
-#include &lt;Wire.h&gt;            
+#include &lt;Matrix_RKAG.h&gt;            
             </code></pre>
         </p>
         <p>&nbsp;</p>
@@ -780,8 +2121,6 @@ void loop() {
             Unser Fertiges Programm sieht also wie folgt aus:
             <pre><code class="c">
 #include &lt;Matrix_RKAG.h&gt;
-#include &lt;SPI.h&gt;
-#include &lt;Wire.h&gt;
 
 int meinZaehler = 0;
 
@@ -802,15 +2141,10 @@ void loop() {
 }
             </code></pre>
         </p>
-    </script>
-
-
-
-
-
-    
-    <script type="text/x-handlebars" id="software-examples">
-        <h1>Software - Example</h1>
+        
+        <br>
+        <br>
+        <h2><B>Example</B></h2>
         <p>
             Diese Beispielsprojekte sind <em>mehr oder weniger</em> praktische Anwendungen
             für die Matrix, die in Zusammenarbeit mit den Schnupperlingen währen der Schnupperlehre
@@ -829,15 +2163,10 @@ void loop() {
                 Kein Beispiel ausgewählt...
             </code></pre>
         </p>
-    </script>
 
-
-
-
-
-
-    <script type="text/x-handlebars" id="software-documentation">
-        <h1>Software Dokumentation</h1>
+        <br>
+        <br>
+        <h2><B>Dokumentation</B></h2>
         <p>
             Die Software Dokumentation ist in der aktuellen Version noch nicht vorhanden.<br />
             Alle wichtigen Funktionen der Software sind in den Beispielen erläutert.
@@ -886,9 +2215,27 @@ int potentiometer_0;
             werden, sofern die Buttons, das Accelerometer bzw. das Potentiometer verwendet wird. Diese Methode
             sorgt dafür, dass die Werte dieser Peripherie aktualisiert werden.
         </p>
-    </script>
 
-	<script type="text/x-handlebars" id="weiteres-expansion">
+        <br>
+        <br>
+         <div class="panel-link navigation-link">
+            {{#link-to 'matrix-index'}}<B>Index</B>{{/link-to}}
+        </div>
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'matrix-hardware'}}<B>Hardware</B>{{/link-to}}
+        </div>
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'matrix-weiteres'}}<B>Weiteres</B>{{/link-to}}
+        </div>
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'matrix-zusammenbau'}}<B>Zusammenbau</B>{{/link-to}}
+        </div>
+    </script>
+    
+    <script type="text/x-handlebars" id="matrix-weiteres">
         <h1>Weiteres - Expansion</h1>
         <h3>
             Einführung
@@ -900,7 +2247,7 @@ int potentiometer_0;
         </p>
         <h3>
             Port Expander Diagramm
-            <img src="./assets/images/hardware-print-pinout.png" width="600" />
+            <img src="./assets/images/matrix/hardware-print-pinout_matrix.png" width="600" />
         </h3>
         <h3>
             Beispiel: Pong
@@ -910,7 +2257,7 @@ int potentiometer_0;
             Zuerst sollte die korrekte Software auf den Boards vorhanden sein. Dabei gilt es zu beachten, 
             dass das eine Board die die Software für den Spieler 1 enthalten sollte und das andere die Software für Spieler 2.
             Dazu muss bevor dem Upload, im obersten Teil des Programms das Define für den Spieler auf Spieler 2 gewechselt werden.
-            <img src="./assets/images/Spielerauswahl_Pong.png" width="300" />
+            <img src="./assets/images/matrix/Spielerauswahl_Pong_matrix.png" width="300" />
         </p>
         <p>
             Sobald beide Boards die korrekte Software haben, müssen die beiden I2C Busse der Boards verbunden werden. Das geschieht,
@@ -941,11 +2288,28 @@ int potentiometer_0;
                 <a href="https://www.youtube.com/watch?v=9lrqeswfIQs">Tutorial in Videoform</a>
         </p>
 
-        
+        <br>
+        <br>
+         <div class="panel-link navigation-link">
+            {{#link-to 'matrix-index'}}<B>Index</B>{{/link-to}}
+        </div>
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'matrix-hardware'}}<B>Hardware</B>{{/link-to}}
+        </div>
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'matrix-software'}}<B>Software</B>{{/link-to}}
+        </div>
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'matrix-zusammenbau'}}<B>Zusammenbau</B>{{/link-to}}
+        </div>
     </script>
 
-    <script type="text/x-handlebars" id="assembly-placement">
-        <h1>Bestückung</h1>
+    <script type="text/x-handlebars" id="matrix-zusammenbau">
+        <h1>Zusammenbau</h1>
+        <h2><B>Bestückung</B></h2>
         <p>
             Als erster Fertigungschritt muss der Print bestückt werden. Die Spannungswandler, USB - UART Wandler, 
             Beschleunigungssensor und Stabilisierung für den Beschleunigungssensor sind bereits vorbestückt. Bei der 
@@ -953,25 +2317,24 @@ int potentiometer_0;
             Print jederzeit bequem umdrehen ohne das dabei Bauteile nicht sauber am Print anliegen.
         </p>
         <h3>Unbestückter Print</h3>
-        <img src="./assets/images/assembly-new-print.jpg" />
+        <img src="./assets/images/matrix/assembly-new-print_matrix.jpg" />
 
         <h3>Fertig bestückter Print</h3>
-        <img src="./assets/images/assembly-print.jpg" />
-    </script>
+        <img src="./assets/images/matrix/assembly-print_matrix.jpg" />
 
-    <script type="text/x-handlebars" id="assembly-housing">
-        <h1>Gehäuse</h1>
+        <br>
+        <br>
+        <h2><B>Gehäuse</B></h2>
         <p>
             Das Gehäuse der Matrix wird mit dem 3D Drucker hergestellt. Unter dem Text "The Matrix" kann mittels Designspark 
             noch der eigene Namen eingebracht werden. Die Herstellung des Gehäuse mit dem 3D Drucker dauert
             ca. 8h.
         </p>
-        <img src="./assets/images/assembly-housing.png" />
-        <!-- Insert instructions for the wiring of the three push buttons here -->
-    </script>
+        <img src="./assets/images/matrix/assembly-housing_matrix.png" />
 
-    <script type="text/x-handlebars" id="assembly-bootloaderfuses">
-        <h1>Bootloader & Fuses</h1>
+        <br>
+        <br>
+         <h2><B>Bootloader & Fuses</B></h2>
         <p>
             Der Hauptprozessor (Atmega328P) muss zuerst vorbereitet werden, damit dieser später bequem via USB und Arduino 
             IDE programmiert werden kann. Dafür müssen die Fuses und der Bootloader angepasst werden. Beides ist mit einem 
@@ -987,81 +2350,100 @@ int potentiometer_0;
         <p>
             Um die Fuses und den Bootloader flashen zu können muss das Board per USB gespiesen werden + via Atmel Programmer am PC angeschlossen sein.
         </p>
-        <img src="./assets/images/assembly-bootloader-hardware.jpg" />
+        <img src="./assets/images/matrix/assembly-bootloader-hardware_matrix.jpg" />
         <br>
 
         <table class="table table-striped">
             <tbody>
-                <tr><td><img src="./assets/images/assembly-bootloader-studio1.png" width="100" /></td><td>
+                <tr><td><img src="./assets/images/matrix/assembly-bootloader-studio1_matrix.png" width="100" /></td><td>
                     Im Atmel Studio den "Programmiermodus" öffnen.
                 </td></tr>
-                <tr><td><img src="./assets/images/assembly-bootloader-studio2.png" /></td><td>
+                <tr><td><img src="./assets/images/matrix/assembly-bootloader-studio2_matrix.png" /></td><td>
                     Als erstes muss die Programmiergeschwindigkeit auf ca. 125kHz reduziert werden. Der Hauptprozessor läuft in der Standardkonfiguration 
                     mit einer Frequenz von 1Mhz (8Mhz RC Oszillator / 8). Die Programmiergeschwindigkeit darf jedoch nur 1/4 des CPU Takts betragen. Dies 
                     würde theoretisch 250kHz ergeben. Um auf der sicheren Seite zu sein verwenden wir jedoch 125kHz.
                 </td></tr>
-                <tr><td><img src="./assets/images/assembly-bootloader-studio3.png" /></td><td>
+                <tr><td><img src="./assets/images/matrix/assembly-bootloader-studio3_matrix.png" /></td><td>
                     Mit einem Klick auf "Read" bei Device signature sollte nun erfolgreich die Prozessor ID gelesen werden können. Diese ist beim Atmega328P 
                     0x1E950F. Wenn dies nicht möglich ist, so ist mit dem Programmer oder dem Board etwas nicht in Ordnung.
                 </td></tr>
-                <tr><td><img src="./assets/images/assembly-bootloader-studio4.png" /></td><td>
+                <tr><td><img src="./assets/images/matrix/assembly-bootloader-studio4_matrix.png" /></td><td>
                     Nun können die Fuses gesetzt werden. Dafür einfach die 3 Hex Werte eingtragen und auf "Program" klicken.
                     <br>EXTENDED: 0xFE
                     <br>HIGH: 0xDE
                     <br>LOW: 0xFF
                 </td></tr>
-                <tr><td><img src="./assets/images/assembly-bootloader-studio5.png" /></td><td>
+                <tr><td><img src="./assets/images/matrix/assembly-bootloader-studio5_matrix.png" /></td><td>
                     Da die Fuses nun korrekt gesetzt sind läuft der Prozessor mit 16Mhz. Der Programmiertakt kann nun auf 1Mhz erhöht werden.
                 </td></tr>
-                <tr><td><img src="./assets/images/assembly-bootloader-studio6.png" /></td><td>
+                <tr><td><img src="./assets/images/matrix/assembly-bootloader-studio6_matrix.png" /></td><td>
                     Unter "memories" und "flash" kann nun der optiboot_atmega328.hex bootloader gewählt werden. Damit dieser unter dem angegebenen Pfad 
                     vorhanden ist muss die Arduino IDE installiert sein.
                 </td></tr>
-                <tr><td><img src="./assets/images/assembly-bootloader-studio7.png" /></td><td>
+                <tr><td><img src="./assets/images/matrix/assembly-bootloader-studio7_matrix.png" /></td><td>
                     Nach dem Auswählen mit dem einem Klick auf "Program" flashen.
                 </td></tr>                
             </tbody>
-        </table>        
-    </script>
+        </table>   
 
-    <script type="text/x-handlebars" id="assembly-ftdi">
-        <h1>FTDI</h1>
+        <br>
+        <br>   
+          <h2><B>FTDI</B></h2>
         <p>
             Neben dem FTDI USB - UART Wandler befinden sich drei LEDs. Damit der FTDI Chip weiss, welche LED für was da ist muss diese programmiert werden.
             Dies geht ganz einfach mit dem Tool <a href="http://www.ftdichip.com/Support/Utilities.htm" target="_blank">FT Prog</a>. 
         </p>
-        <img src="./assets/images/assembly-ftdi.jpg" />
+        <img src="./assets/images/matrix/assembly-ftdi_matrix.jpg" />
         <br>
         <table class="table table-striped">
             <tbody>
-                <tr><td><img src="./assets/images/assembly-ftdi-ftprog1.png" width="100" /></td><td>
+                <tr><td><img src="./assets/images/matrix/assembly-ftdi-ftprog1_matrix.png" width="100" /></td><td>
                     Das FT Prog Tool öffnen und mit der Lupe nach angeschlossenen FTDI Geräten suchen. Es empfiehlt sich dabei sämtliche Geräte, 
                     welche ebenfalls einen FTDI Chip enthalten zu entfernen. (TCBus Interface etc.)
                 </td></tr>
-                <tr><td><img src="./assets/images/assembly-ftdi-ftprog2.png" /></td><td>
+                <tr><td><img src="./assets/images/matrix/assembly-ftdi-ftprog2_matrix.png" /></td><td>
                     Danach sollte ein FTDI Chip gefunden worden ein. Nämlich der auf dem Board.
                 </td></tr>    
-                <tr><td><img src="./assets/images/assembly-ftdi-ftprog3.png" /></td><td>
+                <tr><td><img src="./assets/images/matrix/assembly-ftdi-ftprog3_matrix.png" /></td><td>
                     Zu den "IO Controls" wechseln und die Einstellungen wie im Bild einstellen.
                 </td></tr>
-                <tr><td><img src="./assets/images/assembly-ftdi-ftprog4.png" width="100" /></td><td>
+                <tr><td><img src="./assets/images/matrix/assembly-ftdi-ftprog4_matrix.png" width="100" /></td><td>
                     Mit dem Blitz in den Programmiermodus.
                 </td></tr>
-                <tr><td><img src="./assets/images/assembly-ftdi-ftprog5.png" /></td><td>
+                <tr><td><img src="./assets/images/matrix/assembly-ftdi-ftprog5_matrix.png" /></td><td>
                     Die Änderungen mit "Program" auf den Chip schreiben.
                 </td></tr>    
             </tbody>
-        </table>         
-    </script>
+        </table>  
 
-    <script type="text/x-handlebars" id="assembly-test">
-        <h1>Test</h1>
+        <br>
+        <br>       
+         <h2><B>Test</B></h2>
         <p>
             Das Board ist nun komplett konfiguiert. Nun muss die Arduino IDE installiert und mit der Matrix Library geladen werden. Eine Anleitung dazu findet 
             sich unter <a href="http://koch-ag.github.io/matrix/#/software-installation" target="_blank">Software Installation</a>. Danach können beliebige 
             Beispiele geladen werden um die Matrix ausgiebig zu testen.
         </p>
-        <img src="./assets/images/assembly-test.jpg" />
+        <img src="./assets/images/matrix/assembly-test_matrix.jpg" />  
+
+        <br>
+        <br>
+        <div class="panel-link navigation-link">
+            {{#link-to 'matrix-index'}}<B>Index</B>{{/link-to}}
+        </div>
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'matrix-hardware'}}<B>Hardware</B>{{/link-to}}
+        </div>
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'matrix-software'}}<B>Software</B>{{/link-to}}
+        </div>
+
+        <div class="panel-link navigation-link">
+            {{#link-to 'matrix-weiteres'}}<B>Weiteres</B>{{/link-to}}
+        </div>
     </script>
+
 </body>
 </html>
